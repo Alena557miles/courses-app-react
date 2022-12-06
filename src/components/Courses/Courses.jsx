@@ -10,11 +10,7 @@ import { useState } from 'react';
 export function Course() {
 	const [create, setCreate] = useState(false);
 	return (
-<<<<<<< Updated upstream
-		<div className='flex flex-col border border-blue-400 p-7 mt-7 gap-y-7 '>
-=======
 		<div className='flex flex-col border border-blue-400 p-7 mt-7 gap-y-7 h-full'>
->>>>>>> Stashed changes
 			<div className='flex flex-row justify-between'>
 				<SearchBar />
 				<Button value={'Add new course'} onClick={() => setCreate(true)} />

@@ -1,10 +1,10 @@
 export function Input(props) {
 	return (
-		<div className='w-9/12 h-full'>
+		<div className=''>
 			<label>{props.label}</label>
 			<input
 				type='text'
-				className='w-full  border border-orange-300 px-4'
+				className='w-full h-8 border mt-2 border-orange-300 px-4'
 				placeholder={props.text}
 			/>
 		</div>
