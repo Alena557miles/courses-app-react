@@ -8,7 +8,7 @@ export function CreateCourse() {
 		<div className=''>
 			<div className='flex flex-row justify-between h-full items-end mb-3'>
 				<Input label={'Title'} text={'Enter title'} />
-				<Button value={'Add new course'} onClick={() => console.log('ADd')} />
+				<Button value={'Create course'} onClick={() => console.log('ADd')} />
 			</div>
 
 			<div className='mb-3'>
@@ -73,8 +73,20 @@ export function CreateCourse() {
 						</li>
 					</ul>
 					<h2 className='text-xl text-center font-bold my-3'>Course authors</h2>
-					{noAuthors && (
+					{noAuthors ? (
 						<p className='font-bold text-center'>Author list is empty</p>
+					) : (
+						<div>
+							<ul>
+								<li className='flex flex-row justify-between align-center mb-2'>
+									<p className='block'>Author Name</p>
+									<Button
+										value={'Delete author'}
+										onClick={() => console.log('Delete author')}
+									/>
+								</li>
+							</ul>
+						</div>
 					)}
 				</div>
 			</div>
