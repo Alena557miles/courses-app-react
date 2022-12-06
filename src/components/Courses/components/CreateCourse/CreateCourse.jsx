@@ -8,13 +8,11 @@ export function CreateCourse() {
 	const [description, setDescription] = useState('');
 	const [authors, setAuthor] = useState([]);
 
-	const addAuthor = (e) => {
+	const addAuthor = (id) => {
 		setNull(false);
-		const res = mockedAuthorsList.find((author) => author.id === e);
-		console.log(res);
+		const res = mockedAuthorsList.find((author) => author.id === id);
 		authors.push(res);
-
-		console.log(authors);
+		// setAuthor((prev) => prev.push(res));
 		setAuthor(authors);
 	};
 
@@ -80,6 +78,7 @@ export function CreateCourse() {
 						<h2 className='text-xl text-center font-bold my-3'>
 							Course authors
 						</h2>
+
 						{noAuthors ? (
 							<p className='font-bold text-center'>Author list is empty</p>
 						) : (
