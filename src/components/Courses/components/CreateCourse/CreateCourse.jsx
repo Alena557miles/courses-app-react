@@ -4,18 +4,22 @@ import { Input } from '../../../../common/Input/Input';
 export function CreateCourse() {
 	return (
 		<div className='border border-black-400 p-7'>
-			<div className='flex flex-row gap-x-2 justify-between w-8/12'>
+			<div className='flex flex-row gap-x-2 justify-between w-8/12 h-full '>
 				<Input label={'Title'} text={'Enter title'} />
 				<Button value={'Add new course'} onClick={() => console.log('ADd')} />
 			</div>
-			<label htmlFor='description'>Description</label>
-			<textarea
-				name='description'
-				id='description'
-				cols='30'
-				rows='5'
-				className='border border-yellow-300 w-full'
-			></textarea>
+
+			<div>
+				<label htmlFor='description'>Description</label>
+				<textarea
+					name='description'
+					id='description'
+					cols='30'
+					rows='5'
+					className='border border-yellow-300 w-full'
+				></textarea>
+			</div>
+
 			<div className='flex flex-row justify-between border border-black-400 w-full'>
 				<div className='flex flex-col justify-between'>
 					<h2>Add author</h2>
