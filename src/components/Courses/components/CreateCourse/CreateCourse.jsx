@@ -11,10 +11,10 @@ export function CreateCourse() {
 	const addAuthor = (e) => {
 		setNull(false);
 		const res = mockedAuthorsList.find((author) => author.id === e);
+		console.log(res);
 		authors.push(res);
 
 		console.log(authors);
-
 		setAuthor(authors);
 	};
 

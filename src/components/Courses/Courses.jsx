@@ -2,7 +2,6 @@ import React from 'react';
 import { CourseCard } from './components/CourseCard/CourseCard';
 import { CreateCourse } from './components/CreateCourse/CreateCourse';
 import { mockedCoursesList } from '../../data/courseList';
-// import { mockedAuthorsList } from '../../data/authorList';
 import { SearchBar } from './components/SearchBar/SearchBar';
 import { Button } from '../../common/Button/Button';
 import { useState } from 'react';
