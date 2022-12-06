@@ -1,22 +1,24 @@
+import { useState } from 'react';
 import { Button } from '../../../../common/Button/Button';
 import { Input } from '../../../../common/Input/Input';
 
 export function CreateCourse() {
+	const [noAuthors, setNull] = useState(true);
 	return (
 		<div className=''>
-			<div className='flex flex-row justify-between h-full items-end'>
+			<div className='flex flex-row justify-between h-full items-end mb-3'>
 				<Input label={'Title'} text={'Enter title'} />
 				<Button value={'Add new course'} onClick={() => console.log('ADd')} />
 			</div>
 
-			<div>
+			<div className='mb-3'>
 				<label htmlFor='description'>Description</label>
 				<textarea
 					name='description'
 					id='description'
-					cols='30'
-					rows='5'
-					className='border border-yellow-300 w-full'
+					cols='20'
+					rows='4'
+					className='border border-yellow-300 w-full px-3'
 				></textarea>
 			</div>
 
@@ -39,30 +41,30 @@ export function CreateCourse() {
 					</div>
 				</div>
 				<div className=' w-2/5'>
-					<h2 className='text-xl text-center font-bold'>Authors</h2>
+					<h2 className='text-xl text-center font-bold mb-7'>Authors</h2>
 					<ul>
-						<li className='flex flex-row justify-between align-center'>
+						<li className='flex flex-row justify-between align-center mb-2'>
 							<p className='block'>Author Name</p>
 							<Button
 								value={'Add author'}
 								onClick={() => console.log('Author')}
 							/>
 						</li>
-						<li className='flex flex-row justify-between align-center'>
+						<li className='flex flex-row justify-between align-center mb-2'>
 							<p className='block'>Author Name</p>
 							<Button
 								value={'Add author'}
 								onClick={() => console.log('Author')}
 							/>
 						</li>
-						<li className='flex flex-row justify-between align-center'>
+						<li className='flex flex-row justify-between align-center mb-2'>
 							<p className='block'>Author Name</p>
 							<Button
 								value={'Add author'}
 								onClick={() => console.log('Author')}
 							/>
 						</li>
-						<li className='flex flex-row justify-between align-center'>
+						<li className='flex flex-row justify-between align-center mb-2'>
 							<p className='block'>Author Name</p>
 							<Button
 								value={'Add author'}
@@ -70,8 +72,10 @@ export function CreateCourse() {
 							/>
 						</li>
 					</ul>
-					<h2 className='text-xl text-center font-bold'>Course authors</h2>
-					<span className='font-bold'>Author list is empty</span>
+					<h2 className='text-xl text-center font-bold my-3'>Course authors</h2>
+					{noAuthors && (
+						<p className='font-bold text-center'>Author list is empty</p>
+					)}
 				</div>
 			</div>
 		</div>
