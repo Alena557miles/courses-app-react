@@ -7,7 +7,11 @@ export function CreateCourse() {
 	const [noAuthors, setNull] = useState(true);
 	const [description, setDescription] = useState('');
 	const [authors, setAuthor] = useState([]);
+	const [title, setTitle] = useState('');
 
+	const onChange = (e) => {
+		setTitle(e.target.value);
+	};
 	const addAuthor = (id) => {
 		setNull(false);
 		const res = mockedAuthorsList.find((author) => author.id === id);
@@ -15,13 +19,22 @@ export function CreateCourse() {
 		// setAuthor((prev) => prev.push(res));
 		setAuthor(authors);
 	};
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		const course = { title, description, authors };
+		console.log(course);
+	};
 
 	return (
 		<div>
-			<form>
+			<form onSubmit={handleSubmit}>
 				<div className='flex flex-row justify-between h-full items-end mb-3'>
-					<Input label={'Title'} text={'Enter title...'} />
-					<Button value={'Create course'} onClick={() => console.log('ADd')} />
+					<Input
+						labelText={'Title'}
+						placeholdetText={'Enter title...'}
+						onChange={onChange}
+					/>
+					<Button value={'Create course'} />
 				</div>
 
 				<label>Description</label>
@@ -44,7 +57,10 @@ export function CreateCourse() {
 							action='#'
 							className='my-4 flex flex-col justify-between h-28'
 						>
-							<Input label={'Author name'} text={'Enter author name'} />
+							<Input
+								labelText={'Author name'}
+								placeholdetText={'Enter author name'}
+							/>
 							<Button
 								value={'Create author'}
 								onClick={() => console.log('Create author')}
@@ -52,7 +68,10 @@ export function CreateCourse() {
 						</form>
 						<div>
 							<h2 className='text-xl text-center font-bold'>Duration</h2>
-							<Input label={'Duration'} text={'Enter duration in minutes...'} />
+							<Input
+								labelText={'Duration'}
+								placeholdetText={'Enter duration in minutes...'}
+							/>
 							<p>
 								Duration: <span className='text-3xl font-bold'>00:00</span>{' '}
 								hours

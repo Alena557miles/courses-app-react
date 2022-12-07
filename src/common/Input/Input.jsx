@@ -1,19 +1,14 @@
-import { useState } from 'react';
-
 export function Input(props) {
-	const [title, setTitle] = useState('');
 	return (
 		<div className=''>
-			<label className='mb-2'>{props.label}</label>
+			<label className='mb-2'>{props.labelText}</label>
 			<input
 				type='text'
 				className='w-full h-8 border border-orange-300 px-4'
-				placeholder={props.text}
+				placeholder={props.placeholdetText}
 				required
-				value={title}
-				onChange={(e) => setTitle(e.target.value)}
+				onChange={props.onChange}
 			/>
-			<p>{title}</p>
 		</div>
 	);
 }
