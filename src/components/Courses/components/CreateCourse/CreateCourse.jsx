@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button } from '../../../../common/Button/Button';
 import { Input } from '../../../../common/Input/Input';
 import { mockedAuthorsList } from '../../../../data/authorList';
+import { v4 as uuid } from 'uuid';
 
 export function CreateCourse({ handleSubmit }) {
 	const authorsList = mockedAuthorsList;
@@ -11,6 +12,18 @@ export function CreateCourse({ handleSubmit }) {
 	const [authors, setAuthor] = useState([]);
 	const [title, setTitle] = useState('');
 	const [duration, setDuration] = useState('');
+	const [newAuthor, setNewAuthor] = useState('');
+
+	const createAuthor = () => {
+		const unique_id = uuid();
+		const author = {
+			id: unique_id,
+			name: newAuthor,
+		};
+		mockedauthors.push(author);
+		console.log(mockedauthors);
+		setMockedAuthor(mockedauthors);
+	};
 
 	const onChangeTitle = (e) => {
 		setTitle(e.target.value);
@@ -66,21 +79,19 @@ export function CreateCourse({ handleSubmit }) {
 				<div className='flex flex-row gap-20 border border-gray-900 p-7 w-full h-full'>
 					<div className='flex flex-col w-2/5'>
 						<h2 className='text-xl text-center font-bold mb-4'>Add author</h2>
-						<form
-							action='#'
-							className='my-4 flex flex-col justify-between h-28'
-						>
+						<div className='my-4 flex flex-col justify-between h-28'>
 							<Input
 								labelText={'Author name'}
 								placeholdetText={'Enter author name'}
 								type={'text'}
+								onChange={(e) => setNewAuthor(e.target.value)}
 							/>
 							<Button
 								value={'Create author'}
-								onClick={() => console.log('Create author')}
+								onClick={createAuthor}
 								type={'button'}
 							/>
-						</form>
+						</div>
 						<div>
 							<h2 className='text-xl text-center font-bold'>Duration</h2>
 							<Input
@@ -92,6 +103,7 @@ export function CreateCourse({ handleSubmit }) {
 							<p>
 								Duration:{' '}
 								<span className='text-3xl font-bold'>
+									{' '}
 									{duration ? duration : '00:00'}
 								</span>{' '}
 								hours

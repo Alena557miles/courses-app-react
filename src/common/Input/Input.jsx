@@ -6,7 +6,6 @@ export function Input({ labelText, placeholdetText, onChange, type }) {
 				type={type}
 				className='w-full h-8 border border-orange-300 px-4'
 				placeholder={placeholdetText}
-				required
 				onChange={onChange}
 			/>
 		</div>

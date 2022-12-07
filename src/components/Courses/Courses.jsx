@@ -5,6 +5,7 @@ import { mockedCoursesList } from '../../data/courseList';
 import { SearchBar } from './components/SearchBar/SearchBar';
 import { Button } from '../../common/Button/Button';
 import { useState } from 'react';
+import { v4 as uuid } from 'uuid';
 
 export function Course() {
 	const [create, setCreate] = useState(false);
@@ -16,14 +17,16 @@ export function Course() {
 		const athoursArr = authors.map((author) => {
 			return author.id;
 		});
-		const id = 'cmfydu66r5';
-		const creationDate = new Date(Date.now()).toString();
+		const unique_id = uuid();
+		const creationDate = new Date(Date.now()).toLocaleString('en-GB', {
+			timeZone: 'UTC',
+		});
 		const course = {
 			title,
 			description,
 			duration,
 			authors: athoursArr,
-			id,
+			id: unique_id,
 			creationDate,
 		};
 

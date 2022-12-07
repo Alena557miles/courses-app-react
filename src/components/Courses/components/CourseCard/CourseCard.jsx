@@ -29,14 +29,14 @@ export function CourseCard(props) {
 					</div>
 					<div className='flex flex-col align-center w-1/3 justify-between'>
 						<p className='font-bold'>
-							Author:
+							Author:{' '}
 							<span className='font-normal'>{findAuthors(course.authors)}</span>
 						</p>
 						<p className='font-bold'>
 							Duration: <span className='font-normal'>{course.duration}</span>
 						</p>
 						<p className='font-bold'>
-							Created:
+							Created:{' '}
 							<span className='font-normal'>{course.creationDate} </span>
 						</p>
 						<Button
