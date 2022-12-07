@@ -22,6 +22,8 @@ export function CreateCourse({ handleSubmit }) {
 		setNull(false);
 		const res = mockedauthors.find((author) => author.id === id);
 		authors.push(res);
+		console.log(authors);
+		// setAuthor((prev) => prev.push(res));
 		setAuthor(authors);
 		const res1 = mockedauthors.filter((author) => author.id !== id);
 		setMockedAuthor(res1);
@@ -31,11 +33,6 @@ export function CreateCourse({ handleSubmit }) {
 		mockedauthors.push(author);
 		setAuthor(update);
 	};
-	// const handleSubmit = (e) => {
-	// 	e.preventDefault();
-	// 	const course = { title, description, authors };
-	// 	console.log(course);
-	// };
 
 	return (
 		<div>

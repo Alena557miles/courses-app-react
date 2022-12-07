@@ -53,13 +53,13 @@ export function Course() {
 	const [create, setCreate] = useState(false);
 	const [courses, setCourse] = useState(mockedCoursesList);
 	const handleSubmit = (e, { title, description, duration, authors }) => {
+		setCreate(false);
 		e.preventDefault();
 		const course = { title, description, duration, authors };
 		console.log(course);
 		const newcourses = courses.push(course);
 		setCourse(newcourses);
 		console.log(courses);
-		// setCreate(false);
 	};
 
 	return (
@@ -68,15 +68,7 @@ export function Course() {
 				<SearchBar />
 				<Button value={'Add new course'} onClick={() => setCreate(true)} />
 			</div>
-			{create ? (
-				''
-			) : (
-				<ul>
-					{courses.map((course) => (
-						<CourseCard course={course} key={course.id.toString()} />
-					))}
-				</ul>
-			)}
+			{create ? '' : <CourseCard courses={courses} />}
 			{create && <CreateCourse handleSubmit={handleSubmit} />}
 		</div>
 	);
