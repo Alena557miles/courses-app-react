@@ -1,13 +1,13 @@
-export function Input(props) {
+export function Input({ labelText, placeholdetText, onChange }) {
 	return (
 		<div className=''>
-			<label className='mb-2'>{props.labelText}</label>
+			<label className='mb-2'>{labelText}</label>
 			<input
 				type='text'
 				className='w-full h-8 border border-orange-300 px-4'
-				placeholder={props.placeholdetText}
+				placeholder={placeholdetText}
 				required
-				onChange={props.onChange}
+				onChange={onChange}
 			/>
 		</div>
 	);

@@ -34,7 +34,7 @@ export function CreateCourse() {
 						placeholdetText={'Enter title...'}
 						onChange={onChange}
 					/>
-					<Button value={'Create course'} />
+					<Button value={'Create course'} type={'submit'} />
 				</div>
 
 				<label>Description</label>
@@ -64,6 +64,7 @@ export function CreateCourse() {
 							<Button
 								value={'Create author'}
 								onClick={() => console.log('Create author')}
+								type={'button'}
 							/>
 						</form>
 						<div>
@@ -90,6 +91,7 @@ export function CreateCourse() {
 									<Button
 										value={'Add author'}
 										onClick={() => addAuthor(author.id)}
+										type={'button'}
 									/>
 								</li>
 							))}
@@ -112,6 +114,7 @@ export function CreateCourse() {
 											<Button
 												value={'Delete author'}
 												onClick={() => console.log('Delete author')}
+												type={'button'}
 											/>
 										</li>
 									))}
