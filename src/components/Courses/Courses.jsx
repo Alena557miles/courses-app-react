@@ -7,7 +7,7 @@ import { Button } from '../../common/Button/Button';
 import { useState } from 'react';
 
 export function Course() {
-	const mockedCoursesLista = [
+	const mockedCoursesList = [
 		{
 			id: 'de5aaa59-90f5-4dbc-b8a9-aaf205c551ba',
 			title: 'JavaScript',
@@ -51,7 +51,16 @@ export function Course() {
 	];
 
 	const [create, setCreate] = useState(false);
-	const [mockedCoursesList, setCourse] = useState(mockedCoursesLista);
+	const [courses, setCourse] = useState(mockedCoursesList);
+	const handleSubmit = (e, { title, description, duration, authors }) => {
+		e.preventDefault();
+		const course = { title, description, duration, authors };
+		console.log(course);
+		const newcourses = courses.push(course);
+		setCourse(newcourses);
+		console.log(courses);
+		// setCreate(false);
+	};
 
 	return (
 		<div className='flex flex-col border border-blue-400 p-7 mt-7 gap-y-7 h-full'>
@@ -63,12 +72,12 @@ export function Course() {
 				''
 			) : (
 				<ul>
-					{mockedCoursesList.map((course) => (
+					{courses.map((course) => (
 						<CourseCard course={course} key={course.id.toString()} />
 					))}
 				</ul>
 			)}
-			{create && <CreateCourse />}
+			{create && <CreateCourse handleSubmit={handleSubmit} />}
 		</div>
 	);
 }

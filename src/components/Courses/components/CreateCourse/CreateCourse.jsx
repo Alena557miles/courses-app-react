@@ -3,22 +3,25 @@ import { Button } from '../../../../common/Button/Button';
 import { Input } from '../../../../common/Input/Input';
 import { mockedAuthorsList } from '../../../../data/authorList';
 
-export function CreateCourse() {
+export function CreateCourse({ handleSubmit }) {
 	const authorsList = mockedAuthorsList;
 	const [mockedauthors, setMockedAuthor] = useState(authorsList);
 	const [noAuthors, setNull] = useState(true);
 	const [description, setDescription] = useState('');
 	const [authors, setAuthor] = useState([]);
 	const [title, setTitle] = useState('');
+	const [duration, setDuration] = useState('');
 
-	const onChange = (e) => {
+	const onChangeTitle = (e) => {
 		setTitle(e.target.value);
+	};
+	const onChangeDuration = (e) => {
+		setDuration(e.target.value);
 	};
 	const addAuthor = (id) => {
 		setNull(false);
 		const res = mockedauthors.find((author) => author.id === id);
 		authors.push(res);
-		// setAuthor((prev) => prev.push(res));
 		setAuthor(authors);
 		const res1 = mockedauthors.filter((author) => author.id !== id);
 		setMockedAuthor(res1);
@@ -28,20 +31,24 @@ export function CreateCourse() {
 		mockedauthors.push(author);
 		setAuthor(update);
 	};
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		const course = { title, description, authors };
-		console.log(course);
-	};
+	// const handleSubmit = (e) => {
+	// 	e.preventDefault();
+	// 	const course = { title, description, authors };
+	// 	console.log(course);
+	// };
 
 	return (
 		<div>
-			<form onSubmit={handleSubmit}>
+			<form
+				onSubmit={(e) =>
+					handleSubmit(e, { title, description, duration, authors })
+				}
+			>
 				<div className='flex flex-row justify-between h-full items-end mb-3'>
 					<Input
 						labelText={'Title'}
 						placeholdetText={'Enter title...'}
-						onChange={onChange}
+						onChange={onChangeTitle}
 					/>
 					<Button value={'Create course'} type={'submit'} />
 				</div>
@@ -81,9 +88,13 @@ export function CreateCourse() {
 							<Input
 								labelText={'Duration'}
 								placeholdetText={'Enter duration in minutes...'}
+								onChange={onChangeDuration}
 							/>
 							<p>
-								Duration: <span className='text-3xl font-bold'>00:00</span>{' '}
+								Duration:{' '}
+								<span className='text-3xl font-bold'>
+									{duration ? duration : '00:00'}
+								</span>{' '}
 								hours
 							</p>
 						</div>
