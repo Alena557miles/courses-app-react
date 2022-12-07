@@ -4,6 +4,8 @@ import { Input } from '../../../../common/Input/Input';
 import { mockedAuthorsList } from '../../../../data/authorList';
 
 export function CreateCourse() {
+	const authorsList = mockedAuthorsList;
+	const [mockedauthors, setMockedAuthor] = useState(authorsList);
 	const [noAuthors, setNull] = useState(true);
 	const [description, setDescription] = useState('');
 	const [authors, setAuthor] = useState([]);
@@ -14,10 +16,17 @@ export function CreateCourse() {
 	};
 	const addAuthor = (id) => {
 		setNull(false);
-		const res = mockedAuthorsList.find((author) => author.id === id);
+		const res = mockedauthors.find((author) => author.id === id);
 		authors.push(res);
 		// setAuthor((prev) => prev.push(res));
 		setAuthor(authors);
+		const res1 = mockedauthors.filter((author) => author.id !== id);
+		setMockedAuthor(res1);
+	};
+	const handleDelete = (author) => {
+		const update = authors.filter((item) => item.id !== author.id);
+		mockedauthors.push(author);
+		setAuthor(update);
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -82,7 +91,7 @@ export function CreateCourse() {
 					<div className=' w-2/5'>
 						<h2 className='text-xl text-center font-bold mb-7'>Authors</h2>
 						<ul>
-							{mockedAuthorsList.map((author) => (
+							{mockedauthors.map((author) => (
 								<li
 									className='flex flex-row justify-between align-center mb-2'
 									key={author.id.toString()}
@@ -113,7 +122,7 @@ export function CreateCourse() {
 											<p className='block'>{author.name}</p>
 											<Button
 												value={'Delete author'}
-												onClick={() => console.log('Delete author')}
+												onClick={() => handleDelete(author)}
 												type={'button'}
 											/>
 										</li>
