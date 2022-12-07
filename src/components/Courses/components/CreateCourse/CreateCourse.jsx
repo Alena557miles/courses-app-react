@@ -22,7 +22,6 @@ export function CreateCourse({ handleSubmit }) {
 		setNull(false);
 		const res = mockedauthors.find((author) => author.id === id);
 		authors.push(res);
-		console.log(authors);
 		// setAuthor((prev) => prev.push(res));
 		setAuthor(authors);
 		const res1 = mockedauthors.filter((author) => author.id !== id);
@@ -38,7 +37,7 @@ export function CreateCourse({ handleSubmit }) {
 		<div>
 			<form
 				onSubmit={(e) =>
-					handleSubmit(e, { title, description, duration, authors })
+					handleSubmit(e, { authors, description, duration, title })
 				}
 			>
 				<div className='flex flex-row justify-between h-full items-end mb-3'>
@@ -46,6 +45,7 @@ export function CreateCourse({ handleSubmit }) {
 						labelText={'Title'}
 						placeholdetText={'Enter title...'}
 						onChange={onChangeTitle}
+						type={'text'}
 					/>
 					<Button value={'Create course'} type={'submit'} />
 				</div>
@@ -73,6 +73,7 @@ export function CreateCourse({ handleSubmit }) {
 							<Input
 								labelText={'Author name'}
 								placeholdetText={'Enter author name'}
+								type={'text'}
 							/>
 							<Button
 								value={'Create author'}
@@ -86,6 +87,7 @@ export function CreateCourse({ handleSubmit }) {
 								labelText={'Duration'}
 								placeholdetText={'Enter duration in minutes...'}
 								onChange={onChangeDuration}
+								type={'number'}
 							/>
 							<p>
 								Duration:{' '}

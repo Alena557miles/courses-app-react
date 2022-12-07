@@ -52,14 +52,25 @@ export function Course() {
 
 	const [create, setCreate] = useState(false);
 	const [courses, setCourse] = useState(mockedCoursesList);
-	const handleSubmit = (e, { title, description, duration, authors }) => {
-		setCreate(false);
+	const handleSubmit = (e, { authors, description, duration, title }) => {
 		e.preventDefault();
-		const course = { title, description, duration, authors };
-		console.log(course);
-		const newcourses = courses.push(course);
-		setCourse(newcourses);
-		console.log(courses);
+		setCreate(false);
+		const athoursArr = authors.map((author) => {
+			return author.id;
+		});
+		const id = 'cmfydu66r5';
+		const creationDate = Date.now().toString();
+		const course = {
+			title,
+			description,
+			duration,
+			authors: athoursArr,
+			id,
+			creationDate,
+		};
+
+		courses.push(course);
+		setCourse(courses);
 	};
 
 	return (
