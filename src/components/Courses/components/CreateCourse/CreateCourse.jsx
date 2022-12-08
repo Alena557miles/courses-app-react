@@ -27,11 +27,6 @@ export function CreateCourse({ handleSubmit }) {
 	};
 
 	const onChangeTitle = (e) => {
-		// if (title.length < 2) {
-		// 	setError('Lenght should be more than 1 character');
-		// 	console.log('Error');
-		// 	return;
-		// }
 		setTitle(e.target.value);
 	};
 	const onChangeDuration = (e) => {
@@ -51,6 +46,12 @@ export function CreateCourse({ handleSubmit }) {
 		mockedauthors.push(author);
 		setAuthor(update);
 	};
+	const validateForm = () => {
+		if (title.length < 2) {
+			setError('Lenght should be more than 1 character');
+			return;
+		}
+	};
 
 	return (
 		<div>
@@ -68,7 +69,11 @@ export function CreateCourse({ handleSubmit }) {
 						required={true}
 						error={error}
 					/>
-					<Button value={'Create course'} type={'submit'} />
+					<Button
+						value={'Create course'}
+						type={'submit'}
+						onClick={validateForm}
+					/>
 				</div>
 
 				<label>Description</label>
