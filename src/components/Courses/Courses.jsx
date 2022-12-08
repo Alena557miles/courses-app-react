@@ -22,6 +22,7 @@ export function Course() {
 		const creationDate = new Date(Date.now()).toLocaleString('en-GB', {
 			timeZone: 'UTC',
 		});
+
 		const course = {
 			title,
 			description,

@@ -13,6 +13,7 @@ export function CreateCourse({ handleSubmit }) {
 	const [title, setTitle] = useState('');
 	const [duration, setDuration] = useState('');
 	const [newAuthor, setNewAuthor] = useState('');
+	const [error, setError] = useState('');
 
 	const createAuthor = () => {
 		const unique_id = uuid();
@@ -26,6 +27,11 @@ export function CreateCourse({ handleSubmit }) {
 	};
 
 	const onChangeTitle = (e) => {
+		// if (title.length < 2) {
+		// 	setError('Lenght should be more than 1 character');
+		// 	console.log('Error');
+		// 	return;
+		// }
 		setTitle(e.target.value);
 	};
 	const onChangeDuration = (e) => {
@@ -56,9 +62,11 @@ export function CreateCourse({ handleSubmit }) {
 				<div className='flex flex-row justify-between h-full items-end mb-3'>
 					<Input
 						labelText={'Title'}
-						placeholdetText={'Enter title...'}
+						placeholderText={'Enter title...'}
 						onChange={onChangeTitle}
 						type={'text'}
+						required={true}
+						error={error}
 					/>
 					<Button value={'Create course'} type={'submit'} />
 				</div>
@@ -82,7 +90,7 @@ export function CreateCourse({ handleSubmit }) {
 						<div className='my-4 flex flex-col justify-between h-28'>
 							<Input
 								labelText={'Author name'}
-								placeholdetText={'Enter author name'}
+								placeholderText={'Enter author name'}
 								type={'text'}
 								onChange={(e) => setNewAuthor(e.target.value)}
 							/>
@@ -96,9 +104,11 @@ export function CreateCourse({ handleSubmit }) {
 							<h2 className='text-xl text-center font-bold'>Duration</h2>
 							<Input
 								labelText={'Duration'}
-								placeholdetText={'Enter duration in minutes...'}
+								placeholderText={'Enter duration in minutes...'}
 								onChange={onChangeDuration}
 								type={'number'}
+								required={true}
+								error={error}
 							/>
 							<p>
 								Duration:{' '}

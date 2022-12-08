@@ -9,7 +9,7 @@ export function SearchBar({ handleInput }) {
 				type={'text'}
 				onChange={handleInput}
 			/>
-			<Button value={'Search'} onClick={() => console.log('course')} />
+			<Button value={'Search'} />
 		</div>
 	);
 }
