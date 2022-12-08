@@ -10,6 +10,7 @@ import { v4 as uuid } from 'uuid';
 export function Course() {
 	const [create, setCreate] = useState(false);
 	const [courses, setCourse] = useState(mockedCoursesList);
+	const [searchResult, setSearchResult] = useState(courses);
 
 	const handleSubmit = (e, { authors, description, duration, title }) => {
 		e.preventDefault();
@@ -33,14 +34,26 @@ export function Course() {
 		courses.push(course);
 		setCourse(courses);
 	};
+	const handleInput = (e) => {
+		const text = e.target.value.toLowerCase();
+		if (!e.target.value) return setSearchResult(courses);
+
+		const resultArray = courses.filter(
+			(course) =>
+				course.title.toLowerCase().includes(text) ||
+				course.description.toLowerCase().includes(text)
+		);
+
+		setSearchResult(resultArray);
+	};
 
 	return (
 		<div className='flex flex-col border border-blue-400 p-7 mt-7 gap-y-7 h-full'>
 			<div className='flex flex-row justify-between'>
-				<SearchBar />
+				<SearchBar handleInput={handleInput} />
 				<Button value={'Add new course'} onClick={() => setCreate(true)} />
 			</div>
-			{create ? '' : <CourseCard courses={courses} />}
+			{create ? '' : <CourseCard searchResult={searchResult} />}
 			{create && <CreateCourse handleSubmit={handleSubmit} />}
 		</div>
 	);

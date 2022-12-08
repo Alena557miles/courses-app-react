@@ -3,7 +3,7 @@ import { Button } from '../../../../common/Button/Button';
 import { mockedAuthorsList } from '../../../../data/authorList';
 
 export function CourseCard(props) {
-	const courses = props.courses;
+	const courses = props.searchResult;
 	const findAuthors = (array) => {
 		let authors = [];
 		for (let j = 0; j < array.length; j++) {
