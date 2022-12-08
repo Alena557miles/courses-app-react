@@ -49,8 +49,13 @@ export function CreateCourse({ handleSubmit }) {
 	const validateForm = () => {
 		if (title.length < 2) {
 			setError('Lenght should be more than 1 character');
+			// authors - required
+			alert('Pleese fill in all fields');
 			return;
 		}
+		// duration - only numbers
+		// more than 0 minutes
+		// title && descr >=2 characters
 	};
 
 	return (

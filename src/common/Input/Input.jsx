@@ -8,7 +8,7 @@ export function Input({
 	error,
 }) {
 	return (
-		<>
+		<div>
 			<label className='mb-2'>{labelText}</label>
 			<input
 				type={type}
@@ -18,6 +18,6 @@ export function Input({
 				required={required}
 			/>
 			<ErrorMessage error={error} />
-		</>
+		</div>
 	);
 }
