@@ -1,11 +1,10 @@
-import { ErrorMessage } from '../Error/ErrorMessage';
 export function Input({
 	labelText,
 	placeholderText,
 	onChange,
 	type,
 	required,
-	error,
+	pattern,
 }) {
 	return (
 		<div>
@@ -16,8 +15,8 @@ export function Input({
 				placeholder={placeholderText}
 				onChange={onChange}
 				required={required}
+				pattern={pattern}
 			/>
-			<ErrorMessage error={error} />
 		</div>
 	);
 }

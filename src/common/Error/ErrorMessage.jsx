@@ -1,7 +1,7 @@
 export function ErrorMessage({ error }) {
 	return (
 		<>
-			<p>{error}</p>
+			<span className='text-red-500 '>{error}</span>
 		</>
 	);
 }

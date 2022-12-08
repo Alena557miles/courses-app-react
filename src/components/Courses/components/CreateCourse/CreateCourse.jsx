@@ -1,10 +1,20 @@
 import { useState } from 'react';
+
+import { mockedAuthorsList } from '../../../../data/authorList';
+
 import { Button } from '../../../../common/Button/Button';
 import { Input } from '../../../../common/Input/Input';
-import { mockedAuthorsList } from '../../../../data/authorList';
+import { ErrorMessage } from '../../../../common/Error/ErrorMessage';
+
 import { v4 as uuid } from 'uuid';
 
-export function CreateCourse({ handleSubmit }) {
+export function CreateCourse({
+	handleSubmit,
+	errorTitle,
+	errorDesc,
+	errorDuration,
+	errorAuthors,
+}) {
 	const authorsList = mockedAuthorsList;
 	const [mockedauthors, setMockedAuthor] = useState(authorsList);
 	const [noAuthors, setNull] = useState(true);
@@ -13,7 +23,6 @@ export function CreateCourse({ handleSubmit }) {
 	const [title, setTitle] = useState('');
 	const [duration, setDuration] = useState('');
 	const [newAuthor, setNewAuthor] = useState('');
-	const [error, setError] = useState('');
 
 	const createAuthor = () => {
 		const unique_id = uuid();
@@ -22,7 +31,6 @@ export function CreateCourse({ handleSubmit }) {
 			name: newAuthor,
 		};
 		mockedauthors.push(author);
-		console.log(mockedauthors);
 		setMockedAuthor(mockedauthors);
 	};
 
@@ -47,15 +55,10 @@ export function CreateCourse({ handleSubmit }) {
 		setAuthor(update);
 	};
 	const validateForm = () => {
-		if (title.length < 2) {
-			setError('Lenght should be more than 1 character');
-			// authors - required
-			alert('Pleese fill in all fields');
-			return;
-		}
-		// duration - only numbers
-		// more than 0 minutes
-		// title && descr >=2 characters
+		// if (errorTitle || errorDesc || errorDuration || errorAuthors) {
+		// 	alert('Pleese fill in all fields');
+		// 	return;
+		// }
 	};
 
 	return (
@@ -72,8 +75,8 @@ export function CreateCourse({ handleSubmit }) {
 						onChange={onChangeTitle}
 						type={'text'}
 						required={true}
-						error={error}
 					/>
+					{errorTitle && <ErrorMessage error={errorTitle} />}
 					<Button
 						value={'Create course'}
 						type={'submit'}
@@ -93,6 +96,7 @@ export function CreateCourse({ handleSubmit }) {
 					value={description}
 					onChange={(e) => setDescription(e.target.value)}
 				></textarea>
+				<ErrorMessage error={errorDesc} />
 
 				<div className='flex flex-row gap-20 border border-gray-900 p-7 w-full h-full'>
 					<div className='flex flex-col w-2/5'>
@@ -117,9 +121,10 @@ export function CreateCourse({ handleSubmit }) {
 								placeholderText={'Enter duration in minutes...'}
 								onChange={onChangeDuration}
 								type={'number'}
+								pattern={'ˆ[0-9]{1,}'}
 								required={true}
-								error={error}
 							/>
+							<ErrorMessage error={errorDuration} />
 							<p>
 								Duration:{' '}
 								<span className='text-3xl font-bold'>
@@ -152,7 +157,10 @@ export function CreateCourse({ handleSubmit }) {
 						</h2>
 
 						{noAuthors ? (
-							<p className='font-bold text-center'>Author list is empty</p>
+							<>
+								<p className='font-bold text-center'>Author list is empty</p>
+								<ErrorMessage error={errorAuthors} />
+							</>
 						) : (
 							<div>
 								<ul>
