@@ -8,9 +8,9 @@ function App() {
 		<div className='container mx-auto pt-5'>
 			<Header name={'Whyname'} />
 			<Course />
-			<DateGenerator>
+			{/* <DateGenerator>
 				<p>text</p>
-			</DateGenerator>
+			</DateGenerator> */}
 		</div>
 	);
 }

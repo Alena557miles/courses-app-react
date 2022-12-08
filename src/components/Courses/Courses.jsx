@@ -21,12 +21,12 @@ export function Course() {
 	const handleSubmit = (e, { authors, description, duration, title }) => {
 		e.preventDefault();
 		if (title.length < 2) {
-			setErrorTitle('Lenght should be more than 1 character');
+			setErrorTitle('Title length should be more than 1 character');
 			return;
 		}
 		setErrorTitle('');
 		if (description.length < 2) {
-			setErrorDesc('Lenght should be more than 1 character');
+			setErrorDesc('Description length should be more than 1 character');
 			return;
 		}
 		setErrorDesc('');
@@ -40,10 +40,10 @@ export function Course() {
 			return;
 		}
 		setErrorAuthors('');
-		if (errorTitle || errorDesc || errorDuration || errorAuthors) {
-			alert('Pleese fill in all fields');
-			return;
-		}
+		// if (errorTitle || errorDesc || errorDuration || errorAuthors) {
+		// 	alert('Pleese fill in all fields');
+		// 	return;
+		// }
 		const athoursArr = authors.map((author) => {
 			return author.id;
 		});

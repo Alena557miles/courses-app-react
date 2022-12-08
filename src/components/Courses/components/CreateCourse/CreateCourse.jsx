@@ -30,8 +30,8 @@ export function CreateCourse({
 			id: unique_id,
 			name: newAuthor,
 		};
+		setMockedAuthor([...mockedauthors, author]);
 		mockedauthors.push(author);
-		setMockedAuthor(mockedauthors);
 	};
 
 	const onChangeTitle = (e) => {
@@ -44,7 +44,6 @@ export function CreateCourse({
 		setNull(false);
 		const res = mockedauthors.find((author) => author.id === id);
 		authors.push(res);
-		// setAuthor((prev) => prev.push(res));
 		setAuthor(authors);
 		const res1 = mockedauthors.filter((author) => author.id !== id);
 		setMockedAuthor(res1);
@@ -55,10 +54,10 @@ export function CreateCourse({
 		setAuthor(update);
 	};
 	const validateForm = () => {
-		// if (errorTitle || errorDesc || errorDuration || errorAuthors) {
-		// 	alert('Pleese fill in all fields');
-		// 	return;
-		// }
+		if (errorTitle || errorDesc || errorDuration || errorAuthors) {
+			alert('Pleese fill in all fields');
+			return;
+		}
 	};
 
 	return (
