@@ -20,26 +20,56 @@ export function Course() {
 
 	const handleSubmit = (e, { authors, description, duration, title }) => {
 		e.preventDefault();
-		if (title.length < 2) {
-			setErrorTitle('Title length should be more than 1 character');
-			return;
+
+		if (
+			title.length < 2 ||
+			description.length < 2 ||
+			+duration < 0 ||
+			authors.length === 0
+		) {
+			alert('Pleese fill in all fields correctly');
+			if (title.length < 2) {
+				setErrorTitle('Title length should be more than 1 character');
+				return;
+			} else setErrorTitle('');
+			if (description.length < 2) {
+				setErrorDesc('Description length should be more than 1 character');
+				return;
+			} else setErrorDesc('');
+			if (+duration < 0) {
+				setErrorDur('Duration should be more than 0 minutes');
+				return;
+			} else setErrorDur('');
+			if (authors.length === 0) {
+				setErrorAuthors('Shoul be some authors on this course');
+				return;
+			} else setErrorAuthors('');
 		}
-		setErrorTitle('');
-		if (description.length < 2) {
-			setErrorDesc('Description length should be more than 1 character');
-			return;
-		}
-		setErrorDesc('');
-		if (+duration < 0) {
-			setErrorDur('Duration should be more than 0 minutes');
-			return;
-		}
-		setErrorDur('');
-		if (authors.length === 0) {
-			setErrorAuthors('Shoul be some authors on this course');
-			return;
-		}
-		setErrorAuthors('');
+		// if (title.length < 2) {
+		// 	alert('Pleese fill in all fields correctly');
+		// 	setErrorTitle('Title length should be more than 1 character');
+		// 	return;
+		// }
+		// setErrorTitle('');
+		// if (description.length < 2) {
+		// 	alert('Pleese fill in all fields correctly');
+		// 	setErrorDesc('Description length should be more than 1 character');
+
+		// 	return;
+		// }
+		// setErrorDesc('');
+		// if (+duration < 0) {
+		// 	alert('Pleese fill in all fields correctly');
+		// 	setErrorDur('Duration should be more than 0 minutes');
+		// 	return;
+		// }
+		// setErrorDur('');
+		// if (authors.length === 0) {
+		// 	alert('Pleese fill in all fields correctly');
+		// 	setErrorAuthors('Shoul be some authors on this course');
+		// 	return;
+		// }
+		// setErrorAuthors('');
 		// if (errorTitle || errorDesc || errorDuration || errorAuthors) {
 		// 	alert('Pleese fill in all fields');
 		// 	return;

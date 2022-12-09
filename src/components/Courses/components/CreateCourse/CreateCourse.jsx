@@ -54,10 +54,10 @@ export function CreateCourse({
 		setAuthor(update);
 	};
 	const validateForm = () => {
-		if (errorTitle || errorDesc || errorDuration || errorAuthors) {
-			alert('Pleese fill in all fields');
-			return;
-		}
+		// if (errorTitle || errorDesc || errorDuration || errorAuthors) {
+		// 	alert('Pleese fill in all fields');
+		// 	return;
+		// }
 	};
 
 	return (
