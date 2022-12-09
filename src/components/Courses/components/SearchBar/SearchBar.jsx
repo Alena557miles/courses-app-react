@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { Button } from '../../../../common/Button/Button';
 import { Input } from '../../../../common/Input/Input';
 
@@ -9,7 +11,7 @@ export function SearchBar({ handleInput }) {
 				type={'text'}
 				onChange={handleInput}
 			/>
-			<Button value={'Search'} />
+			<Button buttonText={'Search'} />
 		</div>
 	);
 }

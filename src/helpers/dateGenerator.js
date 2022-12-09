@@ -1,4 +1,4 @@
 import { React } from 'react';
 export function DateGenerator(props) {
-	return <span>{props.children.toUpperCase()}</span>;
+	return <span>{new Date(props.children).toLocaleDateString('en-GB')}</span>;
 }

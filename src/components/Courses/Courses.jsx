@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { CourseCard } from './components/CourseCard/CourseCard';
 import { CreateCourse } from './components/CreateCourse/CreateCourse';
 import { SearchBar } from './components/SearchBar/SearchBar';
@@ -49,9 +51,7 @@ export function Course() {
 			return author.id;
 		});
 		const unique_id = uuid();
-		const creationDate = new Date(Date.now()).toLocaleString('en-GB', {
-			timeZone: 'UTC',
-		});
+		const creationDate = Date.now();
 
 		const course = {
 			title,
@@ -84,7 +84,7 @@ export function Course() {
 		<div className='flex flex-col border border-blue-400 p-7 mt-7 gap-y-7 h-full'>
 			<div className='flex flex-row justify-between'>
 				<SearchBar handleInput={handleInput} />
-				<Button value={'Add new course'} onClick={() => setCreate(true)} />
+				<Button buttonText={'Add new course'} onClick={() => setCreate(true)} />
 			</div>
 			{create ? '' : <CourseCard searchResult={searchResult} />}
 			{create && (

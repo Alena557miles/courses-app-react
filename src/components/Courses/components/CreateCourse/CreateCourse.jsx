@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { useState } from 'react';
 
 import { mockedAuthorsList } from '../../../../data/authorList';
@@ -5,6 +7,8 @@ import { mockedAuthorsList } from '../../../../data/authorList';
 import { Button } from '../../../../common/Button/Button';
 import { Input } from '../../../../common/Input/Input';
 import { ErrorMessage } from '../../../../common/Error/ErrorMessage';
+
+import { PipeDuration } from '../../../../helpers/pipeDuration';
 
 import { v4 as uuid } from 'uuid';
 
@@ -73,7 +77,7 @@ export function CreateCourse({
 					/>
 					{errorTitle && <ErrorMessage error={errorTitle} />}
 					<Button
-						value={'Create course'}
+						buttonText={'Create course'}
 						type={'submit'}
 						onClick={validateForm}
 					/>
@@ -104,7 +108,7 @@ export function CreateCourse({
 								onChange={(e) => setNewAuthor(e.target.value)}
 							/>
 							<Button
-								value={'Create author'}
+								buttonText={'Create author'}
 								onClick={createAuthor}
 								type={'button'}
 							/>
@@ -124,7 +128,7 @@ export function CreateCourse({
 								Duration:{' '}
 								<span className='text-3xl font-bold'>
 									{' '}
-									{duration ? duration : '00:00'}
+									{duration ? <PipeDuration>{duration}</PipeDuration> : '00:00'}
 								</span>{' '}
 								hours
 							</p>
@@ -140,7 +144,7 @@ export function CreateCourse({
 								>
 									<p className='block'>{author.name}</p>
 									<Button
-										value={'Add author'}
+										buttonText={'Add author'}
 										onClick={() => addAuthor(author.id)}
 										type={'button'}
 									/>
@@ -166,7 +170,7 @@ export function CreateCourse({
 										>
 											<p className='block'>{author.name}</p>
 											<Button
-												value={'Delete author'}
+												buttonText={'Delete author'}
 												onClick={() => handleDelete(author)}
 												type={'button'}
 											/>

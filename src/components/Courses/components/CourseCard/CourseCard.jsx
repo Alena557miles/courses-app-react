@@ -1,6 +1,11 @@
 import React from 'react';
+
 import { Button } from '../../../../common/Button/Button';
+
 import { mockedAuthorsList } from '../../../../data/authorList';
+
+import { DateGenerator } from '../../../../helpers/dateGenerator';
+import { PipeDuration } from '../../../../helpers/pipeDuration';
 
 export function CourseCard(props) {
 	const courses = props.searchResult;
@@ -33,14 +38,19 @@ export function CourseCard(props) {
 							<span className='font-normal'>{findAuthors(course.authors)}</span>
 						</p>
 						<p className='font-bold'>
-							Duration: <span className='font-normal'>{course.duration}</span>
+							Duration:{' '}
+							<span className='font-normal'>
+								<PipeDuration>{course.duration}</PipeDuration>
+							</span>
 						</p>
 						<p className='font-bold'>
 							Created:{' '}
-							<span className='font-normal'>{course.creationDate} </span>
+							<span className='font-normal'>
+								<DateGenerator>{course.creationDate}</DateGenerator>
+							</span>
 						</p>
 						<Button
-							value={'Show course'}
+							buttonText={'Show course'}
 							onClick={() => console.log('course')}
 						></Button>
 					</div>

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Logo } from './components/Logo/Logo';
 import { Button } from '../../common/Button/Button';
 
@@ -9,7 +10,7 @@ export function Header(props) {
 			<Logo />
 			<div className='flex flex-row justify-between items-center gap-x-2'>
 				<p>{name}</p>
-				<Button value={'Logout'} onClick={() => console.log('click')} />
+				<Button buttonText={'Logout'} onClick={() => console.log('click')} />
 			</div>
 		</div>
 	);
