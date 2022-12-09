@@ -52,13 +52,9 @@ export function CreateCourse({
 		const update = authors.filter((item) => item.id !== author.id);
 		mockedauthors.push(author);
 		setAuthor(update);
+		setNull(true);
 	};
-	const validateForm = () => {
-		// if (errorTitle || errorDesc || errorDuration || errorAuthors) {
-		// 	alert('Pleese fill in all fields');
-		// 	return;
-		// }
-	};
+	const validateForm = () => {};
 
 	return (
 		<div>

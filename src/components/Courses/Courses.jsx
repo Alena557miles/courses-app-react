@@ -45,35 +45,6 @@ export function Course() {
 				return;
 			} else setErrorAuthors('');
 		}
-		// if (title.length < 2) {
-		// 	alert('Pleese fill in all fields correctly');
-		// 	setErrorTitle('Title length should be more than 1 character');
-		// 	return;
-		// }
-		// setErrorTitle('');
-		// if (description.length < 2) {
-		// 	alert('Pleese fill in all fields correctly');
-		// 	setErrorDesc('Description length should be more than 1 character');
-
-		// 	return;
-		// }
-		// setErrorDesc('');
-		// if (+duration < 0) {
-		// 	alert('Pleese fill in all fields correctly');
-		// 	setErrorDur('Duration should be more than 0 minutes');
-		// 	return;
-		// }
-		// setErrorDur('');
-		// if (authors.length === 0) {
-		// 	alert('Pleese fill in all fields correctly');
-		// 	setErrorAuthors('Shoul be some authors on this course');
-		// 	return;
-		// }
-		// setErrorAuthors('');
-		// if (errorTitle || errorDesc || errorDuration || errorAuthors) {
-		// 	alert('Pleese fill in all fields');
-		// 	return;
-		// }
 		const athoursArr = authors.map((author) => {
 			return author.id;
 		});
