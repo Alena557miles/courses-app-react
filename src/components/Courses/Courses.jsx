@@ -5,7 +5,7 @@ import { CreateCourse } from './components/CreateCourse/CreateCourse';
 import { SearchBar } from './components/SearchBar/SearchBar';
 import { Button } from '../../common/Button/Button';
 
-import { mockedCoursesList } from '../../data/courseList';
+import { BUTTON_TEXT_ADD_COURSE, mockedCoursesList } from '../../constants';
 
 import { useState } from 'react';
 
@@ -84,7 +84,10 @@ export function Course() {
 		<div className='flex flex-col border border-blue-400 p-7 mt-7 gap-y-7 h-full'>
 			<div className='flex flex-row justify-between'>
 				<SearchBar handleInput={handleInput} />
-				<Button buttonText={'Add new course'} onClick={() => setCreate(true)} />
+				<Button
+					buttonText={BUTTON_TEXT_ADD_COURSE}
+					onClick={() => setCreate(true)}
+				/>
 			</div>
 			{create ? '' : <CourseCard searchResult={searchResult} />}
 			{create && (

@@ -3,6 +3,8 @@ import React from 'react';
 import { Logo } from './components/Logo/Logo';
 import { Button } from '../../common/Button/Button';
 
+import { BUTTON_TEXT_HEADER } from '../../constants';
+
 export function Header(props) {
 	const name = props.name;
 	return (
@@ -10,7 +12,7 @@ export function Header(props) {
 			<Logo />
 			<div className='flex flex-row justify-between items-center gap-x-2'>
 				<p>{name}</p>
-				<Button buttonText={'Logout'} onClick={() => console.log('click')} />
+				<Button buttonText={BUTTON_TEXT_HEADER} />
 			</div>
 		</div>
 	);

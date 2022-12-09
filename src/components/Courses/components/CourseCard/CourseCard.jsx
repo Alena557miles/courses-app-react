@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Button } from '../../../../common/Button/Button';
 
-import { mockedAuthorsList } from '../../../../data/authorList';
+import { mockedAuthorsList, BUTTON_TEXT_COURSE } from '../../../../constants';
 
 import { DateGenerator } from '../../../../helpers/dateGenerator';
 import { PipeDuration } from '../../../../helpers/pipeDuration';
@@ -40,7 +40,7 @@ export function CourseCard(props) {
 						<p className='font-bold'>
 							Duration:{' '}
 							<span className='font-normal'>
-								<PipeDuration>{course.duration}</PipeDuration>
+								<PipeDuration>{course.duration}</PipeDuration> hours
 							</span>
 						</p>
 						<p className='font-bold'>
@@ -49,10 +49,7 @@ export function CourseCard(props) {
 								<DateGenerator>{course.creationDate}</DateGenerator>
 							</span>
 						</p>
-						<Button
-							buttonText={'Show course'}
-							onClick={() => console.log('course')}
-						></Button>
+						<Button buttonText={BUTTON_TEXT_COURSE}></Button>
 					</div>
 				</li>
 			))}

@@ -1,16 +1,21 @@
 import React from 'react';
 
+import { v4 as uuid } from 'uuid';
 import { useState } from 'react';
 
-import { mockedAuthorsList } from '../../../../data/authorList';
+import { PipeDuration } from '../../../../helpers/pipeDuration';
 
 import { Button } from '../../../../common/Button/Button';
 import { Input } from '../../../../common/Input/Input';
 import { ErrorMessage } from '../../../../common/Error/ErrorMessage';
 
-import { PipeDuration } from '../../../../helpers/pipeDuration';
-
-import { v4 as uuid } from 'uuid';
+import {
+	mockedAuthorsList,
+	BUTTON_TEXT_CREATE_COURSE,
+	BUTTON_TEXT_CREATE_AUTHOR,
+	BUTTON_TEXT_ADD_AUTHOR,
+	BUTTON_TEXT_DELETE_AUTHOR,
+} from '../../../../constants';
 
 export function CreateCourse({
 	handleSubmit,
@@ -58,7 +63,6 @@ export function CreateCourse({
 		setAuthor(update);
 		setNull(true);
 	};
-	const validateForm = () => {};
 
 	return (
 		<div>
@@ -76,11 +80,7 @@ export function CreateCourse({
 						required={true}
 					/>
 					{errorTitle && <ErrorMessage error={errorTitle} />}
-					<Button
-						buttonText={'Create course'}
-						type={'submit'}
-						onClick={validateForm}
-					/>
+					<Button buttonText={BUTTON_TEXT_CREATE_COURSE} type={'submit'} />
 				</div>
 
 				<label>Description</label>
@@ -108,7 +108,7 @@ export function CreateCourse({
 								onChange={(e) => setNewAuthor(e.target.value)}
 							/>
 							<Button
-								buttonText={'Create author'}
+								buttonText={BUTTON_TEXT_CREATE_AUTHOR}
 								onClick={createAuthor}
 								type={'button'}
 							/>
@@ -144,7 +144,7 @@ export function CreateCourse({
 								>
 									<p className='block'>{author.name}</p>
 									<Button
-										buttonText={'Add author'}
+										buttonText={BUTTON_TEXT_ADD_AUTHOR}
 										onClick={() => addAuthor(author.id)}
 										type={'button'}
 									/>
@@ -170,7 +170,7 @@ export function CreateCourse({
 										>
 											<p className='block'>{author.name}</p>
 											<Button
-												buttonText={'Delete author'}
+												buttonText={BUTTON_TEXT_DELETE_AUTHOR}
 												onClick={() => handleDelete(author)}
 												type={'button'}
 											/>
