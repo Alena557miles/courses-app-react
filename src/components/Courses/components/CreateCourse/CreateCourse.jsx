@@ -142,7 +142,9 @@ export function CreateCourse({
 									className='flex flex-row justify-between align-center mb-2'
 									key={author.id.toString()}
 								>
-									<p className='block'>{author.name}</p>
+									<div className='w-64'>
+										<p>{author.name}</p>
+									</div>
 									<Button
 										buttonText={BUTTON_TEXT_ADD_AUTHOR}
 										onClick={() => addAuthor(author.id)}
@@ -168,7 +170,9 @@ export function CreateCourse({
 											className='flex flex-row justify-between align-center mb-2'
 											key={author.id.toString()}
 										>
-											<p className='block'>{author.name}</p>
+											<div className='w-64'>
+												<p>{author.name}</p>
+											</div>
 											<Button
 												buttonText={BUTTON_TEXT_DELETE_AUTHOR}
 												onClick={() => handleDelete(author)}
