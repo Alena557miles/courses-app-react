@@ -11,7 +11,7 @@ import { useState } from 'react';
 
 import { v4 as uuid } from 'uuid';
 
-export function Course() {
+export function Courses() {
 	const [create, setCreate] = useState(false);
 	const [courses, setCourse] = useState(mockedCoursesList);
 	const [searchResult, setSearchResult] = useState(courses);
