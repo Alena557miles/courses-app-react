@@ -7,6 +7,7 @@ import { CourseInfo } from './components/CourseInfo/CourseInfo';
 import { ErrorPage } from './components/Errorpage/Errorpage';
 
 import { Route, Routes } from 'react-router-dom';
+import { CreateCourse } from './components/Courses/components/CreateCourse/CreateCourse';
 // import { CreateCourse } from './components/Courses/components/CreateCourse/CreateCourse';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
 				<Route path='/logout' element={<Registration />} />
 				<Route path='/courses' element={<Courses />} />
 				<Route path='/courses/:courseId' element={<CourseInfo />} />
+				<Route path='/courses/add' element={<CreateCourse />} />
 			</Route>
 			<Route path='*' element={<ErrorPage />} />
 		</Routes>
