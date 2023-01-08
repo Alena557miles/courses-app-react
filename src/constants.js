@@ -6,6 +6,8 @@ export const BUTTON_TEXT_CREATE_COURSE = 'Create course';
 export const BUTTON_TEXT_DELETE_AUTHOR = 'Delete author';
 export const BUTTON_TEXT_ADD_AUTHOR = 'Add author';
 export const BUTTON_TEXT_CREATE_AUTHOR = 'Create author';
+export const BUTTON_TEXT_REGISTRATION = 'Registration';
+export const BUTTON_TEXT_LOGIN = 'Login';
 
 export const mockedAuthorsList = [
 	{

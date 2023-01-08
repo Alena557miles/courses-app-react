@@ -10,8 +10,9 @@ import { BUTTON_TEXT_ADD_COURSE, mockedCoursesList } from '../../constants';
 import { useState } from 'react';
 
 import { v4 as uuid } from 'uuid';
+import { useEffect } from 'react';
 
-export function Course() {
+export function Courses() {
 	const [create, setCreate] = useState(false);
 	const [courses, setCourse] = useState(mockedCoursesList);
 	const [searchResult, setSearchResult] = useState(courses);
@@ -20,6 +21,9 @@ export function Course() {
 	const [errorDuration, setErrorDur] = useState('');
 	const [errorAuthors, setErrorAuthors] = useState('');
 
+	useEffect(() => {
+		console.log('effect');
+	});
 	const handleSubmit = (e, { authors, description, duration, title }) => {
 		e.preventDefault();
 
@@ -61,9 +65,10 @@ export function Course() {
 			id: unique_id,
 			creationDate,
 		};
-
-		courses.push(course);
-		setCourse(courses);
+		mockedCoursesList.push(course);
+		// courses.push(course);
+		// setCourse(courses);
+		setCourse(mockedCoursesList);
 		setCreate(false);
 	};
 
