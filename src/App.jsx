@@ -4,24 +4,24 @@ import { Header } from './components/Header/Header';
 import { Registration } from './components/Registration/Registration';
 import { Login } from './components/Login/Login';
 import { CourseInfo } from './components/CourseInfo/CourseInfo';
+import { ErrorPage } from './components/Errorpage/Errorpage';
+
 import { Route, Routes } from 'react-router-dom';
+// import { CreateCourse } from './components/Courses/components/CreateCourse/CreateCourse';
 
 function App() {
 	return (
-		<div className='container mx-auto pt-5 h-screen'>
-			<Header name={'Whyname'} />
-			<Routes>
-				<Route path='/' element={<Header name={'Whyname'} />} />
-				<Route
-					path='/register'
-					element={((<Header name={'Whyname'} />), (<Registration />))}
-				/>
+		<Routes>
+			<Route path='/' element={<Header name={'Whyname'} />}>
+				<Route index element={<Courses />} />
+				<Route path='/register' element={<Registration />} />
 				<Route path='/login' element={<Login />} />
 				<Route path='/logout' element={<Registration />} />
 				<Route path='/courses' element={<Courses />} />
-				<Route path='/course' element={<CourseInfo />} />
-			</Routes>
-		</div>
+				<Route path='/courses/:courseId' element={<CourseInfo />} />
+			</Route>
+			<Route path='*' element={<ErrorPage />} />
+		</Routes>
 	);
 }
 export default App;

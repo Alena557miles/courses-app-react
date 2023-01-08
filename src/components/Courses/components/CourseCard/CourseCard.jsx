@@ -4,10 +4,14 @@ import { Button } from '../../../../common/Button/Button';
 
 import { mockedAuthorsList, BUTTON_TEXT_COURSE } from '../../../../constants';
 
+import { useNavigate } from 'react-router-dom';
+
 import { DateGenerator } from '../../../../helpers/dateGenerator';
 import { PipeDuration } from '../../../../helpers/pipeDuration';
 
 export function CourseCard(props) {
+	const navigate = useNavigate();
+
 	const courses = props.searchResult;
 	const findAuthors = (array) => {
 		let authors = [];
@@ -49,7 +53,10 @@ export function CourseCard(props) {
 								<DateGenerator>{course.creationDate}</DateGenerator>
 							</span>
 						</p>
-						<Button buttonText={BUTTON_TEXT_COURSE}></Button>
+						<Button
+							buttonText={BUTTON_TEXT_COURSE}
+							onClick={() => navigate(`/courses/${course.id}`)}
+						></Button>
 					</div>
 				</li>
 			))}

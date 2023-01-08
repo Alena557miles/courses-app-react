@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '../../common/Button/Button';
 import { Input } from '../../common/Input/Input';
 
@@ -25,9 +26,9 @@ export function Login() {
 			</form>
 			<p>
 				If you not have an account you can{' '}
-				<a href='' className='text-cyan-400'>
+				<Link to='/register' className='text-cyan-400'>
 					Registration
-				</a>
+				</Link>
 			</p>
 		</div>
 	);

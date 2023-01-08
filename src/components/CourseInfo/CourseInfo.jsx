@@ -1,51 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { mockedCoursesList } from '../../constants';
 
-export function CourseInfo(props) {
+export function CourseInfo() {
+	const params = useParams();
+	console.log(params.courseId);
+	console.log(mockedCoursesList);
+	const [course, setCourse] = useState(null);
+
+	function findCourse(id) {
+		const course = mockedCoursesList.find((course) => course.id === id);
+		setCourse(course);
+	}
+	useEffect(() => {
+		findCourse(params.courseId);
+	});
 	return (
 		<div className='flex flex-col p-9 border border-cyan-400 mt-7 gap-y-7 h-5/6'>
-			<a href=''> Back to courses</a>
-			<h1 className='text-bold text-3xl text-center'>props.title</h1>
+			<Link to='/courses'> Back to courses</Link>
+			<h1 className='text-bold text-3xl text-center'>course.title</h1>
 			<div className='flex flex-row justify-between gap-x-16'>
 				<div className='w-3/5'>
-					<p>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos
-						aspernatur, nostrum itaque adipisci consequatur nobis dolores
-						commodi repudiandae accusantium nisi non laborum? Quae debitis hic
-						necessitatibus. Possimus quae soluta quo officiis, sed quasi harum
-						atque voluptatum alias similique ab cum. Lorem ipsum dolor sit amet
-						consectetur adipisicing elit. Quasi dolorum placeat, exercitationem
-						illo harum eligendi non pariatur necessitatibus, voluptatum expedita
-						eum officia esse ipsum quam repellendus! Voluptatibus mollitia
-						itaque sit nisi dignissimos impedit, soluta iusto dicta rerum
-						voluptate nemo dolores. Lorem ipsum dolor sit amet consectetur
-						adipisicing elit. Consectetur voluptas dolore vel voluptatem neque
-						quas cumque deleniti culpa pariatur impedit mollitia, sint
-						consequatur. Eaque illum reprehenderit eligendi error fuga debitis
-						ex aut culpa laudantium magni! Ipsa, corrupti alias incidunt ea
-						quaerat doloribus corporis ducimus, repellat quas animi eaque autem
-						quibusdam? Nostrum placeat at quam possimus sapiente optio ex, amet
-						accusamus modi. Voluptate odio similique facilis fuga voluptatum
-						nemo doloremque placeat mollitia sit! Facilis nemo non nisi
-						temporibus deleniti error nam ratione, nostrum possimus cum
-						assumenda eligendi corrupti. Ea consectetur quasi tempora sapiente
-						quod dignissimos tenetur ullam, eius labore mollitia et dolorem!
-						Nihil aut quos cum maxime eos. Commodi suscipit iure ducimus ullam
-						enim voluptatum rem. Quis dignissimos provident eligendi
-						praesentium.
-					</p>
+					<p>props.course.description</p>
 				</div>
 				<div className='w-2/5 flex flex-col gap-3'>
 					<p className='font-bold'>
-						ID: <span className='font-normal'>props.Id</span>{' '}
+						ID: <span className='font-normal'>props.course.id</span>{' '}
 					</p>
 					<p className='font-bold'>
-						Duration: <span className='font-normal'>props.Id</span>{' '}
+						Duration: <span className='font-normal'>props.course.duration</span>{' '}
 					</p>
 					<p className='font-bold'>
-						Created: <span className='font-normal'>props.Id</span>{' '}
+						Created:{' '}
+						<span className='font-normal'>props.course.creationDate</span>{' '}
 					</p>
 					<p className='font-bold'>
-						Authors: <span className='font-normal'>props.Id</span>{' '}
+						Authors: <span className='font-normal'>props.course.Authors</span>{' '}
 					</p>
 				</div>
 			</div>
