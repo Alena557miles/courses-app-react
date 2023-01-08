@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { mockedCoursesList, mockedAuthorsList } from '../../constants';
 import { PipeDuration } from '../../helpers/pipeDuration';
+import { DateGenerator } from '../../helpers/dateGenerator';
 
 export function CourseInfo() {
 	const params = useParams();
@@ -39,13 +40,17 @@ export function CourseInfo() {
 						ID: <span className='font-normal'>{course.id}</span>{' '}
 					</p>
 					<p className='font-bold'>
-						Duration: <span className='font-normal'>{course.duration}</span>{' '}
+						Duration:{' '}
+						<span className='font-normal'>
+							{' '}
+							<PipeDuration>{course.duration}</PipeDuration> hours
+						</span>{' '}
 					</p>
 					<p className='font-bold'>
 						Created:{' '}
 						<span className='font-normal'>
 							{' '}
-							<PipeDuration>{course.duration}</PipeDuration> hours
+							<DateGenerator>{course.creationDate}</DateGenerator>
 						</span>{' '}
 					</p>
 					<p className='font-bold'>
