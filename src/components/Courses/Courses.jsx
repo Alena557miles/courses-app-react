@@ -8,6 +8,7 @@ import { Button } from '../../common/Button/Button';
 import { BUTTON_TEXT_ADD_COURSE, mockedCoursesList } from '../../constants';
 
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { v4 as uuid } from 'uuid';
 import { useEffect } from 'react';
@@ -20,6 +21,7 @@ export function Courses() {
 	const [errorDesc, setErrorDesc] = useState('');
 	const [errorDuration, setErrorDur] = useState('');
 	const [errorAuthors, setErrorAuthors] = useState('');
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		console.log('effect');
@@ -85,14 +87,16 @@ export function Courses() {
 		setSearchResult(resultArray);
 	};
 
+	const handleCreate = () => {
+		setCreate(true);
+		navigate(`/courses/add`);
+	};
+
 	return (
-		<div className='flex flex-col border border-blue-400 p-7 mt-7 gap-y-7 h-full'>
-			<div className='flex flex-row justify-between'>
+		<div className='flex flex-col border border-blue-400 p-7 mt-7 '>
+			<div className='flex flex-row justify-between  mb-7'>
 				<SearchBar handleInput={handleInput} />
-				<Button
-					buttonText={BUTTON_TEXT_ADD_COURSE}
-					onClick={() => setCreate(true)}
-				/>
+				<Button buttonText={BUTTON_TEXT_ADD_COURSE} onClick={handleCreate} />
 			</div>
 			{create ? '' : <CourseCard searchResult={searchResult} />}
 			{create && (

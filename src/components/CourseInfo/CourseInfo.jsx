@@ -29,7 +29,7 @@ export function CourseInfo() {
 	};
 	return (
 		<div className='flex flex-col p-9 border border-cyan-400 mt-7 gap-y-7 h-5/6'>
-			<Link to='/courses'> Back to courses</Link>
+			<Link to='/courses'> &lt; Back to courses</Link>
 			<h1 className='text-bold text-3xl text-center'>{course.title}</h1>
 			<div className='flex flex-row justify-between gap-x-16'>
 				<div className='w-3/5'>

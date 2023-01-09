@@ -97,7 +97,7 @@ export function CreateCourse({
 				></textarea>
 				<ErrorMessage error={errorDesc} />
 
-				<div className='flex flex-row gap-20 border border-gray-900 p-7 w-full h-full'>
+				<div className='flex flex-row justify-evenly border border-gray-900 p-7 w-full h-full'>
 					<div className='flex flex-col w-2/5'>
 						<h2 className='text-xl text-center font-bold mb-4'>Add author</h2>
 						<div className='my-4 flex flex-col justify-between h-28'>
