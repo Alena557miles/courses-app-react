@@ -17,6 +17,9 @@ import {
 	BUTTON_TEXT_DELETE_AUTHOR,
 } from '../../../../constants';
 
+// When user clicks on Create course button, App navigates to /courses
+// (the new course should be in the course list in Courses component).
+
 export function CreateCourse({
 	handleSubmit,
 	errorTitle,
