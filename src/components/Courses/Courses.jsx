@@ -72,6 +72,8 @@ export function Courses() {
 		// setCourse(courses);
 		setCourse(mockedCoursesList);
 		setCreate(false);
+		console.log('nav');
+		navigate('/courses');
 	};
 
 	const handleInput = (e) => {

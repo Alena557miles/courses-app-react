@@ -8,7 +8,6 @@ import { ErrorPage } from './components/Errorpage/Errorpage';
 
 import { Route, Routes } from 'react-router-dom';
 import { CreateCourse } from './components/Courses/components/CreateCourse/CreateCourse';
-// import { CreateCourse } from './components/Courses/components/CreateCourse/CreateCourse';
 
 function App() {
 	return (

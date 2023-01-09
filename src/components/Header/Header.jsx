@@ -18,7 +18,21 @@ import { useNavigate } from 'react-router-dom';
 export function Header(props) {
 	const name = props.name;
 	const navigate = useNavigate();
-	const handleLogOut = () => {
+	const handleLogOut = (e) => {
+		e.preventDefault();
+
+		fetch('http://localhost:4000/login', {
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		})
+			.then((res) => res.json())
+			.then((response) => {
+				console.log(response);
+				// localStorage.setItem('token', response.result);
+			})
+			.catch((er) => console.log(er));
 		navigate(`/login`);
 	};
 	return (
