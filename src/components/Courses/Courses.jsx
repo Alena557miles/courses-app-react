@@ -93,7 +93,7 @@ export function Courses() {
 	};
 
 	return (
-		<div className='flex flex-col border border-blue-400 p-7 mt-7 '>
+		<div className='flex flex-col border border-blue-400 p-7 mt-7'>
 			<div className='flex flex-row justify-between  mb-7'>
 				<SearchBar handleInput={handleInput} />
 				<Button buttonText={BUTTON_TEXT_ADD_COURSE} onClick={handleCreate} />

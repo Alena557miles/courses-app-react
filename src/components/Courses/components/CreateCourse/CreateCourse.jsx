@@ -65,7 +65,7 @@ export function CreateCourse({
 	};
 
 	return (
-		<div>
+		<div className='border border-blue-400 p-7 mt-7'>
 			<form
 				onSubmit={(e) =>
 					handleSubmit(e, { authors, description, duration, title })
