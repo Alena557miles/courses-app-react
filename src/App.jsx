@@ -8,14 +8,13 @@ import { ErrorPage } from './components/Errorpage/Errorpage';
 
 import { Route, Routes } from 'react-router-dom';
 import { CreateCourse } from './components/Courses/components/CreateCourse/CreateCourse';
-// import { CreateCourse } from './components/Courses/components/CreateCourse/CreateCourse';
 
 function App() {
 	return (
 		<Routes>
 			<Route path='/' element={<Header name={'Whyname'} />}>
-				<Route index element={<Courses />} />
-				<Route path='/register' element={<Registration />} />
+				<Route index element={<Login />} />
+				<Route path='/registration' element={<Registration />} />
 				<Route path='/login' element={<Login />} />
 				<Route path='/logout' element={<Registration />} />
 				<Route path='/courses' element={<Courses />} />
