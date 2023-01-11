@@ -17,6 +17,7 @@ import { BUTTON_TEXT_LOGIN } from '../../constants';
 export function Login() {
 	const [password, setPassword] = useState('');
 	const [email, setEmail] = useState('');
+	const [error, setError] = useState('');
 	const navigate = useNavigate();
 
 	const handleSubmit = (e) => {
@@ -33,13 +34,18 @@ export function Login() {
 			body: JSON.stringify(user),
 		})
 			.then((res) => res.json())
+			.catch((er) => console.log(er))
 			.then((response) => {
 				console.log(response);
-				console.log(response.result);
-				localStorage.setItem('token', response.result);
-			})
-			.catch((er) => console.log(er));
-		navigate('/courses');
+				if (response.successful) {
+					localStorage.setItem('token', response.result);
+					navigate('/courses');
+				} else if (response.errors) {
+					setError(response.errors);
+				} else {
+					setError(response.result);
+				}
+			});
 	};
 	return (
 		<div className='flex flex-col items-center justify-center border border-cyan-400  mt-7 gap-y-7 h-5/6'>
@@ -64,6 +70,12 @@ export function Login() {
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}
 				/>
+				{error ? (
+					<p className='text-xs text-red-800 text-center italic'>{error}</p>
+				) : (
+					''
+				)}
+
 				<Button className='mx-auto' buttonText={BUTTON_TEXT_LOGIN} />
 			</form>
 			<p>

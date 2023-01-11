@@ -21,7 +21,7 @@ export function Header(props) {
 	const handleLogOut = (e) => {
 		e.preventDefault();
 
-		fetch('http://localhost:4000/login', {
+		fetch('http://localhost:4000/logout', {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',
@@ -30,10 +30,10 @@ export function Header(props) {
 			.then((res) => res.json())
 			.then((response) => {
 				console.log(response);
-				// localStorage.setItem('token', response.result);
+				localStorage.setItem('token', '');
+				navigate(`/login`);
 			})
 			.catch((er) => console.log(er));
-		navigate(`/login`);
 	};
 	return (
 		<div className='container mx-auto pt-5 h-screen'>
