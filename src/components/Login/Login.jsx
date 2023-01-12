@@ -7,11 +7,6 @@ import { Input } from '../../common/Input/Input';
 
 import { BUTTON_TEXT_LOGIN } from '../../constants';
 
-// After success login application navigates to Courses page.
-
-// Add functionality that check if token in localStorage.
-// If token is in the localStorage app automatically navigates to /courses route.
-
 export function Login() {
 	const [password, setPassword] = useState('');
 	const [email, setEmail] = useState('');

@@ -31,7 +31,6 @@ export function Header(props) {
 			.then((response) => {
 				console.log(response);
 				localStorage.removeItem('token');
-				// localStorage.setItem('token', '');
 				navigate(`/login`);
 			})
 			.catch((er) => console.log(er));
