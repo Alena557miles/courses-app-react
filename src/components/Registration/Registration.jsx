@@ -14,33 +14,14 @@ export function Registration() {
 	const [nameErr, setNameErr] = useState('');
 	const [emailErr, setEmailErr] = useState('');
 	const [passwordErr, setPasswordErr] = useState('');
-	const [nameDirty, setNameDirty] = useState(false);
-	const [emailDirty, setEmailDirty] = useState(false);
-	const [passwordDirty, setPasswordDirty] = useState(false);
 
 	const navigate = useNavigate();
 
-	const blurHandler = (e) => {
-		document.activeElement.blur();
-		console.log(e.target);
-		console.log(e.target.name);
-		switch (e.target.name) {
-			case 'name':
-				setNameDirty(true);
-				break;
-			case 'email':
-				setEmailDirty(true);
-				break;
-			case 'password':
-				setPasswordDirty(true);
-				break;
-			default:
-				break;
-		}
-	};
-
 	const nameHandler = (e) => {
 		setName(e.target.value);
+		if (e.target.value.length < 2) {
+			setNameErr('Name should be more than 1 character');
+		} else setNameErr('');
 	};
 
 	const emailHandler = (e) => {
@@ -55,6 +36,11 @@ export function Registration() {
 	};
 	const passwordHandler = (e) => {
 		setPassword(e.target.value);
+		if (e.target.value.length < 6) {
+			setPasswordErr(
+				'password should be a string and length should be 6 characters minimum'
+			);
+		} else setPasswordErr('');
 	};
 
 	const handleSubmit = (e) => {
@@ -100,10 +86,9 @@ export function Registration() {
 					type={'text'}
 					value={name}
 					name='name'
-					onBlur={(e) => blurHandler(e)}
 					onChange={(e) => nameHandler(e)}
 				/>
-				{nameErr && nameDirty && (
+				{nameErr && (
 					<p className='text-xs text-red-800 text-center italic'>{nameErr}</p>
 				)}
 				<Input
@@ -112,13 +97,10 @@ export function Registration() {
 					type={'text'}
 					value={email}
 					name='email'
-					onBlur={(e) => blurHandler(e)}
 					onChange={(e) => emailHandler(e)}
 				/>
-				{emailErr || emailDirty ? (
+				{emailErr && (
 					<p className='text-xs text-red-800 text-center italic'>{emailErr}</p>
-				) : (
-					''
 				)}
 				<Input
 					labelText={'Password'}
@@ -126,10 +108,9 @@ export function Registration() {
 					type={'password'}
 					value={password}
 					name='password'
-					onBlur={(e) => blurHandler(e)}
 					onChange={(e) => passwordHandler(e)}
 				/>
-				{passwordErr && passwordDirty && (
+				{passwordErr && (
 					<p className='text-xs text-red-800 text-center italic'>
 						{passwordErr}
 					</p>
