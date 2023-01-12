@@ -1,5 +1,4 @@
 import React from 'react';
-import { useEffect } from 'react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../../common/Button/Button';
@@ -15,15 +14,8 @@ export function Registration() {
 	const [nameErr, setNameErr] = useState('');
 	const [emailErr, setEmailErr] = useState('');
 	const [passwordErr, setPasswordErr] = useState('');
-	const [formValid, setFormValid] = useState(false);
 
 	const navigate = useNavigate();
-
-	useEffect(() => {
-		if (nameErr || emailErr || passwordErr) {
-			setFormValid(false);
-		} else setFormValid(true);
-	}, [nameErr, emailErr, passwordErr]);
 
 	const nameHandler = (e) => {
 		setName(e.target.value);
@@ -127,16 +119,10 @@ export function Registration() {
 						{passwordErr}
 					</p>
 				)}
-				{error ? (
+				{error && (
 					<p className='text-xs text-red-800 text-center italic'>{error}</p>
-				) : (
-					''
 				)}
-				<Button
-					disabled={!formValid}
-					className='mx-auto'
-					buttonText={BUTTON_TEXT_REGISTRATION}
-				/>
+				<Button className='mx-auto' buttonText={BUTTON_TEXT_REGISTRATION} />
 			</form>
 			<p>
 				If you have an account you can{' '}

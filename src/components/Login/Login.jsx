@@ -18,7 +18,31 @@ export function Login() {
 	const [password, setPassword] = useState('');
 	const [email, setEmail] = useState('');
 	const [error, setError] = useState('');
+	const [emailErr, setEmailErr] = useState('');
+	const [passwordErr, setPasswordErr] = useState('');
+
 	const navigate = useNavigate();
+
+	const emailHandler = (e) => {
+		setEmail(e.target.value);
+		setError('');
+		const re =
+			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		if (!re.test(String(e.target.value).toLocaleLowerCase())) {
+			setEmailErr(
+				'email should be a string and it should be an email or email already exists'
+			);
+		} else setEmailErr('');
+	};
+	const passwordHandler = (e) => {
+		setPassword(e.target.value);
+		setError('');
+		if (e.target.value.length < 6) {
+			setPasswordErr(
+				'password should be a string and length should be 6 characters minimum'
+			);
+		} else setPasswordErr('');
+	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -35,8 +59,6 @@ export function Login() {
 		})
 			.then((res) => res.json())
 			.then((response) => {
-				console.log(response.result);
-				console.log(response.errors);
 				if (response.successful) {
 					localStorage.setItem('token', response.result);
 					navigate('/courses');
@@ -60,21 +82,27 @@ export function Login() {
 					placeholderText={'Enter email '}
 					type={'text'}
 					value={email}
-					onChange={(e) => {
-						setEmail(e.target.value);
-					}}
+					name='email'
+					onChange={(e) => emailHandler(e)}
 				/>
+				{emailErr && (
+					<p className='text-xs text-red-800 text-center italic'>{emailErr}</p>
+				)}
 				<Input
 					labelText={'Password'}
 					placeholderText={'Enter password '}
 					type={'password'}
 					value={password}
-					onChange={(e) => setPassword(e.target.value)}
+					name='password'
+					onChange={(e) => passwordHandler(e)}
 				/>
-				{error ? (
+				{passwordErr && (
+					<p className='text-xs text-red-800 text-center italic'>
+						{passwordErr}
+					</p>
+				)}
+				{error && (
 					<p className='text-xs text-red-800 text-center italic'>{error}</p>
-				) : (
-					''
 				)}
 				<Button className='mx-auto' buttonText={BUTTON_TEXT_LOGIN} />
 			</form>
