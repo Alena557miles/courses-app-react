@@ -21,6 +21,7 @@ export function Registration() {
 	const navigate = useNavigate();
 
 	const blurHandler = (e) => {
+		document.activeElement.blur();
 		console.log(e.target);
 		console.log(e.target.name);
 		switch (e.target.name) {
@@ -38,18 +39,26 @@ export function Registration() {
 		}
 	};
 
-	const emailHandler = (e) => {
-		console.log(e);
-		setEmail(e.target.value);
-	};
 	const nameHandler = (e) => {
 		setName(e.target.value);
+	};
+
+	const emailHandler = (e) => {
+		setEmail(e.target.value);
+		const re =
+			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		if (!re.test(String(e.target.value).toLocaleLowerCase())) {
+			setEmailErr(
+				'email should be a string and it should be an email or email already exists'
+			);
+		} else setEmailErr('');
 	};
 	const passwordHandler = (e) => {
 		setPassword(e.target.value);
 	};
 
 	const handleSubmit = (e) => {
+		document.activeElement.blur();
 		e.preventDefault();
 		const newUser = {
 			name,
@@ -106,8 +115,10 @@ export function Registration() {
 					onBlur={(e) => blurHandler(e)}
 					onChange={(e) => emailHandler(e)}
 				/>
-				{emailErr && emailDirty && (
+				{emailErr || emailDirty ? (
 					<p className='text-xs text-red-800 text-center italic'>{emailErr}</p>
+				) : (
+					''
 				)}
 				<Input
 					labelText={'Password'}
