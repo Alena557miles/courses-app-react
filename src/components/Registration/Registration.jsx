@@ -54,6 +54,7 @@ export function Registration() {
 		e.preventDefault();
 		if (!name || !email || !password) {
 			setError('Please fill all fields');
+			return;
 		}
 		const newUser = {
 			name,
