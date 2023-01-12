@@ -25,7 +25,7 @@ export function Login() {
 		if (localStorage.getItem('token')) {
 			navigate('/courses');
 		}
-	}, []);
+	});
 
 	const emailHandler = (e) => {
 		setEmail(e.target.value);
