@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../../common/Button/Button';
@@ -6,11 +7,8 @@ import { Input } from '../../common/Input/Input';
 
 import { BUTTON_TEXT_LOGIN } from '../../constants';
 
-// Login should have functionality that send request to API for getting token.
-// See /login endpoint in API Swagger.
-// Use react-router-dom hook useHistory to redirect from one url to another
 // After success login application navigates to Courses page.
-// [2 points] - Save token from API after login.
+
 // Add functionality that check if token in localStorage.
 // If token is in the localStorage app automatically navigates to /courses route.
 
@@ -22,6 +20,12 @@ export function Login() {
 	const [passwordErr, setPasswordErr] = useState('');
 
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (localStorage.getItem('token')) {
+			navigate('/courses');
+		}
+	}, []);
 
 	const emailHandler = (e) => {
 		setEmail(e.target.value);
