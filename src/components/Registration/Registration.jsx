@@ -1,5 +1,4 @@
 import React from 'react';
-import { useEffect } from 'react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../../common/Button/Button';
@@ -15,24 +14,19 @@ export function Registration() {
 	const [nameErr, setNameErr] = useState('');
 	const [emailErr, setEmailErr] = useState('');
 	const [passwordErr, setPasswordErr] = useState('');
-	const [formValid, setFormValid] = useState(false);
 
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		if (nameErr || emailErr || passwordErr) {
-			setFormValid(false);
-		} else setFormValid(true);
-	}, [nameErr, emailErr, passwordErr]);
-
 	const nameHandler = (e) => {
 		setName(e.target.value);
+		setError('');
 		if (e.target.value.length < 2) {
 			setNameErr('Name should be more than 1 character');
 		} else setNameErr('');
 	};
 	const emailHandler = (e) => {
 		setEmail(e.target.value);
+		setError('');
 		const re =
 			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		if (!re.test(String(e.target.value).toLocaleLowerCase())) {
@@ -43,6 +37,7 @@ export function Registration() {
 	};
 	const passwordHandler = (e) => {
 		setPassword(e.target.value);
+		setError('');
 		if (e.target.value.length < 6) {
 			setPasswordErr(
 				'password should be a string and length should be 6 characters minimum'
@@ -124,16 +119,10 @@ export function Registration() {
 						{passwordErr}
 					</p>
 				)}
-				{error ? (
+				{error && (
 					<p className='text-xs text-red-800 text-center italic'>{error}</p>
-				) : (
-					''
 				)}
-				<Button
-					disabled={!formValid}
-					className='mx-auto'
-					buttonText={BUTTON_TEXT_REGISTRATION}
-				/>
+				<Button className='mx-auto' buttonText={BUTTON_TEXT_REGISTRATION} />
 			</form>
 			<p>
 				If you have an account you can{' '}
