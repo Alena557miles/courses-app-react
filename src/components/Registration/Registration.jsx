@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../../common/Button/Button';
@@ -14,8 +15,15 @@ export function Registration() {
 	const [nameErr, setNameErr] = useState('');
 	const [emailErr, setEmailErr] = useState('');
 	const [passwordErr, setPasswordErr] = useState('');
+	const [formValid, setFormValid] = useState(false);
 
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (nameErr || emailErr || passwordErr) {
+			setFormValid(false);
+		} else setFormValid(true);
+	}, [nameErr, emailErr, passwordErr]);
 
 	const nameHandler = (e) => {
 		setName(e.target.value);
@@ -23,7 +31,6 @@ export function Registration() {
 			setNameErr('Name should be more than 1 character');
 		} else setNameErr('');
 	};
-
 	const emailHandler = (e) => {
 		setEmail(e.target.value);
 		const re =
@@ -44,8 +51,10 @@ export function Registration() {
 	};
 
 	const handleSubmit = (e) => {
-		document.activeElement.blur();
 		e.preventDefault();
+		if (!name || !email || !password) {
+			setError('Please fill all fields');
+		}
 		const newUser = {
 			name,
 			email,
@@ -61,11 +70,10 @@ export function Registration() {
 		})
 			.then((res) => res.json())
 			.then((response) => {
-				console.log(response);
 				if (response.successful) {
 					navigate('/login');
 				} else if (response.errors) {
-					console.log(response.errors);
+					setError(response.result);
 				} else {
 					setError(response.result);
 				}
@@ -120,7 +128,11 @@ export function Registration() {
 				) : (
 					''
 				)}
-				<Button className='mx-auto' buttonText={BUTTON_TEXT_REGISTRATION} />
+				<Button
+					disabled={!formValid}
+					className='mx-auto'
+					buttonText={BUTTON_TEXT_REGISTRATION}
+				/>
 			</form>
 			<p>
 				If you have an account you can{' '}
