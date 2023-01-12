@@ -17,6 +17,7 @@ import { BUTTON_TEXT_LOGIN } from '../../constants';
 export function Login() {
 	const [password, setPassword] = useState('');
 	const [email, setEmail] = useState('');
+	const [error, setError] = useState('');
 	const navigate = useNavigate();
 
 	const handleSubmit = (e) => {
@@ -34,18 +35,24 @@ export function Login() {
 		})
 			.then((res) => res.json())
 			.then((response) => {
-				console.log(response);
 				console.log(response.result);
-				localStorage.setItem('token', response.result);
+				console.log(response.errors);
+				if (response.successful) {
+					localStorage.setItem('token', response.result);
+					navigate('/courses');
+				} else if (response.errors) {
+					setError(response.errors);
+				} else {
+					setError(response.result);
+				}
 			})
 			.catch((er) => console.log(er));
-		navigate('/courses');
 	};
 	return (
 		<div className='flex flex-col items-center justify-center border border-cyan-400  mt-7 gap-y-7 h-5/6'>
 			<h1 className='text-bold text-2xl'>Login</h1>
 			<form
-				className='flex flex-col justify-between h-48'
+				className='flex flex-col justify-between w-1/4 h-48'
 				onSubmit={handleSubmit}
 			>
 				<Input
@@ -64,6 +71,11 @@ export function Login() {
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}
 				/>
+				{error ? (
+					<p className='text-xs text-red-800 text-center italic'>{error}</p>
+				) : (
+					''
+				)}
 				<Button className='mx-auto' buttonText={BUTTON_TEXT_LOGIN} />
 			</form>
 			<p>
