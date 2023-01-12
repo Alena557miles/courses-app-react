@@ -27,12 +27,14 @@ export function Registration() {
 
 	const nameHandler = (e) => {
 		setName(e.target.value);
+		setError('');
 		if (e.target.value.length < 2) {
 			setNameErr('Name should be more than 1 character');
 		} else setNameErr('');
 	};
 	const emailHandler = (e) => {
 		setEmail(e.target.value);
+		setError('');
 		const re =
 			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		if (!re.test(String(e.target.value).toLocaleLowerCase())) {
@@ -43,6 +45,7 @@ export function Registration() {
 	};
 	const passwordHandler = (e) => {
 		setPassword(e.target.value);
+		setError('');
 		if (e.target.value.length < 6) {
 			setPasswordErr(
 				'password should be a string and length should be 6 characters minimum'
