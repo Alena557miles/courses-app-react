@@ -30,7 +30,8 @@ export function Header(props) {
 			.then((res) => res.json())
 			.then((response) => {
 				console.log(response);
-				localStorage.setItem('token', '');
+				localStorage.removeItem('token');
+				// localStorage.setItem('token', '');
 				navigate(`/login`);
 			})
 			.catch((er) => console.log(er));
