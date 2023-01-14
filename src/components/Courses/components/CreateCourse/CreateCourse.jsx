@@ -2,6 +2,7 @@ import React from 'react';
 
 import { v4 as uuid } from 'uuid';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { PipeDuration } from '../../../../helpers/pipeDuration';
 
@@ -11,22 +12,18 @@ import { ErrorMessage } from '../../../../common/Error/ErrorMessage';
 
 import {
 	mockedAuthorsList,
+	mockedCoursesList,
 	BUTTON_TEXT_CREATE_COURSE,
 	BUTTON_TEXT_CREATE_AUTHOR,
 	BUTTON_TEXT_ADD_AUTHOR,
 	BUTTON_TEXT_DELETE_AUTHOR,
 } from '../../../../constants';
 
-// When user clicks on Create course button, App navigates to /courses
-// (the new course should be in the course list in Courses component).
-
-export function CreateCourse({
-	handleSubmit,
-	errorTitle,
-	errorDesc,
-	errorDuration,
-	errorAuthors,
-}) {
+export function CreateCourse() {
+	const [errorTitle, setErrorTitle] = useState('');
+	const [errorDesc, setErrorDesc] = useState('');
+	const [errorDuration, setErrorDur] = useState('');
+	const [errorAuthors, setErrorAuthors] = useState('');
 	const authorsList = mockedAuthorsList;
 	const [mockedauthors, setMockedAuthor] = useState(authorsList);
 	const [noAuthors, setNull] = useState(true);
@@ -36,6 +33,52 @@ export function CreateCourse({
 	const [duration, setDuration] = useState('');
 	const [newAuthor, setNewAuthor] = useState('');
 
+	const navigate = useNavigate();
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+
+		if (
+			title.length < 2 ||
+			description.length < 2 ||
+			+duration < 0 ||
+			authors.length === 0
+		) {
+			alert('Pleese fill in all fields correctly');
+			if (title.length < 2) {
+				setErrorTitle('Title length should be more than 1 character');
+				return;
+			} else setErrorTitle('');
+			if (description.length < 2) {
+				setErrorDesc('Description length should be more than 1 character');
+				return;
+			} else setErrorDesc('');
+			if (+duration < 0) {
+				setErrorDur('Duration should be more than 0 minutes');
+				return;
+			} else setErrorDur('');
+			if (authors.length === 0) {
+				setErrorAuthors('Shoul be some authors on this course');
+				return;
+			} else setErrorAuthors('');
+		}
+		const athoursArr = authors.map((author) => {
+			return author.id;
+		});
+		const unique_id = uuid();
+		const creationDate = Date.now();
+
+		const course = {
+			title,
+			description,
+			duration,
+			authors: athoursArr,
+			id: unique_id,
+			creationDate,
+		};
+		mockedCoursesList.push(course);
+		navigate('/courses');
+	};
 	const createAuthor = () => {
 		const unique_id = uuid();
 		const author = {
