@@ -7,7 +7,7 @@ import { Input } from '../../common/Input/Input';
 
 import { BUTTON_TEXT_LOGIN } from '../../constants';
 
-export function Login() {
+export function Login({ getName }) {
 	const [password, setPassword] = useState('');
 	const [email, setEmail] = useState('');
 	const [error, setError] = useState('');
@@ -68,6 +68,9 @@ export function Login() {
 				}
 			})
 			.catch((er) => console.log(er));
+
+		const userName = localStorage.getItem('name');
+		getName(userName);
 	};
 	return (
 		<div className='flex flex-col items-center justify-center border border-cyan-400  mt-7 gap-y-7 h-5/6'>

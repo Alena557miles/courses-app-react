@@ -12,7 +12,6 @@ import { useNavigate } from 'react-router-dom';
 export function Courses() {
 	const courses = mockedCoursesList;
 	const [searchResult, setSearchResult] = useState(mockedCoursesList);
-
 	const navigate = useNavigate();
 
 	const handleInput = (e) => {
@@ -30,6 +29,7 @@ export function Courses() {
 	const handleAddcourse = () => {
 		navigate('/courses/add');
 	};
+
 	return (
 		<div className='flex flex-col border border-blue-400 p-7 mt-7'>
 			<div className='flex flex-row justify-between  mb-7'>

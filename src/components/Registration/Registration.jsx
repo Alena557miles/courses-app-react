@@ -56,7 +56,6 @@ export function Registration() {
 			email,
 			password,
 		};
-
 		fetch('http://localhost:4000/register', {
 			method: 'POST',
 			headers: {
@@ -67,6 +66,7 @@ export function Registration() {
 			.then((res) => res.json())
 			.then((response) => {
 				if (response.successful) {
+					localStorage.setItem('name', name);
 					navigate('/login');
 				} else if (response.errors) {
 					setError(response.result);

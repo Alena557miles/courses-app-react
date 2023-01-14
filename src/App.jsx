@@ -8,15 +8,20 @@ import { ErrorPage } from './components/Errorpage/Errorpage';
 
 import { Route, Routes } from 'react-router-dom';
 import { CreateCourse } from './components/Courses/components/CreateCourse/CreateCourse';
+import { useState } from 'react';
 
 function App() {
+	const [userName, setUserName] = useState('');
+	const getName = (userName) => {
+		console.log('getname ');
+		setUserName(userName);
+	};
 	return (
 		<Routes>
-			<Route path='/' element={<Header name={'Whyname'} />}>
+			<Route path='/' element={<Header userName={userName} />}>
 				<Route index element={<Login />} />
 				<Route path='/registration' element={<Registration />} />
-				<Route path='/login' element={<Login />} />
-				<Route path='/logout' element={<Registration />} />
+				<Route path='/login' element={<Login getName={getName} />} />
 				<Route path='/courses' element={<Courses />} />
 				<Route path='/courses/:courseId' element={<CourseInfo />} />
 				<Route path='/courses/add' element={<CreateCourse />} />
