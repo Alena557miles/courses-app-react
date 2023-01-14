@@ -3,13 +3,16 @@ import React from 'react';
 import { Logo } from './components/Logo/Logo';
 import { Button } from '../../common/Button/Button';
 
+import { useContext } from 'react';
+
 import { BUTTON_TEXT_HEADER } from '../../constants';
 import { Outlet } from 'react-router-dom';
 
 import { useNavigate } from 'react-router-dom';
-// Logout button and user's name should not be on Login and Registration pages.
+import { AuthContext } from '../../context';
 
 export function Header({ userName }) {
+	const { setIsAuth, setUserName } = useContext(AuthContext);
 	const navigate = useNavigate();
 
 	const handleLogOut = (e) => {
@@ -26,6 +29,8 @@ export function Header({ userName }) {
 				console.log(response);
 				localStorage.removeItem('token');
 				localStorage.removeItem('name');
+				setIsAuth(false);
+				setUserName('');
 				navigate(`/login`);
 			})
 			.catch((er) => console.log(er));

@@ -1,13 +1,16 @@
 import React from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
+
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../../common/Button/Button';
 import { Input } from '../../common/Input/Input';
 
 import { BUTTON_TEXT_LOGIN } from '../../constants';
+import { AuthContext } from '../../context';
 
-export function Login({ getName }) {
+export function Login() {
+	const { setIsAuth, setUserName } = useContext(AuthContext);
+
 	const [password, setPassword] = useState('');
 	const [email, setEmail] = useState('');
 	const [error, setError] = useState('');
@@ -60,7 +63,6 @@ export function Login({ getName }) {
 			.then((response) => {
 				if (response.successful) {
 					localStorage.setItem('token', response.result);
-					navigate('/courses');
 				} else if (response.errors) {
 					setError(response.errors);
 				} else {
@@ -68,9 +70,10 @@ export function Login({ getName }) {
 				}
 			})
 			.catch((er) => console.log(er));
-
+		setIsAuth(true);
+		navigate('/courses');
 		const userName = localStorage.getItem('name');
-		getName(userName);
+		setUserName(userName);
 	};
 	return (
 		<div className='flex flex-col items-center justify-center border border-cyan-400  mt-7 gap-y-7 h-5/6'>
