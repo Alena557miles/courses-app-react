@@ -13,6 +13,11 @@ export function CourseCard(props) {
 	const navigate = useNavigate();
 
 	const courses = props.searchResult;
+
+	if (!props.searchResult.length) {
+		return <p>there is nothing to show ... </p>;
+	}
+
 	const findAuthors = (array) => {
 		let authors = [];
 		for (let j = 0; j < array.length; j++) {
