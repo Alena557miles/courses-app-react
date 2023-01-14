@@ -7,7 +7,7 @@ import { Input } from '../../common/Input/Input';
 
 import { BUTTON_TEXT_LOGIN } from '../../constants';
 
-export function Login() {
+export function Login({ createUser }) {
 	const [password, setPassword] = useState('');
 	const [email, setEmail] = useState('');
 	const [error, setError] = useState('');
@@ -61,6 +61,8 @@ export function Login() {
 				if (response.successful) {
 					localStorage.setItem('token', response.result);
 					navigate('/courses');
+					const name = localStorage.getItem('name');
+					createUser(name);
 				} else if (response.errors) {
 					setError(response.errors);
 				} else {

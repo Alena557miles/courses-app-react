@@ -8,15 +8,10 @@ import { Outlet } from 'react-router-dom';
 
 import { useNavigate } from 'react-router-dom';
 
-// Show user's name if he is logged in.
-// When user clicks on Logout button, App should navigate to /login
-// and you should remove token from localStorage.
 // Logout button and user's name should not be on Login and Registration pages.
-// When user click Logout button in Header component, token should be removed from
-// localStorage and user is navigated to Login page.
 
 export function Header(props) {
-	const name = props.name;
+	const name = props.userName;
 	const navigate = useNavigate();
 	const handleLogOut = (e) => {
 		e.preventDefault();
