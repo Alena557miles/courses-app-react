@@ -9,7 +9,7 @@ import { BUTTON_TEXT_LOGIN } from '../../constants';
 import { AuthContext } from '../../context';
 
 export function Login() {
-	const { setIsAuth, setUserName } = useContext(AuthContext);
+	const { isAuth, setIsAuth, setUserName } = useContext(AuthContext);
 
 	const [password, setPassword] = useState('');
 	const [email, setEmail] = useState('');
@@ -20,7 +20,7 @@ export function Login() {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (localStorage.getItem('token')) {
+		if (localStorage.getItem('token') && isAuth) {
 			navigate('/courses');
 		}
 	});
