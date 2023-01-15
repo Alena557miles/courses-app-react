@@ -1,15 +1,14 @@
 import React from 'react';
 
+import { useContext } from 'react';
+import { Outlet } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context';
+
 import { Logo } from './components/Logo/Logo';
 import { Button } from '../../common/Button/Button';
 
-import { useContext } from 'react';
-
 import { BUTTON_TEXT_HEADER } from '../../constants';
-import { Outlet } from 'react-router-dom';
-
-import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../context';
 
 export function Header({ userName }) {
 	const { setIsAuth, setUserName } = useContext(AuthContext);
