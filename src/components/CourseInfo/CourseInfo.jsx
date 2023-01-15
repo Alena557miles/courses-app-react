@@ -7,12 +7,9 @@ import { DateGenerator } from '../../helpers/dateGenerator';
 export function CourseInfo() {
 	const params = useParams();
 	const course = findCourse(params.courseId);
-	console.log(params.courseId);
-	console.log(mockedCoursesList);
 
 	function findCourse(id) {
 		const course = mockedCoursesList.find((course) => course.id === id);
-		console.log(course);
 		return course;
 	}
 	const findAuthors = (array) => {
