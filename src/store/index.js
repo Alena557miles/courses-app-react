@@ -1,19 +1,7 @@
-import PropTypes from 'prop-types';
+import { combineReducers } from 'redux';
 
-const store = {
-	user: {
-		isAuth: false,
-		name: '',
-		email: '',
-		token: '',
-	},
-	courses: [],
-	authors: [],
-};
+import { coursesReducer } from './courses/reducer';
 
-store.PropTypes = {
-	isAuth: PropTypes.bool,
-	name: PropTypes.string,
-	email: PropTypes.string,
-	token: PropTypes.string,
-};
+export default combineReducers({
+	courses: coursesReducer,
+});
