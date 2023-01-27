@@ -1,28 +1,32 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { mockedCoursesList, mockedAuthorsList } from '../../constants';
+import { useSelector } from 'react-redux';
+
 import { PipeDuration } from '../../helpers/pipeDuration';
 import { DateGenerator } from '../../helpers/dateGenerator';
 
 export function CourseInfo() {
-	const params = useParams();
-	const course = findCourse(params.courseId);
+	const { courses } = useSelector((state) => state.courses);
+	const { authors } = useSelector((state) => state.authors);
 
 	function findCourse(id) {
-		const course = mockedCoursesList.find((course) => course.id === id);
+		const course = courses.find((course) => course.id === id);
 		return course;
 	}
 	const findAuthors = (array) => {
-		let authors = [];
+		let authorsFinal = [];
 		for (let j = 0; j < array.length; j++) {
-			for (let i = 0; i < mockedAuthorsList.length; i++) {
-				if (mockedAuthorsList[i].id === array[j]) {
-					authors.push(mockedAuthorsList[i].name);
+			for (let i = 0; i < authors.length; i++) {
+				if (authors[i].id === array[j]) {
+					authorsFinal.push(authors[i].name);
 				}
 			}
 		}
-		return [...authors].join(', ');
+		return [...authorsFinal].join(', ');
 	};
+	const params = useParams();
+	const course = findCourse(params.courseId);
+
 	return (
 		<div className='flex flex-col p-9 border border-cyan-400 mt-7 gap-y-7 h-5/6'>
 			<Link to='../'> &lt; Back to courses</Link>

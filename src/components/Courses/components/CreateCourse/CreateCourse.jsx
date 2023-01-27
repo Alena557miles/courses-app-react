@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { v4 as uuid } from 'uuid';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import { PipeDuration } from '../../../../helpers/pipeDuration';
 
 import { Button } from '../../../../common/Button/Button';
 import { Input } from '../../../../common/Input/Input';
 import { ErrorMessage } from '../../../../common/Error/ErrorMessage';
+import {
+	addAuthorToStore,
+	fetchAuthors,
+} from '../../../../store/authors/actionCreators';
 
 import {
 	mockedAuthorsList,
@@ -18,6 +23,8 @@ import {
 	BUTTON_TEXT_ADD_AUTHOR,
 	BUTTON_TEXT_DELETE_AUTHOR,
 } from '../../../../constants';
+import { addCourse } from '../../../../store/courses/actionCreators';
+import { useSelector } from 'react-redux';
 
 export function CreateCourse() {
 	const [errorTitle, setErrorTitle] = useState('');
@@ -32,8 +39,13 @@ export function CreateCourse() {
 	const [title, setTitle] = useState('');
 	const [duration, setDuration] = useState('');
 	const [newAuthor, setNewAuthor] = useState('');
-
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	// const { authors, error, loading } = useSelector((state) => state.authors);
+
+	useEffect(() => {
+		dispatch(fetchAuthors());
+	}, []);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -76,7 +88,8 @@ export function CreateCourse() {
 			id: unique_id,
 			creationDate,
 		};
-		mockedCoursesList.push(course);
+		mockedCoursesList.push(course); // delete
+		dispatch(addCourse(course));
 		navigate('/courses');
 	};
 	const createAuthor = () => {
@@ -87,6 +100,9 @@ export function CreateCourse() {
 		};
 		setMockedAuthor([...mockedauthors, author]);
 		mockedauthors.push(author);
+		dispatch(addAuthorToStore(author));
+		console.log(author);
+		// console.log(authorss);
 	};
 
 	const onChangeTitle = (e) => {

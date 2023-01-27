@@ -1,30 +1,24 @@
 import React, { useEffect } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { CourseCard } from './components/CourseCard/CourseCard';
 import { SearchBar } from './components/SearchBar/SearchBar';
 import { Button } from '../../common/Button/Button';
 
-import { BUTTON_TEXT_ADD_COURSE, mockedCoursesList } from '../../constants';
-
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { BUTTON_TEXT_ADD_COURSE } from '../../constants';
 import { fetchCourses } from '../../store/courses/actionCreators';
 
 export function Courses() {
-	// const courses = mockedCoursesList;
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const { courses, error, loading } = useSelector((state) => state.courses);
 	console.log(courses);
-	const dispatch = useDispatch();
+	const [searchResult, setSearchResult] = useState(courses);
 	useEffect(() => {
 		dispatch(fetchCourses());
 	}, []);
-
-	const [searchResult, setSearchResult] = useState(courses);
-
-	const navigate = useNavigate();
 
 	const handleInput = (e) => {
 		const text = e.target.value.toLowerCase();
@@ -37,7 +31,6 @@ export function Courses() {
 		);
 		setSearchResult(resultArray);
 	};
-
 	const handleAddcourse = () => {
 		navigate('/courses/add');
 	};
@@ -45,16 +38,14 @@ export function Courses() {
 	if (error) {
 		return <p>{error}</p>;
 	}
-	if (loading) {
-		return <p>loading ...</p>;
-	}
+
 	return (
 		<div className='flex flex-col border border-blue-400 p-7 mt-7'>
 			<div className='flex flex-row justify-between  mb-7'>
 				<SearchBar handleInput={handleInput} />
 				<Button buttonText={BUTTON_TEXT_ADD_COURSE} onClick={handleAddcourse} />
 			</div>
-			<CourseCard searchResult={searchResult} />
+			{loading ? <p>loading ...</p> : <CourseCard searchResult={courses} />}
 		</div>
 	);
 }

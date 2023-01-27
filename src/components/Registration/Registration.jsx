@@ -67,7 +67,6 @@ export function Registration() {
 			.then((response) => {
 				if (response.successful) {
 					localStorage.setItem('name', name);
-					navigate('/login');
 				} else if (response.errors) {
 					setError(response.result);
 				} else {
@@ -75,6 +74,7 @@ export function Registration() {
 				}
 			})
 			.catch((er) => console.log(er));
+		navigate('/login');
 	};
 
 	return (

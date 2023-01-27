@@ -2,6 +2,9 @@ import {
 	FETCH_COURSES,
 	FETCH_COURSES_ERR,
 	FETCH_COURSES_SUCCESS,
+	ADD_COURSE,
+	ADD_COURSE_SUCCESS,
+	ADD_COURSE_ERR,
 } from './actionTypes';
 
 export const fetchCourses = () => {
@@ -21,5 +24,10 @@ export const fetchCourses = () => {
 		} catch (e) {
 			dispatch({ type: FETCH_COURSES_ERR, payload: 'Error was' });
 		}
+	};
+};
+export const addCourse = (course) => {
+	return (dispatch) => {
+		dispatch({ type: ADD_COURSE_SUCCESS, payload: course });
 	};
 };
