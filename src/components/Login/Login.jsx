@@ -1,15 +1,17 @@
 import React from 'react';
-import { useContext, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../../common/Button/Button';
 import { Input } from '../../common/Input/Input';
 
 import { BUTTON_TEXT_LOGIN } from '../../constants';
-import { AuthContext } from '../../context';
+
+import { loginUser } from '../../store/user/actionCreators';
 
 export function Login() {
-	const { isAuth, setIsAuth, setUserName } = useContext(AuthContext);
+	const { isAuth } = useSelector((state) => state.user);
 
 	const [password, setPassword] = useState('');
 	const [email, setEmail] = useState('');
@@ -18,6 +20,7 @@ export function Login() {
 	const [passwordErr, setPasswordErr] = useState('');
 
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		if (localStorage.getItem('token') && isAuth) {
@@ -52,28 +55,8 @@ export function Login() {
 			email,
 			password,
 		};
-		fetch('http://localhost:4000/login', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(user),
-		})
-			.then((res) => res.json())
-			.then((response) => {
-				if (response.successful) {
-					localStorage.setItem('token', response.result);
-				} else if (response.errors) {
-					setError(response.errors);
-				} else {
-					setError(response.result);
-				}
-			})
-			.catch((er) => console.log(er));
-		setIsAuth(true);
+		dispatch(loginUser(user));
 		navigate('/courses');
-		const userName = localStorage.getItem('name');
-		setUserName(userName);
 	};
 	return (
 		<div className='flex flex-col items-center justify-center border border-cyan-400  mt-7 gap-y-7 h-5/6'>

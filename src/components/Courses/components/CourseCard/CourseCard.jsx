@@ -2,7 +2,11 @@ import React, { useEffect } from 'react';
 
 import { Button } from '../../../../common/Button/Button';
 
-import { BUTTON_TEXT_COURSE } from '../../../../constants';
+import {
+	BUTTON_TEXT_COURSE,
+	BUTTON_TEXT_COURSE_EDIT,
+	BUTTON_TEXT_COURSE_DELETE,
+} from '../../../../constants';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -11,18 +15,20 @@ import { PipeDuration } from '../../../../helpers/pipeDuration';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAuthors } from '../../../../store/authors/actionCreators';
+import { deleteCourse } from '../../../../store/courses/actionCreators';
 
 export function CourseCard(props) {
 	const navigate = useNavigate();
 	const courses = props.searchResult;
 	const { authors, error, loading } = useSelector((state) => state.authors);
-	// if (!props.searchResult.length) {
-	// 	return <p>there is nothing to show ... </p>;
-	// }
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(fetchAuthors());
 	}, []);
+
+	if (!props.searchResult.length) {
+		return <p>there is nothing to show ... </p>;
+	}
 
 	const findAuthors = (array) => {
 		let authorsFinal = [];
@@ -69,10 +75,17 @@ export function CourseCard(props) {
 								<DateGenerator>{course.creationDate}</DateGenerator>
 							</span>
 						</p>
-						<Button
-							buttonText={BUTTON_TEXT_COURSE}
-							onClick={() => navigate(`/courses/${course.id}`)}
-						></Button>
+						<div className='flex flex-row gap-5 justify-end'>
+							<Button
+								buttonText={BUTTON_TEXT_COURSE}
+								onClick={() => navigate(`/courses/${course.id}`)}
+							></Button>
+							<Button buttonText={BUTTON_TEXT_COURSE_EDIT}></Button>
+							<Button
+								buttonText={BUTTON_TEXT_COURSE_DELETE}
+								onClick={() => dispatch(deleteCourse(course.id))}
+							></Button>
+						</div>
 					</div>
 				</li>
 			))}

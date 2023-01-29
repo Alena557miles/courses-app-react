@@ -54,7 +54,7 @@ export const authorReducer = (state = authorsInitialState, action) => {
 };
 
 authorsInitialState.PropTypes = {
-	courses: PropTypes.array,
+	authors: PropTypes.array,
 	loading: PropTypes.bool,
 	error: PropTypes.string,
 };

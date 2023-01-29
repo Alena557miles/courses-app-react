@@ -95,14 +95,12 @@ export function CreateCourse() {
 	const createAuthor = () => {
 		const unique_id = uuid();
 		const author = {
-			id: unique_id,
 			name: newAuthor,
+			id: unique_id,
 		};
 		setMockedAuthor([...mockedauthors, author]);
 		mockedauthors.push(author);
 		dispatch(addAuthorToStore(author));
-		console.log(author);
-		// console.log(authorss);
 	};
 
 	const onChangeTitle = (e) => {

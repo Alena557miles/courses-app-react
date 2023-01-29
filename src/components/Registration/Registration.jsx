@@ -1,10 +1,12 @@
 import React from 'react';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../../common/Button/Button';
 import { Input } from '../../common/Input/Input';
 
 import { BUTTON_TEXT_REGISTRATION } from '../../constants';
+import { registerUser } from '../../store/user/actionCreators';
 
 export function Registration() {
 	const [name, setName] = useState('');
@@ -16,7 +18,7 @@ export function Registration() {
 	const [passwordErr, setPasswordErr] = useState('');
 
 	const navigate = useNavigate();
-
+	const dispatch = useDispatch();
 	const nameHandler = (e) => {
 		setName(e.target.value);
 		setError('');
@@ -56,24 +58,7 @@ export function Registration() {
 			email,
 			password,
 		};
-		fetch('http://localhost:4000/register', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(newUser),
-		})
-			.then((res) => res.json())
-			.then((response) => {
-				if (response.successful) {
-					localStorage.setItem('name', name);
-				} else if (response.errors) {
-					setError(response.result);
-				} else {
-					setError(response.result);
-				}
-			})
-			.catch((er) => console.log(er));
+		dispatch(registerUser(newUser));
 		navigate('/login');
 	};
 

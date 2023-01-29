@@ -5,21 +5,24 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 
-import { BrowserRouter } from 'react-router-dom';
-import { applyMiddleware, createStore } from '@reduxjs/toolkit';
+import { applyMiddleware, createStore, compose } from '@reduxjs/toolkit';
 import reducer from './store';
 import thunk from 'redux-thunk';
 
-const store = createStore(reducer, applyMiddleware(thunk));
+declare global {
+	interface Window {
+		__REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+	}
+}
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducer, composeEnhancer(applyMiddleware(thunk)));
 
 const root = ReactDOM.createRoot(
 	document.getElementById('root') as HTMLElement
 );
 root.render(
 	<Provider store={store}>
-		<BrowserRouter>
-			<App />
-		</BrowserRouter>
+		<App />
 	</Provider>
 );
 

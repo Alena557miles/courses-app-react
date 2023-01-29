@@ -3,17 +3,14 @@ import { privateRoutes, publicRoutes } from '../../router';
 
 import { Header } from '../Header/Header';
 import { Login } from '../Login/Login';
-import { ErrorPage } from '../Errorpage/Errorpage';
 
-import { useContext } from 'react';
-import { AuthContext } from '../../context';
+import { useSelector } from 'react-redux';
 
 export const AppRouter = () => {
-	const { isAuth, userName } = useContext(AuthContext);
-
+	const { isAuth } = useSelector((state) => state.user);
 	return (
 		<Routes>
-			<Route path='/' element={<Header userName={userName} />}>
+			<Route path='/' element={<Header />}>
 				<Route index element={<Login />} />
 				{isAuth
 					? privateRoutes.map((route) => (
@@ -32,7 +29,6 @@ export const AppRouter = () => {
 								key={route.path}
 							/>
 					  ))}
-				<Route path='*' element={<ErrorPage />} />
 			</Route>
 		</Routes>
 	);
