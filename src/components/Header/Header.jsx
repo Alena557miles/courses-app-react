@@ -1,46 +1,32 @@
 import React from 'react';
 
-import { useContext } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../context';
 
 import { Logo } from './components/Logo/Logo';
 import { Button } from '../../common/Button/Button';
 
 import { BUTTON_TEXT_HEADER } from '../../constants';
+import { logoutUser } from '../../store/user/actionCreators';
+import { useDispatch, useSelector } from 'react-redux';
 
-export function Header({ userName }) {
-	const { setIsAuth, setUserName } = useContext(AuthContext);
+export function Header() {
+	const { name } = useSelector((state) => state.user);
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const handleLogOut = (e) => {
 		e.preventDefault();
-
-		fetch('http://localhost:4000/logout', {
-			method: 'DELETE',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		})
-			.then((res) => res.json())
-			.then((response) => {
-				console.log(response);
-				localStorage.removeItem('token');
-				localStorage.removeItem('name');
-				setIsAuth(false);
-				setUserName('');
-				navigate(`/login`);
-			})
-			.catch((er) => console.log(er));
+		dispatch(logoutUser());
+		navigate(`/login`);
 	};
 	return (
 		<div className='container mx-auto pt-5 h-screen'>
 			<div className='flex flex-row justify-between items-center border px-5 border-red-400'>
 				<Logo />
-				{userName && (
+				{name && (
 					<div className='flex flex-row justify-between items-center gap-x-2'>
-						<p>{userName}</p>
+						<p>{name}</p>
 						<Button buttonText={BUTTON_TEXT_HEADER} onClick={handleLogOut} />
 					</div>
 				)}

@@ -1,35 +1,53 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Button } from '../../../../common/Button/Button';
 
-import { mockedAuthorsList, BUTTON_TEXT_COURSE } from '../../../../constants';
+import {
+	BUTTON_TEXT_COURSE,
+	BUTTON_TEXT_COURSE_EDIT,
+	BUTTON_TEXT_COURSE_DELETE,
+} from '../../../../constants';
 
 import { useNavigate } from 'react-router-dom';
 
 import { DateGenerator } from '../../../../helpers/dateGenerator';
 import { PipeDuration } from '../../../../helpers/pipeDuration';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAuthors } from '../../../../store/authors/actionCreators';
+import { deleteCourse } from '../../../../store/courses/actionCreators';
+
 export function CourseCard(props) {
 	const navigate = useNavigate();
-
 	const courses = props.searchResult;
+	const { authors, error, loading } = useSelector((state) => state.authors);
+	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(fetchAuthors());
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	if (!props.searchResult.length) {
 		return <p>there is nothing to show ... </p>;
 	}
 
 	const findAuthors = (array) => {
-		let authors = [];
+		let authorsFinal = [];
 		for (let j = 0; j < array.length; j++) {
-			for (let i = 0; i < mockedAuthorsList.length; i++) {
-				if (mockedAuthorsList[i].id === array[j]) {
-					authors.push(mockedAuthorsList[i].name);
+			for (let i = 0; i < authors.length; i++) {
+				if (authors[i].id === array[j]) {
+					authorsFinal.push(authors[i].name);
 				}
 			}
 		}
-		return [...authors].join(', ');
+		return [...authorsFinal].join(', ');
 	};
-
+	if (error) {
+		return <p>{error}</p>;
+	}
+	if (loading) {
+		return <p>Loading ...</p>;
+	}
 	return (
 		<ul>
 			{courses.map((course) => (
@@ -58,10 +76,17 @@ export function CourseCard(props) {
 								<DateGenerator>{course.creationDate}</DateGenerator>
 							</span>
 						</p>
-						<Button
-							buttonText={BUTTON_TEXT_COURSE}
-							onClick={() => navigate(`/courses/${course.id}`)}
-						></Button>
+						<div className='flex flex-row gap-5 justify-end'>
+							<Button
+								buttonText={BUTTON_TEXT_COURSE}
+								onClick={() => navigate(`/courses/${course.id}`)}
+							></Button>
+							<Button buttonText={BUTTON_TEXT_COURSE_EDIT}></Button>
+							<Button
+								buttonText={BUTTON_TEXT_COURSE_DELETE}
+								onClick={() => dispatch(deleteCourse(course.id))}
+							></Button>
+						</div>
 					</div>
 				</li>
 			))}
