@@ -24,6 +24,7 @@ export function CourseCard(props) {
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(fetchAuthors());
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	if (!props.searchResult.length) {
