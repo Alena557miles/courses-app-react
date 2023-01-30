@@ -3,11 +3,18 @@ import { privateRoutes, publicRoutes } from '../../router';
 
 import { Header } from '../Header/Header';
 import { Login } from '../Login/Login';
+import { getUser } from '../../store/user/actionCreators';
 
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 export const AppRouter = () => {
-	const { isAuth } = useSelector((state) => state.user);
+	const { isAuth, role } = useSelector((state) => state.user);
+	const dispatch = useDispatch();
+	// if (localStorage.getItem('token')) {
+	// 	dispatch(getUser());
+	// }
+
 	return (
 		<Routes>
 			<Route path='/' element={<Header />}>
