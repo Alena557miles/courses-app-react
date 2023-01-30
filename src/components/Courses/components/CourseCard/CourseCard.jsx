@@ -81,7 +81,10 @@ export function CourseCard(props) {
 								buttonText={BUTTON_TEXT_COURSE}
 								onClick={() => navigate(`/courses/${course.id}`)}
 							></Button>
-							<Button buttonText={BUTTON_TEXT_COURSE_EDIT}></Button>
+							<Button
+								buttonText={BUTTON_TEXT_COURSE_EDIT}
+								onClick={() => navigate(`/courses/update/${course.id}`)}
+							></Button>
 							<Button
 								buttonText={BUTTON_TEXT_COURSE_DELETE}
 								onClick={() => dispatch(deleteCourse(course.id))}

@@ -5,15 +5,15 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { PipeDuration } from '../../../../helpers/pipeDuration';
+import { PipeDuration } from '../../helpers/pipeDuration';
 
-import { Button } from '../../../../common/Button/Button';
-import { Input } from '../../../../common/Input/Input';
-import { ErrorMessage } from '../../../../common/Error/ErrorMessage';
+import { Button } from '../../common/Button/Button';
+import { Input } from '../../common/Input/Input';
+import { ErrorMessage } from '../../common/Error/ErrorMessage';
 import {
 	addAuthorToStore,
 	fetchAuthors,
-} from '../../../../store/authors/actionCreators';
+} from '../../store/authors/actionCreators';
 
 import {
 	mockedAuthorsList,
@@ -22,11 +22,12 @@ import {
 	BUTTON_TEXT_CREATE_AUTHOR,
 	BUTTON_TEXT_ADD_AUTHOR,
 	BUTTON_TEXT_DELETE_AUTHOR,
-} from '../../../../constants';
-import { addCourse } from '../../../../store/courses/actionCreators';
+} from '../../constants';
+
+import { addCourse } from '../../store/courses/actionCreators';
 import { useSelector } from 'react-redux';
 
-export function CreateCourse() {
+export function CourseForm() {
 	const [errorTitle, setErrorTitle] = useState('');
 	const [errorDesc, setErrorDesc] = useState('');
 	const [errorDuration, setErrorDur] = useState('');

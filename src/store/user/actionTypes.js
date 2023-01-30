@@ -9,3 +9,7 @@ export const LOGIN_USER_ERR = 'LOGIN_USER_ERR';
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const LOGOUT_USER_SUCCESS = 'LOGOUT_USER_SUCCESS';
 export const LOGOUT_USER_ERR = 'LOGOUT_USER_ERR';
+
+export const GET_USER = 'GET_USER';
+export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
+export const GET_USER_ERR = 'GET_USER_ERR';

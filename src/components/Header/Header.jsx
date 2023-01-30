@@ -14,7 +14,6 @@ export function Header() {
 	const { name } = useSelector((state) => state.user);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-
 	const handleLogOut = (e) => {
 		e.preventDefault();
 		dispatch(logoutUser());
