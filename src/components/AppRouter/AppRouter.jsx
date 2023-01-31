@@ -7,13 +7,20 @@ import { getUser } from '../../store/user/actionCreators';
 
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 
 export const AppRouter = () => {
 	const { isAuth, role } = useSelector((state) => state.user);
 	const dispatch = useDispatch();
-	// if (localStorage.getItem('token')) {
-	// 	dispatch(getUser());
-	// }
+
+	useEffect(() => {
+		// if (localStorage.getItem('token')) {
+		dispatch(getUser());
+
+		// }
+	}, []);
+
+	console.log(role);
 
 	return (
 		<Routes>
