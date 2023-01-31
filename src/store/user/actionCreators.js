@@ -84,8 +84,8 @@ export const logoutUser = () => {
 				method: 'DELETE',
 				headers: {
 					'Content-Type': 'application/json',
+					Authorization: `${token}`,
 				},
-				Authorization: token,
 			})
 				.then((res) => res.json())
 				.then(() => {
@@ -108,8 +108,8 @@ export const getUser = () => {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
+					Authorization: `${token}`,
 				},
-				Authorization: token,
 			})
 				.then((res) => res.json())
 				.then((response) => {

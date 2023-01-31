@@ -62,10 +62,10 @@ export const userReducer = (state = userInitialState, action) => {
 			return {
 				...state,
 				isAuth: true,
-				name: action.payload.user.name,
-				email: action.payload.user.email,
-				password: action.payload.user.password,
-				role: action.payload.user.role,
+				name: action.payload.name ? action.payload.name : 'ADMIN',
+				email: action.payload.email,
+				password: action.payload.password,
+				role: action.payload.role,
 			};
 		case GET_USER_ERR:
 			return { ...state, name: action.payload };
