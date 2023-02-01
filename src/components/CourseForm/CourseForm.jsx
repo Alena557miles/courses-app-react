@@ -87,9 +87,10 @@ export function CourseForm() {
 			description,
 			duration,
 			authors: athoursArr,
-			id: unique_id,
-			creationDate,
+			// id: unique_id,
+			// creationDate,
 		};
+		console.log(course);
 		mockedCoursesList.push(course); // delete
 		dispatch(addCourse(course));
 		navigate('/courses');
@@ -109,7 +110,7 @@ export function CourseForm() {
 		setTitle(e.target.value);
 	};
 	const onChangeDuration = (e) => {
-		setDuration(e.target.value);
+		setDuration(Number(e.target.value));
 	};
 	const addAuthor = (id) => {
 		setNull(false);
@@ -189,7 +190,6 @@ export function CourseForm() {
 							<p>
 								Duration:{' '}
 								<span className='text-3xl font-bold'>
-									{' '}
 									{duration ? <PipeDuration>{duration}</PipeDuration> : '00:00'}
 								</span>{' '}
 								hours

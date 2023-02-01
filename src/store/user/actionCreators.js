@@ -1,4 +1,3 @@
-import { Navigate } from 'react-router-dom';
 import {
 	REGISTER_USER,
 	REGISTER_USER_SUCCESS,
