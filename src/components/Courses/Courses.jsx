@@ -22,7 +22,8 @@ export function Courses() {
 	}, []);
 
 	const { courses, error, loading } = useSelector((state) => state.courses);
-	console.log(courses);
+	const { role } = useSelector((state) => state.user);
+
 	const [searchResult, setSearchResult] = useState(courses);
 
 	const handleInput = (e) => {
@@ -48,7 +49,14 @@ export function Courses() {
 		<div className='flex flex-col border border-blue-400 p-7 mt-7'>
 			<div className='flex flex-row justify-between  mb-7'>
 				<SearchBar handleInput={handleInput} />
-				<Button buttonText={BUTTON_TEXT_ADD_COURSE} onClick={handleAddcourse} />
+				{role === 'admin' ? (
+					<Button
+						buttonText={BUTTON_TEXT_ADD_COURSE}
+						onClick={handleAddcourse}
+					/>
+				) : (
+					''
+				)}
 			</div>
 			{loading ? <p>loading ...</p> : <CourseCard searchResult={courses} />}
 		</div>

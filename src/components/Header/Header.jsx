@@ -5,13 +5,14 @@ import { useNavigate } from 'react-router-dom';
 
 import { Logo } from './components/Logo/Logo';
 import { Button } from '../../common/Button/Button';
+import { ErrorMessage } from '../../common/Error/ErrorMessage';
 
 import { BUTTON_TEXT_HEADER } from '../../constants';
 import { logoutUser } from '../../store/user/actionCreators';
 import { useDispatch, useSelector } from 'react-redux';
 
 export function Header() {
-	const { name } = useSelector((state) => state.user);
+	const { name, error } = useSelector((state) => state.user);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const handleLogOut = (e) => {
@@ -21,6 +22,7 @@ export function Header() {
 	};
 	return (
 		<div className='container mx-auto pt-5 h-screen'>
+			{error ? <ErrorMessage error={error} /> : ''}
 			<div className='flex flex-row justify-between items-center border px-5 border-red-400'>
 				<Logo />
 				{name && (

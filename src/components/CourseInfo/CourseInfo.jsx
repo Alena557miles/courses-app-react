@@ -30,35 +30,43 @@ export function CourseInfo() {
 	return (
 		<div className='flex flex-col p-9 border border-cyan-400 mt-7 gap-y-7 h-5/6'>
 			<Link to='../'> &lt; Back to courses</Link>
-			<h1 className='text-bold text-3xl text-center'>{course.title}</h1>
-			<div className='flex flex-row justify-between gap-x-16'>
-				<div className='w-3/5'>
-					<p>{course.description}</p>
-				</div>
-				<div className='w-2/5 flex flex-col gap-3'>
-					<p className='font-bold'>
-						ID: <span className='font-normal'>{course.id}</span>{' '}
-					</p>
-					<p className='font-bold'>
-						Duration:{' '}
-						<span className='font-normal'>
-							{' '}
-							<PipeDuration>{course.duration}</PipeDuration> hours
-						</span>{' '}
-					</p>
-					<p className='font-bold'>
-						Created:{' '}
-						<span className='font-normal'>
-							{' '}
-							<DateGenerator>{course.creationDate}</DateGenerator>
-						</span>{' '}
-					</p>
-					<p className='font-bold'>
-						Authors:{' '}
-						<span className='font-normal'>{findAuthors(course.authors)}</span>{' '}
-					</p>
-				</div>
-			</div>
+			{course ? (
+				<>
+					<h1 className='text-bold text-3xl text-center'>{course.title}</h1>
+					<div className='flex flex-row justify-between gap-x-16'>
+						<div className='w-3/5'>
+							<p>{course.description}</p>
+						</div>
+						<div className='w-2/5 flex flex-col gap-3'>
+							<p className='font-bold'>
+								ID: <span className='font-normal'>{course.id}</span>{' '}
+							</p>
+							<p className='font-bold'>
+								Duration:{' '}
+								<span className='font-normal'>
+									{' '}
+									<PipeDuration>{course.duration}</PipeDuration> hours
+								</span>{' '}
+							</p>
+							<p className='font-bold'>
+								Created:{' '}
+								<span className='font-normal'>
+									{' '}
+									<DateGenerator>{course.creationDate}</DateGenerator>
+								</span>{' '}
+							</p>
+							<p className='font-bold'>
+								Authors:{' '}
+								<span className='font-normal'>
+									{findAuthors(course.authors)}
+								</span>{' '}
+							</p>
+						</div>
+					</div>
+				</>
+			) : (
+				<p>there are no courses with such parameters ...</p>
+			)}
 		</div>
 	);
 }

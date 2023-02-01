@@ -17,7 +17,7 @@ export const fetchCourses = () => {
 	return async (dispatch) => {
 		try {
 			dispatch({ type: FETCH_COURSES });
-			fetch('http://localhost:4000/courses/all', {
+			await fetch('http://localhost:4000/courses/all', {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',

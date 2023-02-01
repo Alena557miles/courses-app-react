@@ -20,6 +20,7 @@ const userInitialState = {
 	email: '',
 	token: '',
 	role: '',
+	error: '',
 };
 
 export const userReducer = (state = userInitialState, action) => {
@@ -27,9 +28,9 @@ export const userReducer = (state = userInitialState, action) => {
 		case REGISTER_USER:
 			return { ...state };
 		case REGISTER_USER_SUCCESS:
-			return { ...state };
+			return { ...state, error: '' };
 		case REGISTER_USER_ERR:
-			return { ...state, isAuth: false };
+			return { ...state, isAuth: false, error: action.payload };
 		case LOGIN_USER:
 			return { ...state };
 		case LOGIN_USER_SUCCESS:
@@ -40,9 +41,10 @@ export const userReducer = (state = userInitialState, action) => {
 				email: action.payload.user.email,
 				role: action.payload.user.role,
 				token: action.payload.result,
+				error: '',
 			};
 		case LOGIN_USER_ERR:
-			return { ...state, name: action.payload };
+			return { ...state, error: action.payload };
 		case LOGOUT_USER:
 			return { ...state };
 		case LOGOUT_USER_SUCCESS:
@@ -53,9 +55,10 @@ export const userReducer = (state = userInitialState, action) => {
 				email: '',
 				token: '',
 				role: '',
+				password: '',
 			};
 		case LOGOUT_USER_ERR:
-			return { ...state, name: action.payload };
+			return { ...state, error: action.payload };
 		case GET_USER:
 			return { ...state };
 		case GET_USER_SUCCESS:
@@ -66,9 +69,11 @@ export const userReducer = (state = userInitialState, action) => {
 				email: action.payload.email,
 				password: action.payload.password,
 				role: action.payload.role,
+				token: action.payload.token,
+				error: '',
 			};
 		case GET_USER_ERR:
-			return { ...state, name: action.payload };
+			return { ...state, error: action.payload };
 		default:
 			return state;
 	}

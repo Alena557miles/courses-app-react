@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import { privateRoutes, publicRoutes } from '../../router';
+import { privateRoutes, adminRoutes, publicRoutes } from '../../router';
 
 import { Header } from '../Header/Header';
 import { Login } from '../Login/Login';
@@ -14,13 +14,11 @@ export const AppRouter = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		// if (localStorage.getItem('token')) {
-		dispatch(getUser());
-
-		// }
+		if (localStorage.getItem('token')) {
+			dispatch(getUser());
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-
-	console.log(role);
 
 	return (
 		<Routes>
@@ -35,7 +33,24 @@ export const AppRouter = () => {
 								key={route.path}
 							/>
 					  ))
-					: publicRoutes.map((route) => (
+					: // ? role === 'user'
+					  // 	? privateRoutes.map((route) => (
+					  // 			<Route
+					  // 				path={route.path}
+					  // 				element={route.component}
+					  // 				exact={route.exact}
+					  // 				key={route.path}
+					  // 			/>
+					  // 	  ))
+					  // 	: adminRoutes.map((route) => (
+					  // 			<Route
+					  // 				path={route.path}
+					  // 				element={route.component}
+					  // 				exact={route.exact}
+					  // 				key={route.path}
+					  // 			/>
+					  // 	  ))
+					  publicRoutes.map((route) => (
 							<Route
 								path={route.path}
 								element={route.component}

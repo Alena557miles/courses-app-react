@@ -21,6 +21,7 @@ export function CourseCard(props) {
 	const navigate = useNavigate();
 	const courses = props.searchResult;
 	const { authors, error, loading } = useSelector((state) => state.authors);
+	const { role } = useSelector((state) => state.user);
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(fetchAuthors());
@@ -81,14 +82,20 @@ export function CourseCard(props) {
 								buttonText={BUTTON_TEXT_COURSE}
 								onClick={() => navigate(`/courses/${course.id}`)}
 							></Button>
-							<Button
-								buttonText={BUTTON_TEXT_COURSE_EDIT}
-								onClick={() => navigate(`/courses/update/${course.id}`)}
-							></Button>
-							<Button
-								buttonText={BUTTON_TEXT_COURSE_DELETE}
-								onClick={() => dispatch(deleteCourse(course.id))}
-							></Button>
+							{role === 'admin' ? (
+								<>
+									<Button
+										buttonText={BUTTON_TEXT_COURSE_EDIT}
+										onClick={() => navigate(`/courses/update/${course.id}`)}
+									></Button>
+									<Button
+										buttonText={BUTTON_TEXT_COURSE_DELETE}
+										onClick={() => dispatch(deleteCourse(course.id))}
+									></Button>
+								</>
+							) : (
+								''
+							)}
 						</div>
 					</div>
 				</li>
