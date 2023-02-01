@@ -32,17 +32,17 @@ export function CourseForm() {
 	const [errorDesc, setErrorDesc] = useState('');
 	const [errorDuration, setErrorDur] = useState('');
 	const [errorAuthors, setErrorAuthors] = useState('');
-	const authorsList = mockedAuthorsList;
-	const [mockedauthors, setMockedAuthor] = useState(authorsList);
+
+	const [mockedauthors, setMockedAuthor] = useState(mockedAuthorsList);
 	const [noAuthors, setNull] = useState(true);
 	const [description, setDescription] = useState('');
-	const [authors, setAuthor] = useState([]);
+	const [authorsList, setAuthorList] = useState([]);
 	const [title, setTitle] = useState('');
 	const [duration, setDuration] = useState('');
 	const [newAuthor, setNewAuthor] = useState('');
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	// const { authors, error, loading } = useSelector((state) => state.authors);
+	const { authors, error, loading } = useSelector((state) => state.authors);
 
 	useEffect(() => {
 		dispatch(fetchAuthors());
@@ -56,7 +56,7 @@ export function CourseForm() {
 			title.length < 2 ||
 			description.length < 2 ||
 			+duration < 0 ||
-			authors.length === 0
+			authorsList.length === 0
 		) {
 			alert('Pleese fill in all fields correctly');
 			if (title.length < 2) {
@@ -71,12 +71,12 @@ export function CourseForm() {
 				setErrorDur('Duration should be more than 0 minutes');
 				return;
 			} else setErrorDur('');
-			if (authors.length === 0) {
+			if (authorsList.length === 0) {
 				setErrorAuthors('Shoul be some authors on this course');
 				return;
 			} else setErrorAuthors('');
 		}
-		const athoursArr = authors.map((author) => {
+		const athoursArr = authorsList.map((author) => {
 			return author.id;
 		});
 		const unique_id = uuid();
@@ -115,15 +115,15 @@ export function CourseForm() {
 	const addAuthor = (id) => {
 		setNull(false);
 		const res = mockedauthors.find((author) => author.id === id);
-		authors.push(res);
-		setAuthor(authors);
+		authorsList.push(res);
+		setAuthorList(authorsList);
 		const res1 = mockedauthors.filter((author) => author.id !== id);
 		setMockedAuthor(res1);
 	};
 	const handleDelete = (author) => {
-		const update = authors.filter((item) => item.id !== author.id);
+		const update = authorsList.filter((item) => item.id !== author.id);
 		mockedauthors.push(author);
-		setAuthor(update);
+		setAuthorList(update);
 		setNull(true);
 	};
 
@@ -131,7 +131,7 @@ export function CourseForm() {
 		<div className='border border-blue-400 p-7 mt-7'>
 			<form
 				onSubmit={(e) =>
-					handleSubmit(e, { authors, description, duration, title })
+					handleSubmit(e, { authorsList, description, duration, title })
 				}
 			>
 				<div className='flex flex-row justify-between h-full items-end mb-3'>
@@ -227,7 +227,7 @@ export function CourseForm() {
 						) : (
 							<div>
 								<ul>
-									{authors.map((author) => (
+									{authorsList.map((author) => (
 										<li
 											className='flex flex-row justify-between align-center mb-2'
 											key={author.id.toString()}
