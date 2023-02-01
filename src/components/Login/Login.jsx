@@ -21,12 +21,12 @@ export function Login() {
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-
 	useEffect(() => {
-		if (localStorage.getItem('token') && isAuth) {
+		if (localStorage.getItem('token')) {
 			navigate('/courses');
 		}
-	});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	const emailHandler = (e) => {
 		setEmail(e.target.value);
@@ -56,7 +56,9 @@ export function Login() {
 			password,
 		};
 		dispatch(loginUser(user));
-		navigate('/courses');
+		if (isAuth) {
+			navigate('/courses');
+		}
 	};
 	return (
 		<div className='flex flex-col items-center justify-center border border-cyan-400  mt-7 gap-y-7 h-5/6'>

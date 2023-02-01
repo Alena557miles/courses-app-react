@@ -1,3 +1,4 @@
+import { Navigate } from 'react-router-dom';
 import {
 	REGISTER_USER,
 	REGISTER_USER_SUCCESS,
@@ -14,77 +15,85 @@ import {
 } from './actionTypes';
 
 export const registerUser = (newUser) => {
-	return async (dispatch) => {
-		try {
-			dispatch({ type: REGISTER_USER });
-			fetch('http://localhost:4000/register', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(newUser),
+	return (dispatch) => {
+		dispatch({ type: REGISTER_USER });
+		fetch('http://localhost:4000/register', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(newUser),
+		})
+			.then((response) => {
+				if (response.ok) {
+					return response.json();
+				}
+				throw new Error(response.statusText);
 			})
-				.then((res) => res.json())
-				.then(() => {
-					dispatch({ type: REGISTER_USER_SUCCESS, payload: newUser });
-				});
-		} catch (err) {
-			dispatch({ type: REGISTER_USER_ERR, payload: err });
-		}
+			.then(() => {
+				dispatch({ type: REGISTER_USER_SUCCESS, payload: newUser });
+			})
+			.catch((error) => {
+				dispatch({ type: REGISTER_USER_ERR, payload: error.message });
+			});
 	};
 };
 
 export const loginUser = (user) => {
 	return async (dispatch) => {
-		try {
-			dispatch({ type: LOGIN_USER });
-			fetch('http://localhost:4000/login', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(user),
+		dispatch({ type: LOGIN_USER });
+		fetch('http://localhost:4000/login', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(user),
+		})
+			.then((response) => {
+				if (response.ok) {
+					return response.json();
+				}
+				throw new Error(response.statusText);
 			})
-				.then((res) => res.json())
-				.then((response) => {
-					localStorage.setItem('token', response.result);
-					if (!response.user.name) {
-						const resp = {
-							...response,
-							user: {
-								...user,
-								name: 'ADMIN',
-								role: 'admin',
-							},
-						};
-						dispatch({
-							type: LOGIN_USER_SUCCESS,
-							payload: resp,
-						});
-					} else {
-						response.user.role = 'user';
-						dispatch({
-							type: LOGIN_USER_SUCCESS,
-							payload: response,
-						});
-					}
-				});
-		} catch (err) {
-			dispatch({ type: LOGIN_USER_ERR, payload: err });
-		}
+			.then((response) => {
+				localStorage.setItem('token', response.result);
+				if (!response.user.name) {
+					const resp = {
+						...response,
+						user: {
+							...user,
+							name: 'ADMIN',
+							role: 'admin',
+						},
+					};
+					dispatch({
+						type: LOGIN_USER_SUCCESS,
+						payload: resp,
+					});
+				} else {
+					response.user.role = 'user';
+					dispatch({
+						type: LOGIN_USER_SUCCESS,
+						payload: response,
+					});
+				}
+			})
+			.catch((error) => {
+				dispatch({ type: LOGIN_USER_ERR, payload: error.message });
+			});
 	};
 };
 
 export const logoutUser = () => {
 	return async (dispatch) => {
 		try {
-			const token = localStorage.getItem('token');
+			// const token = localStorage.getItem('token');
 			dispatch({ type: LOGOUT_USER });
-			fetch('http://localhost:4000/logout', {
+			await fetch('http://localhost:4000/logout', {
 				method: 'DELETE',
 				headers: {
 					'Content-Type': 'application/json',
-					Authorization: `${token}`,
+					// Authorization: `${token}`,
 				},
 			})
 				.then((res) => res.json())
@@ -101,22 +110,29 @@ export const logoutUser = () => {
 
 export const getUser = () => {
 	return async (dispatch) => {
-		try {
-			const token = localStorage.getItem('token');
-			dispatch({ type: GET_USER });
-			fetch('http://localhost:4000/users/me', {
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-					Authorization: `${token}`,
-				},
+		const token = localStorage.getItem('token');
+		dispatch({ type: GET_USER });
+		await fetch('http://localhost:4000/users/me', {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `${token}`,
+			},
+		})
+			.then((response) => {
+				if (response.ok) {
+					return response.json();
+				}
+				throw new Error(response.statusText);
 			})
-				.then((res) => res.json())
-				.then((response) => {
-					dispatch({ type: GET_USER_SUCCESS, payload: response.result });
+			.then((response) => {
+				dispatch({
+					type: GET_USER_SUCCESS,
+					payload: { ...response.result, token: token },
 				});
-		} catch (err) {
-			dispatch({ type: GET_USER_ERR, payload: err });
-		}
+			})
+			.catch((error) => {
+				dispatch({ type: GET_USER_ERR, payload: error.message });
+			});
 	};
 };
