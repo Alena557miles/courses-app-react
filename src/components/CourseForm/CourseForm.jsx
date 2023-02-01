@@ -36,7 +36,7 @@ export function CourseForm() {
 	const [mockedauthors, setMockedAuthor] = useState(mockedAuthorsList);
 	const [noAuthors, setNull] = useState(true);
 	const [description, setDescription] = useState('');
-	const [authorsList, setAuthorList] = useState([]);
+	const [authorsList, setAuthorsList] = useState([]);
 	const [title, setTitle] = useState('');
 	const [duration, setDuration] = useState('');
 	const [newAuthor, setNewAuthor] = useState('');
@@ -116,14 +116,14 @@ export function CourseForm() {
 		setNull(false);
 		const res = mockedauthors.find((author) => author.id === id);
 		authorsList.push(res);
-		setAuthorList(authorsList);
+		setAuthorsList(authorsList);
 		const res1 = mockedauthors.filter((author) => author.id !== id);
 		setMockedAuthor(res1);
 	};
 	const handleDelete = (author) => {
 		const update = authorsList.filter((item) => item.id !== author.id);
 		mockedauthors.push(author);
-		setAuthorList(update);
+		setAuthorsList(update);
 		setNull(true);
 	};
 
