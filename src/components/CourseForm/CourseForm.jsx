@@ -106,6 +106,7 @@ export function CourseForm() {
 			description,
 			duration,
 			authors: athoursArr,
+			id: courseId,
 		};
 		if (courseId) {
 			dispatch(updateCourse(course));
