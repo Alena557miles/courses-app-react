@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -19,6 +19,7 @@ export function Registration() {
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+
 	const nameHandler = (e) => {
 		setName(e.target.value);
 		setError('');
@@ -26,6 +27,7 @@ export function Registration() {
 			setNameErr('Name should be more than 1 character');
 		} else setNameErr('');
 	};
+
 	const emailHandler = (e) => {
 		setEmail(e.target.value);
 		setError('');
@@ -37,6 +39,7 @@ export function Registration() {
 			);
 		} else setEmailErr('');
 	};
+
 	const passwordHandler = (e) => {
 		setPassword(e.target.value);
 		setError('');
