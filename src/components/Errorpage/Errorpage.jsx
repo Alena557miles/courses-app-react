@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 export function ErrorPage() {
-	const { isAuth } = useSelector((state) => state.user);
+	const { isAuth, error } = useSelector((state) => state.user);
 	return (
 		<div>
 			<h1>Oopoops ... Something went wrong...</h1>
