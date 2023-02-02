@@ -92,6 +92,23 @@ export const deleteCourse = (courseId) => {
 };
 export const updateCourse = (course) => {
 	return (dispatch) => {
-		dispatch({ type: UPDATE_COURSE_SUCCESS, payload: course });
+		dispatch({ type: UPDATE_COURSE });
+		fetch(`http://localhost:4000/courses/${course.id}`, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `${token}`,
+			},
+		})
+			.then((response) => response.json())
+			.then((response) => {
+				if (response.successful) {
+					return dispatch({ type: UPDATE_COURSE_SUCCESS, payload: course });
+				}
+				throw new Error(response.error);
+			})
+			.catch((error) => {
+				dispatch({ type: UPDATE_COURSE_ERR, payload: error.message });
+			});
 	};
 };

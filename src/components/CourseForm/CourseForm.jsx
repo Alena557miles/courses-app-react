@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import { v4 as uuid } from 'uuid';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { PipeDuration } from '../../helpers/pipeDuration';
@@ -42,6 +42,21 @@ export function CourseForm() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { authors, error, loading } = useSelector((state) => state.authors);
+	const { courses } = useSelector((state) => state.courses);
+
+	const params = useParams();
+	const courseId = params.courseId;
+
+	useEffect(() => {
+		if (courseId) {
+			const courseToUpdate = courses.find((course) => course.id === courseId);
+			console.log(courseToUpdate.authors);
+			setTitle(courseToUpdate.title);
+			setDescription(courseToUpdate.description);
+			setDuration(courseToUpdate.duration);
+			setAuthorsList(courseToUpdate.authors);
+		}
+	}, []);
 
 	useEffect(() => {
 		dispatch(fetchAuthors());
@@ -95,13 +110,6 @@ export function CourseForm() {
 		};
 		dispatch(addAuthorFetch(author));
 	};
-
-	const onChangeTitle = (e) => {
-		setTitle(e.target.value);
-	};
-	const onChangeDuration = (e) => {
-		setDuration(Number(e.target.value));
-	};
 	const addAuthor = (id) => {
 		setNull(false);
 		const res = authors.find((author) => author.id === id);
@@ -118,16 +126,13 @@ export function CourseForm() {
 
 	return (
 		<div className='border border-blue-400 p-7 mt-7'>
-			<form
-				onSubmit={(e) =>
-					handleSubmit(e, { authorsList, description, duration, title })
-				}
-			>
+			<form onSubmit={handleSubmit}>
 				<div className='flex flex-row justify-between h-full items-end mb-3'>
 					<Input
 						labelText={'Title'}
 						placeholderText={'Enter title...'}
-						onChange={onChangeTitle}
+						value={title}
+						onChange={(e) => setTitle(e.target.value)}
 						type={'text'}
 						required={true}
 					/>
@@ -171,8 +176,9 @@ export function CourseForm() {
 							<Input
 								labelText={'Duration'}
 								placeholderText={'Enter duration in minutes...'}
-								onChange={onChangeDuration}
+								onChange={(e) => setDuration(Number(e.target.value))}
 								type={'number'}
+								value={duration}
 								pattern={'ˆ[0-9]{1,}'}
 								required={true}
 							/>

@@ -63,8 +63,15 @@ export const coursesReducer = (state = coursesInitialState, action) => {
 				loading: false,
 				error: null,
 				courses: [
-					...state.courses.filter((course) => course.id !== action.payload.id),
-					action.payload,
+					...state.courses.map((course) => {
+						if ((course.id = action.payload.id)) {
+							course.title = action.payload.title;
+							course.description = action.payload.description;
+							course.duration = action.payload.duration;
+							course.authors = action.payload.authors;
+						}
+						return course;
+					}),
 				],
 			};
 		case UPDATE_COURSE_ERR:
