@@ -75,7 +75,12 @@ export const coursesReducer = (state = coursesInitialState, action) => {
 				],
 			};
 		case UPDATE_COURSE_ERR:
-			return { loading: false, error: action.payload, courses: state.courses };
+			return {
+				...state,
+				loading: false,
+				error: action.payload,
+				courses: state.courses,
+			};
 		default:
 			return state;
 	}

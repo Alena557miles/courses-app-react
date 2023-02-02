@@ -13,8 +13,6 @@ import {
 	UPDATE_COURSE_SUCCESS,
 } from './actionTypes';
 
-const token = localStorage.getItem('token');
-
 export const fetchCourses = () => {
 	return async (dispatch) => {
 		dispatch({ type: FETCH_COURSES });
@@ -40,6 +38,7 @@ export const fetchCourses = () => {
 };
 export const addCourse = (course) => {
 	return (dispatch) => {
+		const token = localStorage.getItem('token');
 		dispatch({ type: ADD_COURSE, payload: course });
 		fetch('http://localhost:4000/courses/add', {
 			method: 'POST',
@@ -68,6 +67,7 @@ export const addCourse = (course) => {
 
 export const deleteCourse = (courseId) => {
 	return (dispatch) => {
+		const token = localStorage.getItem('token');
 		dispatch({ type: DELETE_COURSE });
 		fetch(`http://localhost:4000/courses/${courseId}`, {
 			method: 'DELETE',
@@ -93,6 +93,7 @@ export const deleteCourse = (courseId) => {
 
 export const updateCourse = (course) => {
 	return (dispatch) => {
+		const token = localStorage.getItem('token');
 		dispatch({ type: UPDATE_COURSE });
 		console.log('update course:', course);
 		fetch(`http://localhost:4000/courses/${course.id}`, {
@@ -101,6 +102,7 @@ export const updateCourse = (course) => {
 				'Content-Type': 'application/json',
 				Authorization: `${token}`,
 			},
+			body: JSON.stringify(course),
 		})
 			.then((response) => response.json())
 			.then((response) => {
@@ -108,7 +110,7 @@ export const updateCourse = (course) => {
 				if (response.successful) {
 					return dispatch({ type: UPDATE_COURSE_SUCCESS, payload: course });
 				}
-				throw new Error(response.error);
+				throw new Error(response.error ? response.error : response.result);
 			})
 			.catch((error) => {
 				dispatch({ type: UPDATE_COURSE_ERR, payload: error.message });
