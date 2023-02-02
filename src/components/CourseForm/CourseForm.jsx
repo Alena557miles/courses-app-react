@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import { v4 as uuid } from 'uuid';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { PipeDuration } from '../../helpers/pipeDuration';
@@ -13,7 +13,6 @@ import { ErrorMessage } from '../../common/Error/ErrorMessage';
 
 import {
 	addAuthorFetch,
-	fetchAuthors,
 	deleteFromStore,
 	addToStore,
 } from '../../store/authors/actionCreators';
@@ -23,9 +22,10 @@ import {
 	BUTTON_TEXT_CREATE_AUTHOR,
 	BUTTON_TEXT_ADD_AUTHOR,
 	BUTTON_TEXT_DELETE_AUTHOR,
+	BUTTON_TEXT_UPDATE_COURSE,
 } from '../../constants';
 
-import { addCourse } from '../../store/courses/actionCreators';
+import { addCourse, updateCourse } from '../../store/courses/actionCreators';
 import { useSelector } from 'react-redux';
 
 export function CourseForm() {
@@ -33,7 +33,6 @@ export function CourseForm() {
 	const [errorDesc, setErrorDesc] = useState('');
 	const [errorDuration, setErrorDur] = useState('');
 	const [errorAuthors, setErrorAuthors] = useState('');
-	const [noAuthors, setNull] = useState(true);
 	const [description, setDescription] = useState('');
 	const [authorsList, setAuthorsList] = useState([]);
 	const [title, setTitle] = useState('');
@@ -42,15 +41,39 @@ export function CourseForm() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { authors, error, loading } = useSelector((state) => state.authors);
+	const { courses } = useSelector((state) => state.courses);
+
+	const params = useParams();
+	const courseId = params.courseId;
 
 	useEffect(() => {
-		dispatch(fetchAuthors());
+		if (courseId) {
+			const courseToUpdate = courses.find((course) => course.id === courseId);
+			setTitle(courseToUpdate.title);
+			setDescription(courseToUpdate.description);
+			setDuration(courseToUpdate.duration);
+
+			const funcAuthors = () => {
+				let authorsFinal = [];
+				for (let i = 0; i < courseToUpdate.authors.length; i++) {
+					authors.map((author) => {
+						if (courseToUpdate.authors[i] === author.id) {
+							authorsFinal.push(author);
+							dispatch(deleteFromStore(author.id));
+						}
+						return author;
+					});
+				}
+				return authorsFinal;
+			};
+			const fullInfoArray = funcAuthors();
+			setAuthorsList(fullInfoArray);
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-
 		if (
 			title.length < 2 ||
 			description.length < 2 ||
@@ -83,8 +106,13 @@ export function CourseForm() {
 			description,
 			duration,
 			authors: athoursArr,
+			id: courseId,
 		};
-		dispatch(addCourse(course));
+		if (courseId) {
+			dispatch(updateCourse(course));
+		} else {
+			dispatch(addCourse(course));
+		}
 		navigate('/courses');
 	};
 	const createAuthor = () => {
@@ -95,15 +123,7 @@ export function CourseForm() {
 		};
 		dispatch(addAuthorFetch(author));
 	};
-
-	const onChangeTitle = (e) => {
-		setTitle(e.target.value);
-	};
-	const onChangeDuration = (e) => {
-		setDuration(Number(e.target.value));
-	};
 	const addAuthor = (id) => {
-		setNull(false);
 		const res = authors.find((author) => author.id === id);
 		authorsList.push(res);
 		setAuthorsList(authorsList);
@@ -113,28 +133,27 @@ export function CourseForm() {
 		const update = authorsList.filter((item) => item.id !== author.id);
 		dispatch(addToStore(author));
 		setAuthorsList(update);
-		setNull(true);
 	};
 
 	return (
 		<div className='border border-blue-400 p-7 mt-7'>
-			<form
-				onSubmit={(e) =>
-					handleSubmit(e, { authorsList, description, duration, title })
-				}
-			>
+			<form onSubmit={handleSubmit}>
 				<div className='flex flex-row justify-between h-full items-end mb-3'>
 					<Input
 						labelText={'Title'}
 						placeholderText={'Enter title...'}
-						onChange={onChangeTitle}
+						value={title}
+						onChange={(e) => setTitle(e.target.value)}
 						type={'text'}
 						required={true}
 					/>
 					{errorTitle && <ErrorMessage error={errorTitle} />}
-					<Button buttonText={BUTTON_TEXT_CREATE_COURSE} type={'submit'} />
+					{courseId ? (
+						<Button buttonText={BUTTON_TEXT_UPDATE_COURSE} type={'submit'} />
+					) : (
+						<Button buttonText={BUTTON_TEXT_CREATE_COURSE} type={'submit'} />
+					)}
 				</div>
-
 				<label>Description</label>
 				<textarea
 					name='description'
@@ -171,8 +190,9 @@ export function CourseForm() {
 							<Input
 								labelText={'Duration'}
 								placeholderText={'Enter duration in minutes...'}
-								onChange={onChangeDuration}
+								onChange={(e) => setDuration(Number(e.target.value))}
 								type={'number'}
+								value={duration}
 								pattern={'ˆ[0-9]{1,}'}
 								required={true}
 							/>
@@ -214,7 +234,7 @@ export function CourseForm() {
 							Course authors
 						</h2>
 
-						{noAuthors ? (
+						{!authorsList.length ? (
 							<>
 								<p className='font-bold text-center'>Author list is empty</p>
 								<ErrorMessage error={errorAuthors} />

@@ -86,23 +86,28 @@ export const loginUser = (user) => {
 export const logoutUser = () => {
 	return async (dispatch) => {
 		try {
-			// const token = localStorage.getItem('token');
+			const token = localStorage.getItem('token');
 			dispatch({ type: LOGOUT_USER });
 			await fetch('http://localhost:4000/logout', {
 				method: 'DELETE',
 				headers: {
 					'Content-Type': 'application/json',
-					// Authorization: `${token}`,
+					Authorization: `${token}`,
 				},
 			})
-				.then((res) => res.json())
+				.then((response) => {
+					if (response.ok) {
+						return response.json();
+					}
+					throw new Error(response.statusText);
+				})
 				.then(() => {
 					localStorage.removeItem('token');
 					localStorage.removeItem('name');
 					dispatch({ type: LOGOUT_USER_SUCCESS });
 				});
 		} catch (err) {
-			dispatch({ type: LOGOUT_USER_ERR, payload: err });
+			dispatch({ type: LOGOUT_USER_ERR, payload: err.message });
 		}
 	};
 };
