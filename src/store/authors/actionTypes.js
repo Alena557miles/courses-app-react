@@ -4,3 +4,5 @@ export const FETCH_AUTHORS_ERR = 'FETCH_AUTHORS_ERR';
 export const ADD_AUTHOR = 'ADD_AUTHOR';
 export const ADD_AUTHOR_SUCCESS = 'ADD_AUTHOR_SUCCESS';
 export const ADD_AUTHOR_ERR = 'ADD_AUTHOR_ERR';
+export const DELETE_FROM_STORE = 'DELETE_FROM_STORE';
+export const ADD_TO_STORE = 'ADD_TO_STORE';

@@ -10,14 +10,15 @@ import { PipeDuration } from '../../helpers/pipeDuration';
 import { Button } from '../../common/Button/Button';
 import { Input } from '../../common/Input/Input';
 import { ErrorMessage } from '../../common/Error/ErrorMessage';
+
 import {
-	addAuthorToStore,
+	addAuthorFetch,
 	fetchAuthors,
+	deleteFromStore,
+	addToStore,
 } from '../../store/authors/actionCreators';
 
 import {
-	mockedAuthorsList,
-	mockedCoursesList,
 	BUTTON_TEXT_CREATE_COURSE,
 	BUTTON_TEXT_CREATE_AUTHOR,
 	BUTTON_TEXT_ADD_AUTHOR,
@@ -32,17 +33,15 @@ export function CourseForm() {
 	const [errorDesc, setErrorDesc] = useState('');
 	const [errorDuration, setErrorDur] = useState('');
 	const [errorAuthors, setErrorAuthors] = useState('');
-	const authorsList = mockedAuthorsList;
-	const [mockedauthors, setMockedAuthor] = useState(authorsList);
 	const [noAuthors, setNull] = useState(true);
 	const [description, setDescription] = useState('');
-	const [authors, setAuthor] = useState([]);
+	const [authorsList, setAuthorsList] = useState([]);
 	const [title, setTitle] = useState('');
 	const [duration, setDuration] = useState('');
 	const [newAuthor, setNewAuthor] = useState('');
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	// const { authors, error, loading } = useSelector((state) => state.authors);
+	const { authors, error, loading } = useSelector((state) => state.authors);
 
 	useEffect(() => {
 		dispatch(fetchAuthors());
@@ -56,7 +55,7 @@ export function CourseForm() {
 			title.length < 2 ||
 			description.length < 2 ||
 			+duration < 0 ||
-			authors.length === 0
+			authorsList.length === 0
 		) {
 			alert('Pleese fill in all fields correctly');
 			if (title.length < 2) {
@@ -71,26 +70,20 @@ export function CourseForm() {
 				setErrorDur('Duration should be more than 0 minutes');
 				return;
 			} else setErrorDur('');
-			if (authors.length === 0) {
+			if (authorsList.length === 0) {
 				setErrorAuthors('Shoul be some authors on this course');
 				return;
 			} else setErrorAuthors('');
 		}
-		const athoursArr = authors.map((author) => {
+		const athoursArr = authorsList.map((author) => {
 			return author.id;
 		});
-		const unique_id = uuid();
-		const creationDate = Date.now();
-
 		const course = {
 			title,
 			description,
 			duration,
 			authors: athoursArr,
-			id: unique_id,
-			creationDate,
 		};
-		mockedCoursesList.push(course); // delete
 		dispatch(addCourse(course));
 		navigate('/courses');
 	};
@@ -100,29 +93,26 @@ export function CourseForm() {
 			name: newAuthor,
 			id: unique_id,
 		};
-		setMockedAuthor([...mockedauthors, author]);
-		mockedauthors.push(author);
-		dispatch(addAuthorToStore(author));
+		dispatch(addAuthorFetch(author));
 	};
 
 	const onChangeTitle = (e) => {
 		setTitle(e.target.value);
 	};
 	const onChangeDuration = (e) => {
-		setDuration(e.target.value);
+		setDuration(Number(e.target.value));
 	};
 	const addAuthor = (id) => {
 		setNull(false);
-		const res = mockedauthors.find((author) => author.id === id);
-		authors.push(res);
-		setAuthor(authors);
-		const res1 = mockedauthors.filter((author) => author.id !== id);
-		setMockedAuthor(res1);
+		const res = authors.find((author) => author.id === id);
+		authorsList.push(res);
+		setAuthorsList(authorsList);
+		dispatch(deleteFromStore(id));
 	};
 	const handleDelete = (author) => {
-		const update = authors.filter((item) => item.id !== author.id);
-		mockedauthors.push(author);
-		setAuthor(update);
+		const update = authorsList.filter((item) => item.id !== author.id);
+		dispatch(addToStore(author));
+		setAuthorsList(update);
 		setNull(true);
 	};
 
@@ -130,7 +120,7 @@ export function CourseForm() {
 		<div className='border border-blue-400 p-7 mt-7'>
 			<form
 				onSubmit={(e) =>
-					handleSubmit(e, { authors, description, duration, title })
+					handleSubmit(e, { authorsList, description, duration, title })
 				}
 			>
 				<div className='flex flex-row justify-between h-full items-end mb-3'>
@@ -167,6 +157,7 @@ export function CourseForm() {
 								labelText={'Author name'}
 								placeholderText={'Enter author name'}
 								type={'text'}
+								value={newAuthor}
 								onChange={(e) => setNewAuthor(e.target.value)}
 							/>
 							<Button
@@ -189,7 +180,6 @@ export function CourseForm() {
 							<p>
 								Duration:{' '}
 								<span className='text-3xl font-bold'>
-									{' '}
 									{duration ? <PipeDuration>{duration}</PipeDuration> : '00:00'}
 								</span>{' '}
 								hours
@@ -198,23 +188,28 @@ export function CourseForm() {
 					</div>
 					<div className=' w-2/5'>
 						<h2 className='text-xl text-center font-bold mb-7'>Authors</h2>
-						<ul>
-							{mockedauthors.map((author) => (
-								<li
-									className='flex flex-row justify-between align-center mb-2'
-									key={author.id.toString()}
-								>
-									<div className='w-64'>
-										<p>{author.name}</p>
-									</div>
-									<Button
-										buttonText={BUTTON_TEXT_ADD_AUTHOR}
-										onClick={() => addAuthor(author.id)}
-										type={'button'}
-									/>
-								</li>
-							))}
-						</ul>
+						{error ? (
+							<ErrorMessage error={error} />
+						) : (
+							<ul>
+								{authors.map((author) => (
+									<li
+										className='flex flex-row justify-between align-center mb-2'
+										key={author.id.toString()}
+									>
+										<div className='w-64'>
+											<p>{author.name}</p>
+										</div>
+										<Button
+											buttonText={BUTTON_TEXT_ADD_AUTHOR}
+											onClick={() => addAuthor(author.id)}
+											type={'button'}
+										/>
+									</li>
+								))}
+							</ul>
+						)}
+
 						<h2 className='text-xl text-center font-bold my-3'>
 							Course authors
 						</h2>
@@ -227,7 +222,7 @@ export function CourseForm() {
 						) : (
 							<div>
 								<ul>
-									{authors.map((author) => (
+									{authorsList.map((author) => (
 										<li
 											className='flex flex-row justify-between align-center mb-2'
 											key={author.id.toString()}

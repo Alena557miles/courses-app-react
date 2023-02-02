@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { CourseCard } from './components/CourseCard/CourseCard';
 import { SearchBar } from './components/SearchBar/SearchBar';
 import { Button } from '../../common/Button/Button';
+import { ErrorMessage } from '../../common/Error/ErrorMessage';
 
 import { BUTTON_TEXT_ADD_COURSE } from '../../constants';
 import { useDispatch } from 'react-redux';
@@ -40,15 +41,11 @@ export function Courses() {
 	const handleAddcourse = () => {
 		navigate('/courses/add');
 	};
-
-	if (error) {
-		return <p>{error}</p>;
-	}
-
 	return (
 		<div className='flex flex-col border border-blue-400 p-7 mt-7'>
 			<div className='flex flex-row justify-between  mb-7'>
 				<SearchBar handleInput={handleInput} />
+
 				{role === 'admin' ? (
 					<Button
 						buttonText={BUTTON_TEXT_ADD_COURSE}
@@ -58,6 +55,7 @@ export function Courses() {
 					''
 				)}
 			</div>
+			{error ? <ErrorMessage error={error} /> : ''}
 			{loading ? <p>loading ...</p> : <CourseCard searchResult={courses} />}
 		</div>
 	);

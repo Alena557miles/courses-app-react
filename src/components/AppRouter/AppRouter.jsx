@@ -25,32 +25,34 @@ export const AppRouter = () => {
 			<Route path='/' element={<Header />}>
 				<Route index element={<Login />} />
 				{isAuth
-					? privateRoutes.map((route) => (
-							<Route
-								path={route.path}
-								element={route.component}
-								exact={route.exact}
-								key={route.path}
-							/>
-					  ))
-					: // ? role === 'user'
-					  // 	? privateRoutes.map((route) => (
-					  // 			<Route
-					  // 				path={route.path}
-					  // 				element={route.component}
-					  // 				exact={route.exact}
-					  // 				key={route.path}
-					  // 			/>
-					  // 	  ))
-					  // 	: adminRoutes.map((route) => (
-					  // 			<Route
-					  // 				path={route.path}
-					  // 				element={route.component}
-					  // 				exact={route.exact}
-					  // 				key={route.path}
-					  // 			/>
-					  // 	  ))
-					  publicRoutes.map((route) => (
+					? // ?
+					  //privateRoutes.map((route) => (
+					  // 		<Route
+					  // 			path={route.path}
+					  // 			element={route.component}
+					  // 			exact={route.exact}
+					  // 			key={route.path}
+					  // 		/>
+					  //   ))
+					  // :
+					  role === 'user'
+						? privateRoutes.map((route) => (
+								<Route
+									path={route.path}
+									element={route.component}
+									exact={route.exact}
+									key={route.path}
+								/>
+						  ))
+						: adminRoutes.map((route) => (
+								<Route
+									path={route.path}
+									element={route.component}
+									exact={route.exact}
+									key={route.path}
+								/>
+						  ))
+					: publicRoutes.map((route) => (
 							<Route
 								path={route.path}
 								element={route.component}

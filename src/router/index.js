@@ -10,15 +10,15 @@ export const publicRoutes = [
 	{ path: '/registration', component: <Registration />, exact: true },
 	{ path: '*', component: <ErrorPage />, exact: true },
 ];
-export const privateRoutes = [
-	{ path: '/courses', component: <Courses />, exact: true },
-	{ path: '/courses/:courseId', component: <CourseInfo />, exact: true },
-	{ path: '*', component: <ErrorPage />, exact: true },
-];
 
 export const adminRoutes = [
 	{ path: '/courses', component: <Courses />, exact: true },
 	{ path: '/courses/add', component: <CourseForm />, exact: true },
 	{ path: '/courses/update/:courseId', component: <CourseForm />, exact: true },
+	{ path: '*', component: <ErrorPage />, exact: true },
+];
+export const privateRoutes = [
+	{ path: '/courses', component: <Courses />, exact: true },
+	{ path: '/courses/:courseId', component: <CourseInfo />, exact: true },
 	{ path: '*', component: <ErrorPage />, exact: true },
 ];

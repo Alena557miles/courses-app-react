@@ -6,6 +6,8 @@ import {
 	ADD_AUTHOR,
 	ADD_AUTHOR_SUCCESS,
 	ADD_AUTHOR_ERR,
+	DELETE_FROM_STORE,
+	ADD_TO_STORE,
 } from './actionTypes';
 
 const authorsInitialState = {
@@ -46,6 +48,20 @@ export const authorReducer = (state = authorsInitialState, action) => {
 				loading: false,
 				error: action.payload,
 				authors: state.authors,
+			};
+		case DELETE_FROM_STORE:
+			return {
+				...state,
+				loading: false,
+				error: null,
+				authors: state.authors.filter((author) => author.id !== action.payload),
+			};
+		case ADD_TO_STORE:
+			return {
+				...state,
+				loading: false,
+				error: null,
+				authors: [...state.authors, action.payload],
 			};
 
 		default:

@@ -20,7 +20,7 @@ const userInitialState = {
 	email: '',
 	token: '',
 	role: '',
-	error: '',
+	error: null,
 };
 
 export const userReducer = (state = userInitialState, action) => {
@@ -28,7 +28,7 @@ export const userReducer = (state = userInitialState, action) => {
 		case REGISTER_USER:
 			return { ...state };
 		case REGISTER_USER_SUCCESS:
-			return { ...state, error: '' };
+			return { ...state, error: null };
 		case REGISTER_USER_ERR:
 			return { ...state, isAuth: false, error: action.payload };
 		case LOGIN_USER:
@@ -41,7 +41,7 @@ export const userReducer = (state = userInitialState, action) => {
 				email: action.payload.user.email,
 				role: action.payload.user.role,
 				token: action.payload.result,
-				error: '',
+				error: null,
 			};
 		case LOGIN_USER_ERR:
 			return { ...state, error: action.payload };
@@ -70,7 +70,7 @@ export const userReducer = (state = userInitialState, action) => {
 				password: action.payload.password,
 				role: action.payload.role,
 				token: action.payload.token,
-				error: '',
+				error: null,
 			};
 		case GET_USER_ERR:
 			return { ...state, error: action.payload };
