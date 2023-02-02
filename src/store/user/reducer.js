@@ -56,6 +56,7 @@ export const userReducer = (state = userInitialState, action) => {
 				token: '',
 				role: '',
 				password: '',
+				error: null,
 			};
 		case LOGOUT_USER_ERR:
 			return { ...state, error: action.payload };

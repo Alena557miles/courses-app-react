@@ -14,6 +14,7 @@ export const publicRoutes = [
 export const adminRoutes = [
 	{ path: '/courses', component: <Courses />, exact: true },
 	{ path: '/courses/add', component: <CourseForm />, exact: true },
+	{ path: '/courses/:courseId', component: <CourseInfo />, exact: true },
 	{ path: '/courses/update/:courseId', component: <CourseForm />, exact: true },
 	{ path: '*', component: <ErrorPage />, exact: true },
 ];
