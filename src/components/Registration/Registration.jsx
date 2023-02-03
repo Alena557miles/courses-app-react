@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -7,7 +6,7 @@ import { Button } from '../../common/Button/Button';
 import { Input } from '../../common/Input/Input';
 
 import { BUTTON_TEXT_REGISTRATION } from '../../constants';
-import { getUser, registerUser } from '../../store/user/actionCreators';
+import { registerUser } from '../../store/user/actionCreators';
 
 export function Registration() {
 	const [name, setName] = useState('');
