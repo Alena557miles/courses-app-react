@@ -13,7 +13,7 @@ import { BUTTON_TEXT_LOGIN } from '../../constants';
 import { loginUser } from '../../store/user/actionCreators';
 
 export function Login() {
-	const { isAuth } = useSelector((state) => state.user);
+	// const { isAuth } = useSelector((state) => state.user);
 
 	const [password, setPassword] = useState('');
 	const [email, setEmail] = useState('');
@@ -59,9 +59,6 @@ export function Login() {
 		dispatch(loginUser(user));
 		navigate('/courses');
 	};
-	if (!isAuth) {
-		return <Navigate to='/courses' />;
-	}
 	return (
 		<div className='flex flex-col items-center justify-center border border-cyan-400  mt-7 gap-y-7 h-5/6'>
 			<h1 className='text-bold text-2xl'>Login</h1>
