@@ -1,8 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../../common/Button/Button';
@@ -13,13 +12,13 @@ import { BUTTON_TEXT_LOGIN } from '../../constants';
 import { loginUser } from '../../store/user/actionCreators';
 
 export function Login() {
-	// const { isAuth } = useSelector((state) => state.user);
-
 	const [password, setPassword] = useState('');
 	const [email, setEmail] = useState('');
 	const [error, setError] = useState('');
 	const [emailErr, setEmailErr] = useState('');
 	const [passwordErr, setPasswordErr] = useState('');
+
+	const { isAuth } = useSelector((state) => state.user);
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();

@@ -95,7 +95,7 @@ export const updateCourse = (course) => {
 	return (dispatch) => {
 		const token = localStorage.getItem('token');
 		dispatch({ type: UPDATE_COURSE });
-		console.log('update course:', course);
+		// console.log('update course:', course);
 		fetch(`http://localhost:4000/courses/${course.id}`, {
 			method: 'PUT',
 			headers: {
@@ -106,7 +106,7 @@ export const updateCourse = (course) => {
 		})
 			.then((response) => response.json())
 			.then((response) => {
-				console.log('response course:', response);
+				// console.log('response course:', response);
 				if (response.successful) {
 					return dispatch({ type: UPDATE_COURSE_SUCCESS, payload: course });
 				}

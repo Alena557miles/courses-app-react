@@ -41,7 +41,7 @@ export const registerUser = (newUser) => {
 export const loginUser = (user) => {
 	return async (dispatch) => {
 		dispatch({ type: LOGIN_USER });
-		fetch('http://localhost:4000/login', {
+		await fetch('http://localhost:4000/login', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
