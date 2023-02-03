@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -6,23 +7,25 @@ import { Button } from '../../common/Button/Button';
 import { Input } from '../../common/Input/Input';
 
 import { BUTTON_TEXT_REGISTRATION } from '../../constants';
-import { registerUser } from '../../store/user/actionCreators';
+import { getUser, registerUser } from '../../store/user/actionCreators';
 
 export function Registration() {
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const [error, setError] = useState('');
+	const [errorForm, setErrorForm] = useState('');
 	const [nameErr, setNameErr] = useState('');
 	const [emailErr, setEmailErr] = useState('');
 	const [passwordErr, setPasswordErr] = useState('');
+
+	const { error } = useSelector(getUser);
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
 	const nameHandler = (e) => {
 		setName(e.target.value);
-		setError('');
+		setErrorForm('');
 		if (e.target.value.length < 2) {
 			setNameErr('Name should be more than 1 character');
 		} else setNameErr('');
@@ -30,7 +33,7 @@ export function Registration() {
 
 	const emailHandler = (e) => {
 		setEmail(e.target.value);
-		setError('');
+		setErrorForm('');
 		const re =
 			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		if (!re.test(String(e.target.value).toLocaleLowerCase())) {
@@ -42,7 +45,7 @@ export function Registration() {
 
 	const passwordHandler = (e) => {
 		setPassword(e.target.value);
-		setError('');
+		setErrorForm('');
 		if (e.target.value.length < 6) {
 			setPasswordErr(
 				'password should be a string and length should be 6 characters minimum'
@@ -53,7 +56,7 @@ export function Registration() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (!name || !email || !password) {
-			setError('Please fill all fields');
+			setErrorForm('Please fill all fields');
 			return;
 		}
 		const newUser = {
@@ -107,8 +110,8 @@ export function Registration() {
 						{passwordErr}
 					</p>
 				)}
-				{error && (
-					<p className='text-xs text-red-800 text-center italic'>{error}</p>
+				{errorForm && (
+					<p className='text-xs text-red-800 text-center italic'>{errorForm}</p>
 				)}
 				<Button className='mx-auto' buttonText={BUTTON_TEXT_REGISTRATION} />
 			</form>
