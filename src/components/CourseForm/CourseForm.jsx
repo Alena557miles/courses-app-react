@@ -1,15 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { v4 as uuid } from 'uuid';
-import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { PipeDuration } from '../../helpers/pipeDuration';
 
 import { Button } from '../../common/Button/Button';
 import { Input } from '../../common/Input/Input';
 import { ErrorMessage } from '../../common/Error/ErrorMessage';
+
+import { getCourses, getAuthors } from '../../hooks/selectors';
+import { addCourse, updateCourse } from '../../store/courses/actionCreators';
 
 import {
 	addAuthorFetch,
@@ -25,9 +27,6 @@ import {
 	BUTTON_TEXT_UPDATE_COURSE,
 } from '../../constants';
 
-import { addCourse, updateCourse } from '../../store/courses/actionCreators';
-import { useSelector } from 'react-redux';
-
 export function CourseForm() {
 	const [errorTitle, setErrorTitle] = useState('');
 	const [errorDesc, setErrorDesc] = useState('');
@@ -38,10 +37,12 @@ export function CourseForm() {
 	const [title, setTitle] = useState('');
 	const [duration, setDuration] = useState('');
 	const [newAuthor, setNewAuthor] = useState('');
+
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const { authors, error, loading } = useSelector((state) => state.authors);
-	const { courses } = useSelector((state) => state.courses);
+
+	const { authors, error, loading } = useSelector(getAuthors);
+	const { courses } = useSelector(getCourses);
 
 	const params = useParams();
 	const courseId = params.courseId;
@@ -208,6 +209,7 @@ export function CourseForm() {
 					</div>
 					<div className=' w-2/5'>
 						<h2 className='text-xl text-center font-bold mb-7'>Authors</h2>
+						{loading ? <p>loading ... </p> : ''}
 						{error ? (
 							<ErrorMessage error={error} />
 						) : (

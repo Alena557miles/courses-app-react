@@ -1,4 +1,5 @@
 import { React } from 'react';
+
 export function PipeDuration(props) {
 	const transform = (data) => {
 		let hours = Math.floor(data / 60);

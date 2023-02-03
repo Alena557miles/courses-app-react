@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Outlet } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Outlet } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Logo } from './components/Logo/Logo';
 import { Button } from '../../common/Button/Button';
@@ -9,10 +9,11 @@ import { ErrorMessage } from '../../common/Error/ErrorMessage';
 
 import { BUTTON_TEXT_HEADER } from '../../constants';
 import { logoutUser } from '../../store/user/actionCreators';
-import { useDispatch, useSelector } from 'react-redux';
+
+import { getUser } from '../../hooks/selectors';
 
 export function Header() {
-	const { name, error } = useSelector((state) => state.user);
+	const { name, error } = useSelector(getUser);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const handleLogOut = (e) => {

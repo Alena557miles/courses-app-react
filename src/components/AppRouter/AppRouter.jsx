@@ -1,5 +1,8 @@
 import { Route, Routes, useNavigate } from 'react-router-dom';
 
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+
 import { Header } from '../Header/Header';
 import { Login } from '../Login/Login';
 import { Registration } from '../Registration/Registration';
@@ -7,13 +10,9 @@ import { PrivateRouter } from '../PrivateRouter/PrivateRouter';
 import { Courses } from '../Courses/Courses';
 import { CourseForm } from '../CourseForm/CourseForm';
 import { CourseInfo } from '../CourseInfo/CourseInfo';
-
 import { ErrorPage } from '../Errorpage/Errorpage';
 
 import { getUser } from '../../store/user/actionCreators';
-
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
 
 export const AppRouter = () => {
 	const dispatch = useDispatch();

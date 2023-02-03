@@ -5,9 +5,10 @@ import { useSelector } from 'react-redux';
 import { PipeDuration } from '../../helpers/pipeDuration';
 import { DateGenerator } from '../../helpers/dateGenerator';
 
+import { getCourses, getAuthors } from '../../hooks/selectors';
 export function CourseInfo() {
-	const { courses } = useSelector((state) => state.courses);
-	const { authors } = useSelector((state) => state.authors);
+	const { courses } = useSelector(getCourses);
+	const { authors } = useSelector(getAuthors);
 
 	function findCourse(id) {
 		const course = courses.find((course) => course.id === id);

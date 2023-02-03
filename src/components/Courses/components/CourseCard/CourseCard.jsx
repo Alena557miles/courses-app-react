@@ -16,12 +16,13 @@ import { PipeDuration } from '../../../../helpers/pipeDuration';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAuthors } from '../../../../store/authors/actionCreators';
 import { deleteCourse } from '../../../../store/courses/actionCreators';
+import { getAuthors, getUser } from '../../../../hooks/selectors';
 
 export function CourseCard(props) {
 	const navigate = useNavigate();
 	const courses = props.searchResult;
-	const { authors, error, loading } = useSelector((state) => state.authors);
-	const { role } = useSelector((state) => state.user);
+	const { authors, error, loading } = useSelector(getAuthors);
+	const { role } = useSelector(getUser);
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(fetchAuthors());

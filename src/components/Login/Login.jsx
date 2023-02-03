@@ -1,13 +1,13 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-
+import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+
 import { Button } from '../../common/Button/Button';
 import { Input } from '../../common/Input/Input';
 
 import { BUTTON_TEXT_LOGIN } from '../../constants';
+import { getUser } from '../../hooks/selectors';
 
 import { loginUser } from '../../store/user/actionCreators';
 
@@ -18,7 +18,7 @@ export function Login() {
 	const [emailErr, setEmailErr] = useState('');
 	const [passwordErr, setPasswordErr] = useState('');
 
-	const { isAuth } = useSelector((state) => state.user);
+	const { isAuth } = useSelector(getUser);
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
