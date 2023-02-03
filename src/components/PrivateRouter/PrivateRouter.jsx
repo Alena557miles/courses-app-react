@@ -1,20 +1,17 @@
 import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Navigate, Outlet } from 'react-router-dom';
 
-export const PrivateRouter = ({ component: Component, ...rest }) => {
-	<Route
-		{...rest}
-		render={(props) =>
-			localStorage.getItem('token') ? (
-				<Component {...props} />
-			) : (
-				<Redirect
-					to={{
-						pathname: '/login',
-						state: { from: props.location },
-					}}
-				/>
-			)
-		}
-	/>;
+export const PrivateRouter = () => {
+	const { isAuth, role } = useSelector((state) => state.user);
+
+	if (!isAuth) {
+		return <Navigate to='/login' />;
+	}
+	if (role === 'user') {
+		return <Navigate to='/courses' />;
+	}
+
+	return <Outlet />;
 };
+export default PrivateRouter;

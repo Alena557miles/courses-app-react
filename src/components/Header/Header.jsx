@@ -13,12 +13,12 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export function Header() {
 	const { name, error } = useSelector((state) => state.user);
-	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const handleLogOut = (e) => {
 		e.preventDefault();
 		dispatch(logoutUser());
-		navigate(`/login`);
+		navigate('/login');
 	};
 	return (
 		<div className='container mx-auto pt-5 h-screen'>

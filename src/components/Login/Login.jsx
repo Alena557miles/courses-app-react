@@ -56,9 +56,7 @@ export function Login() {
 			password,
 		};
 		dispatch(loginUser(user));
-		if (isAuth) {
-			navigate('/courses');
-		}
+		navigate('/courses');
 	};
 	return (
 		<div className='flex flex-col items-center justify-center border border-cyan-400  mt-7 gap-y-7 h-5/6'>
