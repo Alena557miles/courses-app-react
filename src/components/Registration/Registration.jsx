@@ -18,8 +18,6 @@ export function Registration() {
 	const [emailErr, setEmailErr] = useState('');
 	const [passwordErr, setPasswordErr] = useState('');
 
-	const { error } = useSelector(getUser);
-
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
