@@ -27,7 +27,7 @@ export function Login() {
 			navigate('/courses');
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [isAuth]);
 
 	const emailHandler = (e) => {
 		setEmail(e.target.value);

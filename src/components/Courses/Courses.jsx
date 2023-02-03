@@ -16,6 +16,8 @@ import { fetchCourses } from '../../store/courses/actionCreators';
 export function Courses() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const { courses, error, loading } = useSelector((state) => state.courses);
+	const { isAuth, role } = useSelector((state) => state.user);
 
 	useEffect(() => {
 		if (isAuth) {
@@ -24,10 +26,7 @@ export function Courses() {
 			navigate('/login');
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
-	const { courses, error, loading } = useSelector((state) => state.courses);
-	const { isAuth, role } = useSelector((state) => state.user);
+	}, [isAuth]);
 
 	const [searchResult, setSearchResult] = useState(courses);
 
