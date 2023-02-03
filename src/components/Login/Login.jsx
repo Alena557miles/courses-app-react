@@ -2,6 +2,8 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { Navigate } from 'react-router-dom';
+
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../../common/Button/Button';
 import { Input } from '../../common/Input/Input';
@@ -48,7 +50,6 @@ export function Login() {
 			);
 		} else setPasswordErr('');
 	};
-
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const user = {
@@ -58,6 +59,9 @@ export function Login() {
 		dispatch(loginUser(user));
 		navigate('/courses');
 	};
+	if (!isAuth) {
+		return <Navigate to='/courses' />;
+	}
 	return (
 		<div className='flex flex-col items-center justify-center border border-cyan-400  mt-7 gap-y-7 h-5/6'>
 			<h1 className='text-bold text-2xl'>Login</h1>
