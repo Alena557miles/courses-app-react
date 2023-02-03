@@ -18,12 +18,16 @@ export function Courses() {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(fetchCourses());
+		if (isAuth) {
+			dispatch(fetchCourses());
+		} else {
+			navigate('/login');
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const { courses, error, loading } = useSelector((state) => state.courses);
-	const { role } = useSelector((state) => state.user);
+	const { isAuth, role } = useSelector((state) => state.user);
 
 	const [searchResult, setSearchResult] = useState(courses);
 
