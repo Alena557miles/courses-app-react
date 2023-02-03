@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { CourseCard } from './components/CourseCard/CourseCard';
 import { SearchBar } from './components/SearchBar/SearchBar';
@@ -9,21 +9,24 @@ import { Button } from '../../common/Button/Button';
 import { ErrorMessage } from '../../common/Error/ErrorMessage';
 
 import { BUTTON_TEXT_ADD_COURSE } from '../../constants';
-import { useDispatch } from 'react-redux';
+import { getCourses, getUser } from '../../hooks/selectors';
 
 import { fetchCourses } from '../../store/courses/actionCreators';
 
 export function Courses() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const { courses, error, loading } = useSelector(getCourses);
+	const { isAuth, role } = useSelector(getUser);
 
 	useEffect(() => {
-		dispatch(fetchCourses());
+		if (isAuth) {
+			dispatch(fetchCourses());
+		} else {
+			navigate('/login');
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
-	const { courses, error, loading } = useSelector((state) => state.courses);
-	const { role } = useSelector((state) => state.user);
+	}, [isAuth]);
 
 	const [searchResult, setSearchResult] = useState(courses);
 

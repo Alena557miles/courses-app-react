@@ -1,23 +1,24 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
+import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+
 import { Button } from '../../common/Button/Button';
 import { Input } from '../../common/Input/Input';
 
 import { BUTTON_TEXT_LOGIN } from '../../constants';
+import { getUser } from '../../hooks/selectors';
 
 import { loginUser } from '../../store/user/actionCreators';
 
 export function Login() {
-	const { isAuth } = useSelector((state) => state.user);
-
 	const [password, setPassword] = useState('');
 	const [email, setEmail] = useState('');
 	const [error, setError] = useState('');
 	const [emailErr, setEmailErr] = useState('');
 	const [passwordErr, setPasswordErr] = useState('');
+
+	const { isAuth } = useSelector(getUser);
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -26,7 +27,7 @@ export function Login() {
 			navigate('/courses');
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [isAuth]);
 
 	const emailHandler = (e) => {
 		setEmail(e.target.value);
@@ -48,7 +49,6 @@ export function Login() {
 			);
 		} else setPasswordErr('');
 	};
-
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const user = {
@@ -56,9 +56,7 @@ export function Login() {
 			password,
 		};
 		dispatch(loginUser(user));
-		if (isAuth) {
-			navigate('/courses');
-		}
+		navigate('/courses');
 	};
 	return (
 		<div className='flex flex-col items-center justify-center border border-cyan-400  mt-7 gap-y-7 h-5/6'>
