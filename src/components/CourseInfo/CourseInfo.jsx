@@ -6,8 +6,11 @@ import { PipeDuration } from '../../helpers/pipeDuration';
 import { DateGenerator } from '../../helpers/dateGenerator';
 
 import { getCourses, getAuthors } from '../../hooks/selectors';
+
+import { Loading } from '../../common/Loading/Loading';
+
 export function CourseInfo() {
-	const { courses } = useSelector(getCourses);
+	const { courses, loading } = useSelector(getCourses);
 	const { authors } = useSelector(getAuthors);
 
 	function findCourse(id) {
@@ -31,6 +34,7 @@ export function CourseInfo() {
 	return (
 		<div className='flex flex-col p-9 border border-cyan-400 gap-y-7 h-5/6'>
 			<Link to='../'> &lt; Back to courses</Link>
+			{loading ? <Loading /> : ''}
 			{course ? (
 				<>
 					<h1 className='text-bold text-3xl text-center'>{course.title}</h1>
