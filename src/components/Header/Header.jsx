@@ -1,6 +1,4 @@
 import React from 'react';
-
-import { useNavigate, Outlet } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Logo } from './components/Logo/Logo';
@@ -15,14 +13,13 @@ import { getUser } from '../../hooks/selectors';
 export function Header() {
 	const { name, error } = useSelector(getUser);
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
+
 	const handleLogOut = (e) => {
 		e.preventDefault();
 		dispatch(logoutUser());
-		navigate('/login');
 	};
 	return (
-		<div className='container mx-auto pt-5 h-screen'>
+		<div className='container mx-auto py-5'>
 			{error ? <ErrorMessage error={error} /> : ''}
 			<div className='flex flex-row justify-between items-center border px-5 border-red-400'>
 				<Logo />
@@ -33,7 +30,6 @@ export function Header() {
 					</div>
 				)}
 			</div>
-			<Outlet />
 		</div>
 	);
 }
