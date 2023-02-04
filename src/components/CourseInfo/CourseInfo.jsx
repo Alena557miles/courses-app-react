@@ -34,7 +34,7 @@ export function CourseInfo() {
 			{course ? (
 				<>
 					<h1 className='text-bold text-3xl text-center'>{course.title}</h1>
-					<div className='flex flex-row justify-between gap-x-16'>
+					<div className='flex flex-row gap-y-3 gap-x-16'>
 						<div className='w-3/5'>
 							<p>{course.description}</p>
 						</div>
