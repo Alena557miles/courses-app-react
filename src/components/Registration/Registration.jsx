@@ -66,7 +66,7 @@ export function Registration() {
 	};
 
 	return (
-		<div className='flex flex-col items-center justify-center border border-cyan-400 mt-7 gap-y-7 h-5/6'>
+		<div className='flex flex-col items-center justify-center border border-cyan-400 gap-y-7 h-5/6'>
 			<h1 className='text-bold text-2xl'>Registration</h1>
 			<form
 				className='flex flex-col justify-between w-1/4 h-64'

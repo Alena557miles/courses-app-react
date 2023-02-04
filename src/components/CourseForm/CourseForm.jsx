@@ -137,7 +137,7 @@ export function CourseForm() {
 	};
 
 	return (
-		<div className='border border-blue-400 p-7 mt-7'>
+		<div className='border border-blue-400 p-7'>
 			<form onSubmit={handleSubmit}>
 				<div className='flex flex-row justify-between h-full items-end mb-3'>
 					<Input

@@ -29,7 +29,7 @@ export function CourseInfo() {
 	const course = findCourse(params.courseId);
 
 	return (
-		<div className='flex flex-col p-9 border border-cyan-400 mt-7 gap-y-7 h-5/6'>
+		<div className='flex flex-col p-9 border border-cyan-400 gap-y-7 h-5/6'>
 			<Link to='../'> &lt; Back to courses</Link>
 			{course ? (
 				<>

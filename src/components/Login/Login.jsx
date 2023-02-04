@@ -17,11 +17,11 @@ export function Login() {
 	const [error, setError] = useState('');
 	const [emailErr, setEmailErr] = useState('');
 	const [passwordErr, setPasswordErr] = useState('');
-
 	const { isAuth } = useSelector(getUser);
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+
 	useEffect(() => {
 		if (localStorage.getItem('token')) {
 			navigate('/courses');
@@ -59,7 +59,7 @@ export function Login() {
 		navigate('/courses');
 	};
 	return (
-		<div className='flex flex-col items-center justify-center border border-cyan-400  mt-7 gap-y-7 h-5/6'>
+		<div className='flex flex-col items-center justify-center border border-cyan-400 gap-y-7 h-5/6'>
 			<h1 className='text-bold text-2xl'>Login</h1>
 			<form
 				className='flex flex-col justify-between w-1/4 h-48'

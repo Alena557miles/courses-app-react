@@ -3,7 +3,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
-import { Header } from '../Header/Header';
+import { RootLayout } from '../../layout/RootLayout';
 import { Login } from '../Login/Login';
 import { Registration } from '../Registration/Registration';
 import { PrivateRouter } from '../PrivateRouter/PrivateRouter';
@@ -28,7 +28,7 @@ export const AppRouter = () => {
 
 	return (
 		<Routes>
-			<Route path='/' element={<Header />}>
+			<Route path='/' element={<RootLayout />}>
 				<Route index element={<Login />} />
 				<Route path='/registration' element={<Registration />} />
 				<Route path='/login' element={<Login />} />
