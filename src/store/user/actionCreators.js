@@ -41,40 +41,39 @@ export const registerUser = (newUser) => {
 export const loginUser = (user) => {
 	return async (dispatch) => {
 		dispatch({ type: LOGIN_USER });
-		await fetch('http://localhost:4000/login', {
+		await fetch('http://localhost:4000/login2', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify(user),
 		})
+			.then((response) => response.json())
 			.then((response) => {
-				if (response.ok) {
-					return response.json();
-				}
-				throw new Error(response.statusText);
-			})
-			.then((response) => {
-				localStorage.setItem('token', response.result);
-				if (!response.user.name) {
-					const resp = {
-						...response,
-						user: {
-							...user,
-							name: 'ADMIN',
-							role: 'admin',
-						},
-					};
-					dispatch({
-						type: LOGIN_USER_SUCCESS,
-						payload: resp,
-					});
+				if (response.successful) {
+					localStorage.setItem('token', response.result);
+					if (!response.user.name) {
+						const resp = {
+							...response,
+							user: {
+								...user,
+								name: 'ADMIN',
+								role: 'admin',
+							},
+						};
+						dispatch({
+							type: LOGIN_USER_SUCCESS,
+							payload: resp,
+						});
+					} else {
+						response.user.role = 'user';
+						dispatch({
+							type: LOGIN_USER_SUCCESS,
+							payload: response,
+						});
+					}
 				} else {
-					response.user.role = 'user';
-					dispatch({
-						type: LOGIN_USER_SUCCESS,
-						payload: response,
-					});
+					throw new Error(response.result ? response.result : response.error);
 				}
 			})
 			.catch((error) => {
