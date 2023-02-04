@@ -5,6 +5,7 @@ export function Input({
 	type,
 	required,
 	pattern,
+	value,
 }) {
 	return (
 		<div>
@@ -16,6 +17,7 @@ export function Input({
 				onChange={onChange}
 				required={required}
 				pattern={pattern}
+				value={value}
 			/>
 		</div>
 	);

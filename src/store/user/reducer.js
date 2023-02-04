@@ -74,7 +74,7 @@ export const userReducer = (state = userInitialState, action) => {
 				error: null,
 			};
 		case GET_USER_ERR:
-			return { ...state, error: action.payload };
+			return { ...state, isAuth: false, error: action.payload };
 		default:
 			return state;
 	}

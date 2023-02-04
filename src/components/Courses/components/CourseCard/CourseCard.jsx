@@ -61,7 +61,7 @@ export function CourseCard(props) {
 						<h3 className='text-xl font-bold'>{course.title}</h3>
 						<p>{course.description}</p>
 					</div>
-					<div className='flex flex-col align-center w-1/3 justify-between '>
+					<div className='flex flex-col align-center w-1/3 gap-y-3 '>
 						<p className='font-bold truncate whitespace-nowrap overflow-hidden '>
 							Author:{' '}
 							<span className='font-normal'>{findAuthors(course.authors)}</span>
