@@ -12,6 +12,7 @@ import { BUTTON_TEXT_ADD_COURSE } from '../../constants';
 import { getCourses, getUser } from '../../hooks/selectors';
 
 import { fetchCourses } from '../../store/courses/actionCreators';
+import { Loading } from '../../common/Loading/Loading';
 
 export function Courses() {
 	const navigate = useNavigate();
@@ -59,7 +60,7 @@ export function Courses() {
 				)}
 			</div>
 			{error ? <ErrorMessage error={error} /> : ''}
-			{loading ? <p>loading ...</p> : <CourseCard searchResult={courses} />}
+			{loading ? <Loading /> : <CourseCard searchResult={courses} />}
 		</div>
 	);
 }

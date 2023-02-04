@@ -26,6 +26,7 @@ import {
 	BUTTON_TEXT_DELETE_AUTHOR,
 	BUTTON_TEXT_UPDATE_COURSE,
 } from '../../constants';
+import { Loading } from '../../common/Loading/Loading';
 
 export function CourseForm() {
 	const [errorTitle, setErrorTitle] = useState('');
@@ -209,7 +210,7 @@ export function CourseForm() {
 					</div>
 					<div className=' w-2/5'>
 						<h2 className='text-xl text-center font-bold mb-7'>Authors</h2>
-						{loading ? <p>loading ... </p> : ''}
+						{loading ? <Loading /> : ''}
 						{error ? (
 							<ErrorMessage error={error} />
 						) : (
@@ -243,6 +244,7 @@ export function CourseForm() {
 							</>
 						) : (
 							<div>
+								{loading ? <Loading /> : ''}
 								<ul>
 									{authorsList.map((author) => (
 										<li
