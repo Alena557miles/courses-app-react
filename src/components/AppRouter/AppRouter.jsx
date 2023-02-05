@@ -12,7 +12,7 @@ import { CourseForm } from '../CourseForm/CourseForm';
 import { CourseInfo } from '../CourseInfo/CourseInfo';
 import { ErrorPage } from '../Errorpage/Errorpage';
 
-import { getUser } from '../../store/user/actionCreators';
+import { getUser } from '../../store/user/thunk';
 
 export const AppRouter = () => {
 	const dispatch = useDispatch();

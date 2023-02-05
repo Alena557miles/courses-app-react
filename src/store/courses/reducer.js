@@ -85,7 +85,7 @@ export const coursesReducer = (state = coursesInitialState, action) => {
 				courses: state.courses,
 			};
 		case GET_COURSE:
-			return { ...state, loading: true, error: null, courses: state.courses };
+			return { ...state, loading: true, error: null, courses: [] };
 		case GET_COURSE_SUCCESS:
 			return {
 				...state,

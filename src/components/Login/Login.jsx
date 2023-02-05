@@ -9,7 +9,7 @@ import { Input } from '../../common/Input/Input';
 import { BUTTON_TEXT_LOGIN } from '../../constants';
 import { getUser } from '../../hooks/selectors';
 
-import { loginUser } from '../../store/user/actionCreators';
+import { loginUser } from '../../store/user/thunk';
 
 export function Login() {
 	const [password, setPassword] = useState('');

@@ -11,10 +11,10 @@ import { Input } from '../../common/Input/Input';
 import { ErrorMessage } from '../../common/Error/ErrorMessage';
 
 import { getCourses, getAuthors } from '../../hooks/selectors';
-import { addCourse, updateCourse } from '../../store/courses/actionCreators';
+import { addCourse, updateCourse } from '../../store/courses/thunk';
 
+import { addAuthorFetch } from '../../store/authors/thunk';
 import {
-	addAuthorFetch,
 	deleteFromStore,
 	addToStore,
 } from '../../store/authors/actionCreators';

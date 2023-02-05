@@ -6,7 +6,7 @@ import { Button } from '../../common/Button/Button';
 import { ErrorMessage } from '../../common/Error/ErrorMessage';
 
 import { BUTTON_TEXT_HEADER } from '../../constants';
-import { logoutUser } from '../../store/user/actionCreators';
+import { logoutUser } from '../../store/user/thunk';
 
 import { getUser } from '../../hooks/selectors';
 

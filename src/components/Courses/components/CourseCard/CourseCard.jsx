@@ -14,8 +14,8 @@ import { DateGenerator } from '../../../../helpers/dateGenerator';
 import { PipeDuration } from '../../../../helpers/pipeDuration';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAuthors } from '../../../../store/authors/actionCreators';
-import { deleteCourse } from '../../../../store/courses/actionCreators';
+import { fetchAuthors } from '../../../../store/authors/thunk';
+import { deleteCourse } from '../../../../store/courses/thunk';
 import { getAuthors, getUser } from '../../../../hooks/selectors';
 
 export function CourseCard(props) {
