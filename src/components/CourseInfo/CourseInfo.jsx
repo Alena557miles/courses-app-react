@@ -12,11 +12,13 @@ import { Loading } from '../../common/Loading/Loading';
 export function CourseInfo() {
 	const { courses, loading } = useSelector(getCourses);
 	const { authors } = useSelector(getAuthors);
+	const params = useParams();
 
 	function findCourse(id) {
 		const course = courses.find((course) => course.id === id);
 		return course;
 	}
+
 	const findAuthors = (array) => {
 		let authorsFinal = [];
 		for (let j = 0; j < array.length; j++) {
@@ -28,7 +30,6 @@ export function CourseInfo() {
 		}
 		return [...authorsFinal].join(', ');
 	};
-	const params = useParams();
 	const course = findCourse(params.courseId);
 
 	return (

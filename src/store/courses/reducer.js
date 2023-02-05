@@ -12,6 +12,9 @@ import {
 	UPDATE_COURSE,
 	UPDATE_COURSE_SUCCESS,
 	UPDATE_COURSE_ERR,
+	GET_COURSE,
+	GET_COURSE_SUCCESS,
+	GET_COURSE_ERR,
 } from './actionTypes';
 
 const coursesInitialState = {
@@ -75,6 +78,22 @@ export const coursesReducer = (state = coursesInitialState, action) => {
 				],
 			};
 		case UPDATE_COURSE_ERR:
+			return {
+				...state,
+				loading: false,
+				error: action.payload,
+				courses: state.courses,
+			};
+		case GET_COURSE:
+			return { ...state, loading: true, error: null, courses: [] };
+		case GET_COURSE_SUCCESS:
+			return {
+				...state,
+				loading: false,
+				error: null,
+				courses: action.payload,
+			};
+		case GET_COURSE_ERR:
 			return {
 				...state,
 				loading: false,

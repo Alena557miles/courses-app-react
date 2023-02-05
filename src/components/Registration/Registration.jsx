@@ -6,7 +6,7 @@ import { Button } from '../../common/Button/Button';
 import { Input } from '../../common/Input/Input';
 
 import { BUTTON_TEXT_REGISTRATION } from '../../constants';
-import { registerUser } from '../../store/user/actionCreators';
+import { registerUser } from '../../store/user/thunk';
 
 export function Registration() {
 	const [name, setName] = useState('');
