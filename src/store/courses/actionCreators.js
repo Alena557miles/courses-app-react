@@ -11,6 +11,9 @@ import {
 	UPDATE_COURSE,
 	UPDATE_COURSE_ERR,
 	UPDATE_COURSE_SUCCESS,
+	GET_COURSE,
+	GET_COURSE_SUCCESS,
+	GET_COURSE_ERR,
 } from './actionTypes';
 
 export const fetchCourses = () => {
@@ -82,7 +85,6 @@ export const deleteCourse = (courseId) => {
 					alert(response.result);
 					return dispatch({ type: DELETE_COURSE_SUCCESS, payload: courseId });
 				}
-				console.log(response);
 				throw new Error(response.error);
 			})
 			.catch((error) => {
@@ -112,6 +114,32 @@ export const updateCourse = (course) => {
 			})
 			.catch((error) => {
 				dispatch({ type: UPDATE_COURSE_ERR, payload: error.message });
+			});
+	};
+};
+
+export const getCourse = (courseId) => {
+	return (dispatch) => {
+		dispatch({ type: GET_COURSE });
+		fetch(`http://localhost:4000/courses/${courseId}`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		})
+			.then((response) => response.json())
+			.then((response) => {
+				console.log(response);
+				if (response.successful) {
+					return dispatch({
+						type: GET_COURSE_SUCCESS,
+						payload: response.result,
+					});
+				}
+				throw new Error(response.error);
+			})
+			.catch((error) => {
+				dispatch({ type: GET_COURSE_ERR, payload: error.message });
 			});
 	};
 };

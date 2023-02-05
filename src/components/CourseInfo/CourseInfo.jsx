@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -8,10 +8,14 @@ import { DateGenerator } from '../../helpers/dateGenerator';
 import { getCourses, getAuthors } from '../../hooks/selectors';
 
 import { Loading } from '../../common/Loading/Loading';
+import { useDispatch } from 'react-redux';
+import { getCourse } from '../../store/courses/actionCreators';
 
 export function CourseInfo() {
 	const { courses, loading } = useSelector(getCourses);
 	const { authors } = useSelector(getAuthors);
+
+	const dispatch = useDispatch();
 
 	function findCourse(id) {
 		const course = courses.find((course) => course.id === id);
@@ -29,7 +33,12 @@ export function CourseInfo() {
 		return [...authorsFinal].join(', ');
 	};
 	const params = useParams();
-	const course = findCourse(params.courseId);
+	// const course = findCourse(params.courseId);
+	// useEffect(() => {
+	// 	dispatch(getCourse(params.courseId));
+	// }, []);
+	const { course } = dispatch(getCourse(params.courseId));
+	console.log(courses);
 
 	return (
 		<div className='flex flex-col p-9 border border-cyan-400 gap-y-7 h-5/6'>
