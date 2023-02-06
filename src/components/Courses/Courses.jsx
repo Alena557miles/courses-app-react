@@ -20,6 +20,7 @@ export function Courses() {
 	const { courses, error, loading } = useSelector(getCourses);
 	const { isAuth, role } = useSelector(getUser);
 	const [searchResult, setSearchResult] = useState(courses);
+	const [searchQuery, setSerarchQuery] = useState('');
 
 	useEffect(() => {
 		if (isAuth) {
@@ -32,9 +33,13 @@ export function Courses() {
 	}, [isAuth]);
 
 	const handleInput = (e) => {
-		const text = e.target.value.toLowerCase();
-		if (!e.target.value) return setSearchResult(courses);
+		setSerarchQuery(e.target.value);
+	};
 
+	const handleSearch = () => {
+		const text = searchQuery.toLowerCase();
+		if (!text) return setSearchResult(courses);
+		console.log(text);
 		const resultArray = courses.filter(
 			(course) =>
 				course.title.toLowerCase().includes(text) ||
@@ -43,13 +48,14 @@ export function Courses() {
 		);
 		setSearchResult(resultArray);
 	};
+
 	const handleAddcourse = () => {
 		navigate('/courses/add');
 	};
 	return (
 		<div className='flex flex-col border border-blue-400 p-7'>
 			<div className='flex flex-row justify-between  mb-7'>
-				<SearchBar handleInput={handleInput} />
+				<SearchBar handleInput={handleInput} handleSearch={handleSearch} />
 
 				{role === 'admin' ? (
 					<Button
