@@ -19,8 +19,10 @@ export function Courses() {
 	const dispatch = useDispatch();
 	const { courses, error, loading } = useSelector(getCourses);
 	const { isAuth, role } = useSelector(getUser);
-	const [searchResult, setSearchResult] = useState(courses);
+	const [searchResult, setSearchResult] = useState([]);
 	const [searchQuery, setSerarchQuery] = useState('');
+
+	console.log(searchResult);
 
 	useEffect(() => {
 		if (isAuth) {
@@ -38,8 +40,7 @@ export function Courses() {
 
 	const handleSearch = () => {
 		const text = searchQuery.toLowerCase();
-		if (!text) return setSearchResult(courses);
-		console.log(text);
+		if (!text) return setSearchResult([]);
 		const resultArray = courses.filter(
 			(course) =>
 				course.title.toLowerCase().includes(text) ||
@@ -67,7 +68,13 @@ export function Courses() {
 				)}
 			</div>
 			{error ? <ErrorMessage error={error} /> : ''}
-			{loading ? <Loading /> : <CourseCard searchResult={searchResult} />}
+			{loading ? (
+				<Loading />
+			) : (
+				<CourseCard
+					searchResult={searchResult.length ? searchResult : courses}
+				/>
+			)}
 		</div>
 	);
 }
