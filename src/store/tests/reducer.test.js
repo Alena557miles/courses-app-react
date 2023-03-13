@@ -19,7 +19,7 @@ test('should return the initial state', () => {
 
 describe('courseThunk', () => {
 	it('should fetchCourses with resolved response', async () => {
-		const courses = mockedCoursesList;
+		// const courses = mockedCoursesList;
 		const dispatch = jest.fn();
 		const thunk = fetchCourses();
 
