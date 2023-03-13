@@ -119,8 +119,8 @@ export const coursesReducer = (state = coursesInitialState, action) => {
 	}
 };
 
-coursesInitialState.PropTypes = {
-	courses: PropTypes.array,
-	loading: PropTypes.bool,
-	error: PropTypes.string,
-};
+// coursesInitialState.PropTypes = {
+// 	courses: PropTypes.array,
+// 	loading: PropTypes.bool,
+// 	error: PropTypes.string,
+// };

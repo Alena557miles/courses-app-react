@@ -69,8 +69,8 @@ export const authorReducer = (state = authorsInitialState, action) => {
 	}
 };
 
-authorsInitialState.PropTypes = {
-	authors: PropTypes.array,
-	loading: PropTypes.bool,
-	error: PropTypes.string,
-};
+// authorsInitialState.PropTypes = {
+// 	authors: PropTypes.array,
+// 	loading: PropTypes.bool,
+// 	error: PropTypes.string,
+// };
