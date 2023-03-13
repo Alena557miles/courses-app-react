@@ -1,9 +1,9 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Provider } from 'react-redux';
 import { Courses } from '../Courses';
 import { BrowserRouter } from 'react-router-dom';
-import { mockedCoursesList, mockedAuthorsList } from '../../../constants';
+import { mockedCoursesList } from '../../../constants';
 
 const mockedState = {
 	user: {

@@ -1,9 +1,9 @@
 import { coursesReducer } from '../courses/reducer';
 import { fetchCourses } from '../courses/thunk';
-import { rest } from 'msw';
-import { setupServer } from 'msw/node';
+
 import '@testing-library/jest-dom';
 import { mockedCoursesList } from '../../constants';
+
 test('should return the initial state', () => {
 	expect(coursesReducer(undefined, { type: undefined })).toEqual({
 		courses: [],
@@ -11,11 +11,11 @@ test('should return the initial state', () => {
 		error: null,
 	});
 });
-const previousState = {
-	courses: [],
-	loading: false,
-	error: null,
-};
+// const previousState = {
+// 	courses: [],
+// 	loading: false,
+// 	error: null,
+// };
 
 describe('courseThunk', () => {
 	it('should fetchCourses with resolved response', async () => {

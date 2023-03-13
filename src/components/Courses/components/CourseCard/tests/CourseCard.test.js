@@ -3,9 +3,6 @@ import '@testing-library/jest-dom';
 import { Provider } from 'react-redux';
 import { CourseCard } from '../CourseCard';
 import { BrowserRouter } from 'react-router-dom';
-import { mockedCoursesList, mockedAuthorsList } from '../../../../../constants';
-import { rest } from 'msw';
-import { setupServer } from 'msw/node';
 
 const mockedState = {
 	user: {
