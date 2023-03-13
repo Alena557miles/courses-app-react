@@ -20,7 +20,7 @@ import { getAuthors, getUser } from '../../../../hooks/selectors';
 
 export function CourseCard(props) {
 	const navigate = useNavigate();
-	const courses = props.searchResult;
+	const courses = props.courses;
 	const { authors, error, loading } = useSelector(getAuthors);
 	const { role } = useSelector(getUser);
 	const dispatch = useDispatch();
@@ -29,7 +29,7 @@ export function CourseCard(props) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	if (!props.searchResult.length) {
+	if (!courses.length) {
 		return <p>there is nothing to show ... </p>;
 	}
 
