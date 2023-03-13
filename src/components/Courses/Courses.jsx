@@ -11,7 +11,7 @@ import { ErrorMessage } from '../../common/Error/ErrorMessage';
 import { BUTTON_TEXT_ADD_COURSE } from '../../constants';
 import { getCourses, getUser } from '../../hooks/selectors';
 
-import { fetchCourses } from '../../store/courses/thunk';
+import { fetchCourses, filterCourse } from '../../store/courses/thunk';
 import { Loading } from '../../common/Loading/Loading';
 
 export function Courses() {
@@ -19,15 +19,11 @@ export function Courses() {
 	const dispatch = useDispatch();
 	const { courses, error, loading } = useSelector(getCourses);
 	const { isAuth, role } = useSelector(getUser);
-	const [searchResult, setSearchResult] = useState([]);
-	const [searchQuery, setSerarchQuery] = useState('');
-
-	console.log(searchResult);
+	const [searchQuery, setSearchQuery] = useState('');
 
 	useEffect(() => {
 		if (isAuth) {
 			dispatch(fetchCourses());
-			setSearchResult(courses);
 		} else {
 			navigate('/login');
 		}
@@ -35,19 +31,15 @@ export function Courses() {
 	}, [isAuth]);
 
 	const handleInput = (e) => {
-		setSerarchQuery(e.target.value);
+		setSearchQuery(e.target.value);
+		if (!e.target.value) {
+			dispatch(fetchCourses());
+		}
 	};
 
 	const handleSearch = () => {
 		const text = searchQuery.toLowerCase();
-		if (!text) return setSearchResult([]);
-		const resultArray = courses.filter(
-			(course) =>
-				course.title.toLowerCase().includes(text) ||
-				course.description.toLowerCase().includes(text) ||
-				course.id.toLowerCase().includes(text)
-		);
-		setSearchResult(resultArray);
+		dispatch(filterCourse(text));
 	};
 
 	const handleAddcourse = () => {
@@ -68,13 +60,7 @@ export function Courses() {
 				)}
 			</div>
 			{error ? <ErrorMessage error={error} /> : ''}
-			{loading ? (
-				<Loading />
-			) : (
-				<CourseCard
-					searchResult={searchResult.length ? searchResult : courses}
-				/>
-			)}
+			{loading ? <Loading /> : <CourseCard courses={courses} />}
 		</div>
 	);
 }

@@ -9,7 +9,7 @@ export function SearchBar({ handleInput, handleSearch }) {
 	return (
 		<div className='flex flex-row gap-x-2 justify-between align-center w-8/12'>
 			<Input
-				placeholderText={'Enter course name ... '}
+				placeholderText={'Enter course name or description or id ... '}
 				type={'text'}
 				onChange={handleInput}
 			/>

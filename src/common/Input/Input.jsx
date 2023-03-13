@@ -8,7 +8,7 @@ export function Input({
 	value,
 }) {
 	return (
-		<div>
+		<div className='w-full'>
 			<label className='mb-2'>{labelText}</label>
 			<input
 				type={type}

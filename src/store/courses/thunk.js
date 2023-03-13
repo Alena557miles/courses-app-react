@@ -14,6 +14,9 @@ import {
 	GET_COURSE,
 	GET_COURSE_SUCCESS,
 	GET_COURSE_ERR,
+	SEARCH_COURSE,
+	SEARCH_COURSE_SUCCESS,
+	SEARCH_COURSE_ERR,
 } from './actionTypes';
 
 export const fetchCourses = () => {
@@ -140,6 +143,35 @@ export const getCourse = (courseId) => {
 			})
 			.catch((error) => {
 				dispatch({ type: GET_COURSE_ERR, payload: error.message });
+			});
+	};
+};
+export const filterCourse = (text) => {
+	return async (dispatch) => {
+		dispatch({ type: SEARCH_COURSE });
+		fetch('http://localhost:4000/courses/all', {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		})
+			.then((response) => {
+				if (response.ok) {
+					return response.json();
+				}
+				throw new Error(response.statusText);
+			})
+			.then((response) => {
+				const resultArray = response.result.filter(
+					(course) =>
+						course.title.toLowerCase().includes(text) ||
+						course.description.toLowerCase().includes(text) ||
+						course.id.toLowerCase().includes(text)
+				);
+				dispatch({ type: SEARCH_COURSE_SUCCESS, payload: resultArray });
+			})
+			.catch((error) => {
+				dispatch({ type: SEARCH_COURSE_ERR, payload: error.message });
 			});
 	};
 };

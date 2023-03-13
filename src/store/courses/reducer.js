@@ -15,6 +15,9 @@ import {
 	GET_COURSE,
 	GET_COURSE_SUCCESS,
 	GET_COURSE_ERR,
+	SEARCH_COURSE,
+	SEARCH_COURSE_SUCCESS,
+	SEARCH_COURSE_ERR,
 } from './actionTypes';
 
 const coursesInitialState = {
@@ -57,6 +60,17 @@ export const coursesReducer = (state = coursesInitialState, action) => {
 				courses: state.courses.filter((course) => course.id !== action.payload),
 			};
 		case DELETE_COURSE_ERR:
+			return { loading: false, error: action.payload, courses: state.courses };
+		case SEARCH_COURSE:
+			return { ...state, loading: true, error: null, courses: state.courses };
+		case SEARCH_COURSE_SUCCESS:
+			return {
+				...state,
+				loading: false,
+				error: null,
+				courses: action.payload,
+			};
+		case SEARCH_COURSE_ERR:
 			return { loading: false, error: action.payload, courses: state.courses };
 		case UPDATE_COURSE:
 			return { ...state, loading: true, error: null, courses: state.courses };
