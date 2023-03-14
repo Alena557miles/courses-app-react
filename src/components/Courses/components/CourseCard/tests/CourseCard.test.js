@@ -112,7 +112,7 @@ test('should display authors list', async () => {
 	expect(screen.queryByText(/Anna/)).toBeInTheDocument();
 });
 
-test('should show corse', () => {
+test('should show course', () => {
 	render(
 		<BrowserRouter>
 			<Provider store={mockedStore}>

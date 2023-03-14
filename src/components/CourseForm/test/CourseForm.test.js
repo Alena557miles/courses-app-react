@@ -44,14 +44,15 @@ describe('CourseForm', () => {
 			</BrowserRouter>
 		);
 	});
-	// afterEach(() => {
-	// 	jest.resetAllMocks();
-	// 	jest.clearAllTimers();
-	// });
 
 	it('should CourseForm displayed button "Create course"', async () => {
 		expect(screen.queryByText('Create course')).toBeInTheDocument();
-		expect(screen.queryByText('courseform')).toBeInTheDocument();
+		expect(screen.getByTestId('course-form')).toBeInTheDocument();
+	});
+
+	it('should show authors lists', () => {
+		expect(screen.queryByText(/Valentina/)).toBeInTheDocument();
+		expect(screen.queryByText(/Anna/)).toBeInTheDocument();
 	});
 
 	// NEED TO FILLED ALL INPUT !!!!
