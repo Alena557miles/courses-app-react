@@ -75,6 +75,7 @@ export const mockedAuthorsList = [
 		name: 'Nicolas Kim',
 	},
 	{
+		id: 'df32994e-b23d-497c-9e4d-84e4dc02882f',
 		name: 'Anna Sidorenko',
 	},
 	{

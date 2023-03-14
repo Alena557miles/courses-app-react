@@ -18,23 +18,19 @@ const mockedStore = {
 };
 
 test('should containe user name from store', async () => {
-	// Render a React element into the DOM
 	render(
 		<Provider store={mockedStore}>
 			<Header />
 		</Provider>
 	);
-
 	expect(screen.queryByText('Test Name')).toBeInTheDocument();
 });
 
 test('should containe app logo', async () => {
-	// Render a React element into the DOM
 	render(
 		<Provider store={mockedStore}>
 			<Header />
 		</Provider>
 	);
-
 	expect(screen.queryByAltText('Logo')).toBeInTheDocument();
 });

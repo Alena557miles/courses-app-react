@@ -138,17 +138,20 @@ export function CourseForm() {
 	};
 
 	return (
-		<div className='border border-blue-400 p-7'>
+		<div className='border border-blue-400 p-7' data-testid='course-form'>
 			<form onSubmit={handleSubmit}>
 				<div className='flex flex-row justify-between h-full items-end mb-3'>
-					<Input
-						labelText={'Title'}
-						placeholderText={'Enter title...'}
-						value={title}
-						onChange={(e) => setTitle(e.target.value)}
-						type={'text'}
-						required={true}
-					/>
+					<div className='w-5/6'>
+						<Input
+							labelText={'Title'}
+							placeholderText={'Enter title...'}
+							value={title}
+							onChange={(e) => setTitle(e.target.value)}
+							type={'text'}
+							required={true}
+						/>
+					</div>
+
 					{errorTitle && <ErrorMessage error={errorTitle} />}
 					{courseId ? (
 						<Button buttonText={BUTTON_TEXT_UPDATE_COURSE} type={'submit'} />
@@ -181,11 +184,13 @@ export function CourseForm() {
 								value={newAuthor}
 								onChange={(e) => setNewAuthor(e.target.value)}
 							/>
-							<Button
-								buttonText={BUTTON_TEXT_CREATE_AUTHOR}
-								onClick={createAuthor}
-								type={'button'}
-							/>
+							<div className='grid justify-items-center'>
+								<Button
+									buttonText={BUTTON_TEXT_CREATE_AUTHOR}
+									onClick={createAuthor}
+									type={'button'}
+								/>
+							</div>
 						</div>
 						<div>
 							<h2 className='text-xl text-center font-bold'>Duration</h2>
@@ -203,7 +208,7 @@ export function CourseForm() {
 								Duration:{' '}
 								<span className='text-3xl font-bold'>
 									{duration ? <PipeDuration>{duration}</PipeDuration> : '00:00'}
-								</span>{' '}
+								</span>
 								hours
 							</p>
 						</div>

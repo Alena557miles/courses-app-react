@@ -110,7 +110,9 @@ export function Registration() {
 				{errorForm && (
 					<p className='text-xs text-red-800 text-center italic'>{errorForm}</p>
 				)}
-				<Button className='mx-auto' buttonText={BUTTON_TEXT_REGISTRATION} />
+				<div className='grid justify-items-center'>
+					<Button className='mx-auto' buttonText={BUTTON_TEXT_REGISTRATION} />
+				</div>
 			</form>
 			<p>
 				If you have an account you can{' '}

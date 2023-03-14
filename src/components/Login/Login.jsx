@@ -92,7 +92,9 @@ export function Login() {
 				{error && (
 					<p className='text-xs text-red-800 text-center italic'>{error}</p>
 				)}
-				<Button className='mx-auto' buttonText={BUTTON_TEXT_LOGIN} />
+				<div className='grid justify-items-center'>
+					<Button className='mx-auto' buttonText={BUTTON_TEXT_LOGIN} />
+				</div>
 			</form>
 			<p>
 				If you not have an account you can{' '}
