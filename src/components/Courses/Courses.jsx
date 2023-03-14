@@ -42,9 +42,6 @@ export function Courses() {
 		dispatch(filterCourse(text));
 	};
 
-	const handleAddcourse = () => {
-		navigate('/courses/add');
-	};
 	return (
 		<div className='flex flex-col border border-blue-400 p-7'>
 			<div className='flex flex-row justify-between  mb-7'>
@@ -53,7 +50,7 @@ export function Courses() {
 				{role === 'admin' ? (
 					<Button
 						buttonText={BUTTON_TEXT_ADD_COURSE}
-						onClick={handleAddcourse}
+						onClick={() => navigate('/courses/add')}
 					/>
 				) : (
 					''

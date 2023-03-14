@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import { CourseCard } from '../CourseCard';
 import { BrowserRouter } from 'react-router-dom';
@@ -27,7 +28,16 @@ const mockedState = {
 		error: null,
 	},
 	authors: {
-		authors: [],
+		authors: [
+			{
+				id: 'df32994e-b23d-497c-9e4d-84e4dc02882f',
+				name: 'Anna Sidorenko',
+			},
+			{
+				id: '095a1817-d45b-4ed7-9cf7-b2417bcbf748',
+				name: 'Valentina Larina',
+			},
+		],
 		loading: false,
 		error: null,
 	},
@@ -60,7 +70,6 @@ test('should display description', async () => {
 			</Provider>
 		</BrowserRouter>
 	);
-
 	expect(screen.queryByText(description)).toBeInTheDocument();
 });
 
@@ -89,4 +98,30 @@ test('should display created date in the correct format.', async () => {
 	);
 
 	expect(screen.queryByText(dateToDisplay)).toBeInTheDocument();
+});
+
+test('should display authors list', async () => {
+	render(
+		<BrowserRouter>
+			<Provider store={mockedStore}>
+				<CourseCard courses={mockedState.courses.courses} />
+			</Provider>
+		</BrowserRouter>
+	);
+	expect(screen.queryByText(/Valentina/)).toBeInTheDocument();
+	expect(screen.queryByText(/Anna/)).toBeInTheDocument();
+});
+
+test('should show corse', () => {
+	render(
+		<BrowserRouter>
+			<Provider store={mockedStore}>
+				<CourseCard courses={mockedState.courses.courses} />
+			</Provider>
+		</BrowserRouter>
+	);
+	expect(screen.getByText(/Show course/)).toBeInTheDocument();
+	const btn = screen.queryByText('Show course');
+	userEvent.click(btn);
+	expect(screen.getByText(/Angular/)).toBeInTheDocument();
 });
