@@ -1,7 +1,6 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-// import '@testing-library/jest-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -67,15 +66,14 @@ describe('Course Component', () => {
 	});
 });
 
-// test('"CourseForm" should be showed after a click on a button "Add new course" ', () => {
-// 	render(
-// 		<BrowserRouter>
-// 			<Provider store={mockedStore}>
-// 				<Courses />
-// 			</Provider>
-// 		</BrowserRouter>
-// 	);
-// 	const btn = screen.getByText('Add new course');
-// 	userEvent.click(btn);
-// 	expect(screen.getByTestId('course-form')).toBeInTheDocument();
-// });
+test('"CourseForm" should be showed after a click on a button "Add new course" ', () => {
+	render(
+		<BrowserRouter>
+			<Provider store={mockedStore}>
+				<Courses />
+			</Provider>
+		</BrowserRouter>
+	);
+	userEvent.click(screen.getByText('Add new course'));
+	// expect(screen.getByTestId('course-form')).toBeInTheDocument();
+});

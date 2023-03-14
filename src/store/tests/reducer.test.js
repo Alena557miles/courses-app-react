@@ -11,11 +11,11 @@ test('should return the initial state', () => {
 		error: null,
 	});
 });
-// const previousState = {
-// 	courses: [],
-// 	loading: false,
-// 	error: null,
-// };
+const previousState = {
+	courses: [],
+	loading: false,
+	error: null,
+};
 
 describe('courseThunk', () => {
 	it('should fetchCourses with resolved response', async () => {
@@ -24,5 +24,10 @@ describe('courseThunk', () => {
 		const thunk = fetchCourses();
 
 		await thunk(dispatch);
+		expect(coursesReducer(previousState, { type: undefined })).toEqual({
+			courses: [],
+			loading: false,
+			error: null,
+		});
 	});
 });
