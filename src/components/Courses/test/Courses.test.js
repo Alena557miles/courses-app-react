@@ -2,10 +2,11 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, MemoryRouter } from 'react-router-dom';
 
 import { Courses } from '../Courses';
-
+import { PrivateRouter } from '../../PrivateRouter/PrivateRouter';
+import { CourseForm } from '../../CourseForm/CourseForm';
 import { mockedCoursesList, mockedAuthorsList } from '../../../constants';
 
 const mockedState = {
@@ -66,14 +67,21 @@ describe('Course Component', () => {
 	});
 });
 
-test('"CourseForm" should be showed after a click on a button "Add new course" ', () => {
+test('"CourseForm" should be showed after a click on a button "Add new course" ', async () => {
 	render(
-		<BrowserRouter>
-			<Provider store={mockedStore}>
-				<Courses />
-			</Provider>
-		</BrowserRouter>
+		<Provider store={mockedStore}>
+			<MemoryRouter initialEntries={['/courses']}>
+				<Routes>
+					<Route path='/courses' element={<Courses />} />
+					<Route path='/courses/add' element={<PrivateRouter />}>
+						<Route path='/courses/add' element={<CourseForm />} />
+					</Route>
+				</Routes>
+			</MemoryRouter>
+		</Provider>
 	);
-	userEvent.click(screen.getByText('Add new course'));
-	// expect(screen.getByTestId('course-form')).toBeInTheDocument();
+	const btn = screen.getByText('Add new course');
+	fireEvent.click(btn);
+	const formV = await screen.getByTestId('course-form');
+	expect(formV).toBeInTheDocument();
 });

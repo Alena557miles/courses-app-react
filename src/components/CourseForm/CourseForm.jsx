@@ -232,6 +232,7 @@ export function CourseForm() {
 											buttonText={BUTTON_TEXT_ADD_AUTHOR}
 											onClick={() => addAuthor(author.id)}
 											type={'button'}
+											data-testid='add-author'
 										/>
 									</li>
 								))}
