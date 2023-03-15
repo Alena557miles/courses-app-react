@@ -65,7 +65,6 @@ export const addCourse = (course) => {
 				throw new Error(response.result ? response.result : response.error);
 			})
 			.catch((error) => {
-				console.log(error.message);
 				dispatch({ type: ADD_COURSE_ERR, payload: error.message });
 			});
 	};

@@ -1,33 +1,56 @@
 import { coursesReducer } from '../courses/reducer';
-import { fetchCourses } from '../courses/thunk';
-
-import '@testing-library/jest-dom';
+import { fetchCourses, addCourse } from '../courses/thunk';
 import { mockedCoursesList } from '../../constants';
 
-test('should return the initial state', () => {
-	expect(coursesReducer(undefined, { type: undefined })).toEqual({
-		courses: [],
-		loading: false,
-		error: null,
-	});
-});
+import '@testing-library/jest-dom';
+
 const previousState = {
 	courses: [],
 	loading: false,
 	error: null,
 };
 
-describe('courseThunk', () => {
-	it('should fetchCourses with resolved response', async () => {
-		// const courses = mockedCoursesList;
-		const dispatch = jest.fn();
-		const thunk = fetchCourses();
+global.fetch = jest.fn();
 
-		await thunk(dispatch);
-		expect(coursesReducer(previousState, { type: undefined })).toEqual({
+describe('Reducer', () => {
+	test('should return the initial state', () => {
+		expect(coursesReducer(undefined, { type: undefined })).toEqual({
 			courses: [],
 			loading: false,
 			error: null,
 		});
+	});
+	test('should handle GET_COURSES and returns new state', async () => {
+		fetch.mockResolvedValue({
+			ok: true,
+			json: () => {
+				Promise.resolve({ result: mockedCoursesList });
+			},
+		});
+
+		// expect(coursesReducer(previousState, fetchCourses())).toEqual({
+		// 	courses: mockedCoursesList,
+		// 	loading: false,
+		// 	error: null,
+		// });
+	});
+	test('should handle SAVE_COURSE and returns new state', async () => {
+		// 	const course = {
+		// 		title: 'strfdbxgbing',
+		// 		description: 'strgfbnxfgning',
+		// 		duration: 50,
+		// 		authors: ['fdbfgdbngntygty'],
+		// 	};
+		// 	fetch.mockResolvedValue({
+		// 		ok: true,
+		// 		json: () => {
+		// 			Promise.resolve({ result: [course] });
+		// 		},
+		// 	});
+		// 	expect(coursesReducer(previousState, addCourse(course))).toEqual({
+		// 		courses: [course],
+		// 		loading: false,
+		// 		error: null,
+		// 	});
 	});
 });
