@@ -1,5 +1,4 @@
 import { coursesReducer } from '../courses/reducer';
-import { fetchCourses, addCourse } from '../courses/thunk';
 import { mockedCoursesList } from '../../constants';
 
 import '@testing-library/jest-dom';
@@ -10,8 +9,6 @@ const previousState = {
 	error: null,
 };
 
-global.fetch = jest.fn();
-
 describe('Reducer', () => {
 	test('should return the initial state', () => {
 		expect(coursesReducer(undefined, { type: undefined })).toEqual({
@@ -20,37 +17,47 @@ describe('Reducer', () => {
 			error: null,
 		});
 	});
-	test('should handle GET_COURSES and returns new state', async () => {
-		fetch.mockResolvedValue({
-			ok: true,
-			json: () => {
-				Promise.resolve({ result: mockedCoursesList });
-			},
-		});
+	test('should handle ADD_COURSES and returns new state', async () => {
+		const course = {
+			title: 'Golang',
+			description: 'Golang Programming Language',
+			duration: 33,
+			id: 'dfvcfzsdr45tiw45yw54',
+			authors: [],
+		};
 
-		// expect(coursesReducer(previousState, fetchCourses())).toEqual({
-		// 	courses: mockedCoursesList,
-		// 	loading: false,
-		// 	error: null,
-		// });
+		expect(
+			coursesReducer(previousState, {
+				type: 'ADD_COURSE_SUCCESS',
+				payload: course,
+			})
+		).toEqual({
+			courses: [course],
+			loading: false,
+			error: null,
+		});
+		const err = 'error message';
+		expect(
+			coursesReducer(previousState, {
+				type: 'ADD_COURSE_ERR',
+				payload: err,
+			})
+		).toEqual({
+			courses: [],
+			loading: false,
+			error: err,
+		});
 	});
-	test('should handle SAVE_COURSE and returns new state', async () => {
-		// 	const course = {
-		// 		title: 'strfdbxgbing',
-		// 		description: 'strgfbnxfgning',
-		// 		duration: 50,
-		// 		authors: ['fdbfgdbngntygty'],
-		// 	};
-		// 	fetch.mockResolvedValue({
-		// 		ok: true,
-		// 		json: () => {
-		// 			Promise.resolve({ result: [course] });
-		// 		},
-		// 	});
-		// 	expect(coursesReducer(previousState, addCourse(course))).toEqual({
-		// 		courses: [course],
-		// 		loading: false,
-		// 		error: null,
-		// 	});
+	test('should handle FETCH_COURSE and returns new state', async () => {
+		expect(
+			coursesReducer(previousState, {
+				type: 'FETCH_COURSES_SUCCESS',
+				payload: [mockedCoursesList],
+			})
+		).toEqual({
+			courses: [mockedCoursesList],
+			loading: false,
+			error: null,
+		});
 	});
 });
