@@ -1,5 +1,4 @@
 import { coursesReducer } from '../courses/reducer';
-import { fetchCourses } from '../courses/thunk';
 import { mockedCoursesList } from '../../constants';
 
 import '@testing-library/jest-dom';
